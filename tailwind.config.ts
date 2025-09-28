@@ -80,10 +80,21 @@ export default {
             height: "0",
           },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
+          "33%": { transform: "translateY(-20px) rotate(120deg)" },
+          "66%": { transform: "translateY(10px) rotate(240deg)" },
+        },
+        "text-gradient": {
+          "0%, 100%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        float: "float 6s ease-in-out infinite",
+        "text-gradient": "text-gradient 3s ease infinite",
       },
     },
   },
