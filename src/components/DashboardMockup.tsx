@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import itDashboardImage from "@/assets/it-team-dashboard.jpg";
 
 const DashboardMockup = () => {
   return (
@@ -16,14 +17,13 @@ const DashboardMockup = () => {
           </div>
 
           {/* Team Image */}
-          <div className="rounded-xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 p-4">
-            <div className="aspect-video bg-gradient-to-br from-muted to-muted/50 rounded-lg flex items-center justify-center">
-              <div className="text-center text-muted-foreground">
-                <div className="w-16 h-16 mx-auto mb-2 bg-primary/20 rounded-full flex items-center justify-center">
-                  👥
-                </div>
-                <p className="text-sm">IT Team Dashboard</p>
-              </div>
+          <div className="rounded-xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 p-2">
+            <div className="aspect-video rounded-lg overflow-hidden">
+              <img 
+                src={itDashboardImage} 
+                alt="IT Team Dashboard Interface"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
 

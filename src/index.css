@@ -142,4 +142,12 @@
   .hero-glow {
     box-shadow: 0 0 50px rgba(123, 63, 228, 0.3);
   }
+  
+  /* Gradient text utility */
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
 }
