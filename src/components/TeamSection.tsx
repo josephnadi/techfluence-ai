@@ -1,5 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import nadiJosephImg from "@/assets/nadi-joseph.png"; // Add this import
+
 
 const TeamSection = () => {
   const team = [
@@ -8,7 +10,7 @@ const TeamSection = () => {
       role: "CEO & Founder", 
       description: "Visionary leader with 4+ years in enterprise IT solutions. Former Microsoft consultant specializing in digital transformation.",
       skills: ["Strategic Planning", "Digital Transformation", "Enterprise Architecture"],
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      image: nadiJosephImg // Use the imported local image
     },
     // {
     //   name: "Sarah Chen",
