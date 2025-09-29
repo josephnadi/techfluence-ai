@@ -3,7 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import TeamSection from "@/components/TeamSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import FloatingParticles from "@/components/FloatingParticles";
 import Footer from "@/components/Footer";
 
@@ -16,10 +16,12 @@ const Index = () => {
       
       <main className="relative z-10">
         <HeroSection />
-        <ServicesSection />
-        <AboutSection />
-        <TeamSection />
-        <TestimonialsSection />
+        <div className="space-y-12">
+          <ServicesSection />
+          <AboutSection />
+          <TeamSection />
+          <TestimonialsCarousel />
+        </div>
       </main>
       
       <Footer />

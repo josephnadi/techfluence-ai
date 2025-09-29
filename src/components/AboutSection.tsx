@@ -1,8 +1,16 @@
+import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { CheckCircle, Award, Clock, Building } from "lucide-react";
+import { CheckCircle, Award, Clock, Building, ArrowRight } from "lucide-react";
 
 const AboutSection = () => {
+  const scrollToContact = () => {
+    const contactElement = document.getElementById('contact');
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   const features = [
     {
       icon: <Award className="w-8 h-8" />,
@@ -34,7 +42,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="py-24 relative">
+    <section id="about" className="py-16 relative">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
@@ -54,8 +62,8 @@ const AboutSection = () => {
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {features.map((feature, index) => (
-            <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-300">
-              <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit text-primary group-hover:bg-primary/20 transition-colors">
+            <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2" style={{animationDelay: `${index * 100}ms`}}>
+              <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] group-hover:animate-pulse">
                 {feature.icon}
               </div>
               <h3 className="font-semibold mb-2">{feature.title}</h3>
@@ -64,8 +72,20 @@ const AboutSection = () => {
           ))}
         </div>
 
+        {/* Add CTA at the end */}
+        <div className="text-center mt-16">
+          <Button 
+            size="lg" 
+            className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity"
+            onClick={scrollToContact}
+          >
+            Schedule Your Free Consultation
+            <ArrowRight className="ml-2 w-4 h-4" />
+          </Button>
+        </div>
+
         {/* Stats */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
               <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>

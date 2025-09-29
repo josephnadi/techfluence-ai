@@ -1,8 +1,29 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import itDashboardImage from "@/assets/it-team-dashboard.jpg";
+import { useState, useEffect } from "react";
+import dashboard1 from "@/assets/dashboard-1.jpg";
+import dashboard2 from "@/assets/dashboard-2.jpg";
+import dashboard3 from "@/assets/dashboard-3.jpg";
+import dashboard4 from "@/assets/dashboard-4.jpg";
 
 const DashboardMockup = () => {
+  const dashboards = [
+    { image: dashboard1, title: "Cloud Services" },
+    { image: dashboard2, title: "AI Automation" }, 
+    { image: dashboard3, title: "Cloud Migration" },
+    { image: dashboard4, title: "Website Analytics" }
+  ];
+  
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % dashboards.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="relative">
       {/* Main Dashboard Card */}
@@ -16,14 +37,17 @@ const DashboardMockup = () => {
             <span className="text-sm font-medium text-green-400">99.9% Uptime</span>
           </div>
 
-          {/* Team Image */}
+          {/* Dashboard Gallery */}
           <div className="rounded-xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 p-2">
-            <div className="aspect-video rounded-lg overflow-hidden">
+            <div className="aspect-video rounded-lg overflow-hidden relative">
               <img 
-                src={itDashboardImage} 
-                alt="IT Team Dashboard Interface"
-                className="w-full h-full object-cover"
+                src={dashboards[currentIndex].image} 
+                alt={`${dashboards[currentIndex].title} Dashboard Interface`}
+                className="w-full h-full object-cover transition-all duration-500"
               />
+              <div className="absolute bottom-2 right-2 bg-primary/90 text-primary-foreground px-2 py-1 rounded text-xs font-medium">
+                {dashboards[currentIndex].title}
+              </div>
             </div>
           </div>
 

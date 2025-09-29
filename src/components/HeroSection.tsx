@@ -6,6 +6,13 @@ import DashboardMockup from "./DashboardMockup";
 import StatsSection from "./StatsSection";
 
 const HeroSection = () => {
+  const scrollToContact = () => {
+    const contactElement = document.getElementById('contact');
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16">
       <div className="container mx-auto px-6">
@@ -38,12 +45,13 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
-                className="gradient-primary text-white border-0 hover:opacity-90 px-8 py-6 text-lg font-medium hero-glow"
-              >
-                ✨ Get Started Today →
-              </Button>
+            <Button 
+              size="lg" 
+              onClick={scrollToContact}
+              className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity"
+            >
+              Get Started Today
+            </Button>
               
               <Button 
                 variant="ghost" 

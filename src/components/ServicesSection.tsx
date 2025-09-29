@@ -4,6 +4,13 @@ import { Badge } from "@/components/ui/badge";
 import { Cloud, HeadphonesIcon, Bot, Globe } from "lucide-react";
 
 const ServicesSection = () => {
+  const scrollToContact = () => {
+    const contactElement = document.getElementById('contact');
+    if (contactElement) {
+      contactElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+  
   const services = [
     {
       icon: <Cloud className="w-8 h-8" />,
@@ -52,7 +59,7 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="py-24 relative">
+    <section id="services" className="py-16 relative">
       <div className="container mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-16">
@@ -72,10 +79,10 @@ const ServicesSection = () => {
         {/* Services Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
           {services.map((service, index) => (
-            <Card key={index} className="bg-card/50 backdrop-blur-md border border-border/50 hover:border-primary/30 transition-all duration-300 group">
+            <Card key={index} className="bg-card/50 backdrop-blur-md border border-border/50 hover:border-primary/30 transition-all duration-500 group animate-fade-in hover:scale-105 hover:-translate-y-2" style={{animationDelay: `${index * 100}ms`}}>
               <CardHeader>
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="p-3 bg-primary/10 rounded-lg text-primary group-hover:bg-primary/20 transition-colors">
+                  <div className="p-3 bg-primary/10 rounded-lg text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] group-hover:animate-pulse">
                     {service.icon}
                   </div>
                   <CardTitle className="text-xl font-semibold">{service.title}</CardTitle>
@@ -91,7 +98,11 @@ const ServicesSection = () => {
                     </li>
                   ))}
                 </ul>
-                <Button variant="outline" className="w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full"
+                  onClick={scrollToContact}
+                >
                   Get Started
                 </Button>
               </CardContent>
@@ -101,7 +112,11 @@ const ServicesSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button size="lg" className="gradient-primary text-white border-0 hover:opacity-90 px-8 py-6">
+          <Button 
+            size="lg" 
+            className="gradient-primary text-white border-0 hover:opacity-90 px-8 py-6"
+            onClick={scrollToContact}
+          >
             Schedule Your Free Consultation
           </Button>
         </div>
