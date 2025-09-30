@@ -79,32 +79,32 @@ const ServicesSection = () => {
         {/* Services Grid - Horizontal Row */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {services.map((service, index) => (
-            <Card key={index} className="bg-card/50 backdrop-blur-md border border-border/50 hover:border-primary/30 transition-all duration-500 group animate-fade-in hover:shadow-[0_0_30px_rgba(124,58,237,0.3)] hover:scale-105" style={{animationDelay: `${index * 100}ms`}}>
-              <CardHeader>
-                <div className="flex flex-col items-center gap-4 mb-4">
-                  <div className="p-3 bg-primary/10 rounded-lg text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] group-hover:animate-pulse">
-                    {service.icon}
+            <Card 
+              key={index} 
+              className="bg-black border border-border/20 hover:border-primary/50 transition-all duration-500 group animate-fade-in hover:scale-105 overflow-hidden" 
+              style={{animationDelay: `${index * 100}ms`}}
+            >
+              <CardHeader className="pb-4">
+                <div className="mb-6">
+                  <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center relative group-hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] transition-all duration-500">
+                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary to-primary/60 blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
+                    <div className="relative text-white">
+                      {service.icon}
+                    </div>
                   </div>
-                  <CardTitle className="text-lg font-semibold text-center">{service.title}</CardTitle>
                 </div>
-                <p className="text-muted-foreground text-sm text-center">{service.description}</p>
+                <CardTitle className="text-2xl font-bold text-white mb-4">{service.title}</CardTitle>
+                <p className="text-gray-400 text-base leading-relaxed">{service.description}</p>
               </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6">
+              <CardContent className="pt-0">
+                <ul className="space-y-3">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center text-sm">
-                      <div className="w-1.5 h-1.5 bg-primary rounded-full mr-3 flex-shrink-0" />
+                    <li key={idx} className="flex items-start text-sm text-gray-400">
+                      <div className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0 mt-1.5" />
                       {feature}
                     </li>
                   ))}
                 </ul>
-                <Button 
-                  variant="outline" 
-                  className="w-full"
-                  onClick={scrollToContact}
-                >
-                  Get Started
-                </Button>
               </CardContent>
             </Card>
           ))}
