@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Quote } from "lucide-react";
+import Autoplay from "embla-carousel-autoplay";
 
 const TestimonialsCarousel = () => {
   const testimonials = [
@@ -49,7 +50,17 @@ const TestimonialsCarousel = () => {
         </div>
 
         {/* Testimonials Carousel */}
-        <Carousel className="max-w-5xl mx-auto">
+        <Carousel 
+          className="max-w-5xl mx-auto"
+          plugins={[
+            Autoplay({
+              delay: 5000,
+            }),
+          ]}
+          opts={{
+            loop: true,
+          }}
+        >
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
               <CarouselItem key={index} className="md:basis-1/2">

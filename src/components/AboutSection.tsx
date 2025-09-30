@@ -62,8 +62,8 @@ const AboutSection = () => {
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {features.map((feature, index) => (
-            <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2" style={{animationDelay: `${index * 100}ms`}}>
-              <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] group-hover:animate-pulse">
+            <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105" style={{animationDelay: `${index * 100}ms`}}>
+              <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(124,58,237,0.7)] group-hover:animate-pulse">
                 {feature.icon}
               </div>
               <h3 className="font-semibold mb-2">{feature.title}</h3>

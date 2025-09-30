@@ -59,10 +59,10 @@ const TeamSection = () => {
           </p>
         </div>
 
-        {/* Team Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        {/* Team Grid - Centered Single Member */}
+        <div className="flex justify-center mb-16">
           {team.map((member, index) => (
-            <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 overflow-hidden group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2" style={{animationDelay: `${index * 100}ms`}}>
+            <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 overflow-hidden group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2 max-w-sm" style={{animationDelay: `${index * 100}ms`}}>
               <div className="aspect-square overflow-hidden">
                 <img 
                   src={member.image} 

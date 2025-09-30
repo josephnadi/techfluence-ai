@@ -16,7 +16,7 @@ const Index = () => {
       
       <main className="relative z-10">
         <HeroSection />
-        <div className="space-y-12">
+        <div className="space-y-8">
           <ServicesSection />
           <AboutSection />
           <TeamSection />

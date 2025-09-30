@@ -76,18 +76,18 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
+        {/* Services Grid - Horizontal Row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {services.map((service, index) => (
-            <Card key={index} className="bg-card/50 backdrop-blur-md border border-border/50 hover:border-primary/30 transition-all duration-500 group animate-fade-in hover:scale-105 hover:-translate-y-2" style={{animationDelay: `${index * 100}ms`}}>
+            <Card key={index} className="bg-card/50 backdrop-blur-md border border-border/50 hover:border-primary/30 transition-all duration-500 group animate-fade-in hover:shadow-[0_0_30px_rgba(124,58,237,0.3)] hover:scale-105" style={{animationDelay: `${index * 100}ms`}}>
               <CardHeader>
-                <div className="flex items-center gap-4 mb-4">
+                <div className="flex flex-col items-center gap-4 mb-4">
                   <div className="p-3 bg-primary/10 rounded-lg text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(124,58,237,0.5)] group-hover:animate-pulse">
                     {service.icon}
                   </div>
-                  <CardTitle className="text-xl font-semibold">{service.title}</CardTitle>
+                  <CardTitle className="text-lg font-semibold text-center">{service.title}</CardTitle>
                 </div>
-                <p className="text-muted-foreground">{service.description}</p>
+                <p className="text-muted-foreground text-sm text-center">{service.description}</p>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-2 mb-6">
