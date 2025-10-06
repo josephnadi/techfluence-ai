@@ -38,6 +38,17 @@
 
     --radius: 0.75rem;
     
+    /* Typography - Increased font sizes for professional UI */
+    --font-size-xs: 0.8125rem; /* 13px */
+    --font-size-sm: 0.9375rem; /* 15px */
+    --font-size-base: 1.0625rem; /* 17px */
+    --font-size-lg: 1.1875rem; /* 19px */
+    --font-size-xl: 1.3125rem; /* 21px */
+    --font-size-2xl: 1.5625rem; /* 25px */
+    --font-size-3xl: 2rem; /* 32px */
+    --font-size-4xl: 2.5rem; /* 40px */
+    --font-size-5xl: 3.25rem; /* 52px */
+    
     /* Custom Techfluence gradients */
     --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%), hsl(25, 95%, 53%));
     --gradient-hero: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(280, 80%, 50%) 50%, hsl(25, 95%, 53%) 100%);
@@ -110,6 +121,46 @@
 
   body {
     @apply bg-background text-foreground;
+    font-size: 17px; /* Increased base font size */
+    scroll-behavior: smooth;
+  }
+  
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Scroll fade-in animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .scroll-fade-in {
+    opacity: 0;
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  .scroll-scale-in {
+    opacity: 0;
+    animation: fadeInScale 0.7s ease-out forwards;
   }
   
   /* Techfluence custom styles */

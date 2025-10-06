@@ -1,9 +1,12 @@
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import nadiJosephImg from "@/assets/nadi-joseph.png"; // Add this import
 
 
 const TeamSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
+  
   const team = [
     {
       name: "Nadi Joseph",
@@ -42,8 +45,8 @@ const TeamSection = () => {
   ];
 
   return (
-    <section id="team" className="py-16 relative">
-      <div className="container mx-auto px-6">
+    <section id="team" className="py-16 relative" ref={ref}>
+      <div className={`container mx-auto px-6 transition-all duration-1000 ${isVisible ? 'scroll-fade-in' : 'opacity-0'}`}>
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-4">

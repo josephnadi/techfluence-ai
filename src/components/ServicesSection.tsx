@@ -2,8 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Cloud, HeadphonesIcon, Bot, Globe, TrendingUp, Palette, Eye } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ServicesSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
+  
   const scrollToContact = () => {
     const contactElement = document.getElementById('contact');
     if (contactElement) {
@@ -92,8 +95,8 @@ const ServicesSection = () => {
   ];
 
   return (
-    <section id="services" className="py-16 relative">
-      <div className="container mx-auto px-6">
+    <section id="services" className="py-16 relative" ref={ref}>
+      <div className={`container mx-auto px-6 transition-all duration-1000 ${isVisible ? 'scroll-fade-in' : 'opacity-0'}`}>
         {/* Header */}
         <div className="text-center mb-16">
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-4">
