@@ -155,12 +155,12 @@
   
   .scroll-fade-in {
     opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
+    animation: fadeInUp 1.0s ease-out forwards;
   }
   
   .scroll-scale-in {
     opacity: 0;
-    animation: fadeInScale 0.7s ease-out forwards;
+    animation: fadeInScale 1.0s ease-out forwards;
   }
   
   /* Techfluence custom styles */
@@ -304,4 +304,42 @@
 .staggered.visible > *:nth-child(4) { transition-delay: 0.55s; }
 /* Add more as needed */
 
-/* ...existing code... */
+/* Navbar font size and base color */
+.navbar {
+  font-size: var(--font-size-xl, 1.3125rem); /* Larger font size */
+  font-weight: 900;
+  background: transparent;
+}
+
+/* Navbar link styles */
+.navbar a {
+  color: hsl(var(--foreground));
+  text-decoration: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 0.5rem;
+  transition: color 0.3s, box-shadow 0.3s;
+  position: relative;
+}
+
+/* Active link: glowing gradient text and shadow */
+.navbar a.active,
+.navbar a[aria-current="page"] {
+  background: linear-gradient(90deg, #7B3FE4, #FF9500, #FF2AD8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  box-shadow: 0 0 12px 2px #7B3FE4, 0 0 24px 4px #FF9500, 0 0 32px 6px #FF2AD8;
+  font-size: var(--font-size-2xl, 1.5625rem); /* Even larger when active */
+}
+
+/* Optional: glowing underline for active */
+.navbar a.active::after,
+.navbar a[aria-current="page"]::after {
+  content: '';
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  margin-top: 6px;
+  background: linear-gradient(90deg, #7B3FE4, #FF9500, #FF2AD8);
+  box-shadow: 0 0 8px #FF2AD8;
+}

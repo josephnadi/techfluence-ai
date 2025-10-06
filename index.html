@@ -30,5 +30,20 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const revealEls = document.querySelectorAll('.reveal-on-scroll, .staggered');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+
+        revealEls.forEach(el => observer.observe(el));
+      });
+    </script>
   </body>
 </html>
