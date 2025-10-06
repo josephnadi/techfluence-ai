@@ -12,6 +12,9 @@ import NewsletterPopup from "@/components/NewsletterPopup";
 const Index = () => {
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      {/* Place this as the first element in your <body> */}
+      <div id="top"></div>
+      
       <FloatingParticles />
       
       <Header />
@@ -30,6 +33,27 @@ const Index = () => {
       
       <AIAssistant />
       <NewsletterPopup />
+      
+      <button 
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-4 right-4 p-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition-all"
+      >
+        Go to Top
+      </button>
+
+      <script>
+        {`
+          document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+              // Only scroll to top for internal navigation
+              if (this.getAttribute('href') === '#' || this.getAttribute('href') === '#top') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            });
+          });
+        `}
+      </script>
     </div>
   );
 };

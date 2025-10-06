@@ -10,6 +10,8 @@ import Footer from "@/components/Footer";
 const Contact = () => {
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      {/* Place this as the first element in your <body> */}
+      <div id="top"></div>
       <Header />
       <main className="relative z-10 pt-24">
         <section className="py-16">
@@ -211,6 +213,29 @@ const Contact = () => {
         </section>
       </main>
       <Footer />
+      <button 
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        className="fixed bottom-4 right-4 p-3 bg-primary text-white rounded-full shadow-lg hover:bg-primary/90 transition-all duration-300"
+        aria-label="Back to top"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+
+      <script>
+        {`
+          document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+              // Only scroll to top for internal navigation
+              if (this.getAttribute('href') === '#' || this.getAttribute('href') === '#top') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            });
+          });
+        `}
+      </script>
     </div>
   );
 };

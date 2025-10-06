@@ -7,6 +7,8 @@ import Footer from "@/components/Footer";
 const Community = () => {
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      {/* Place this as the first element in your <body> */}
+      <div id="top"></div>
       <Header />
       <main className="relative z-10 pt-24">
         <section className="py-16">
@@ -29,6 +31,17 @@ const Community = () => {
         </section>
       </main>
       <Footer />
+      <script>
+        {`document.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', function(e) {
+            // Only scroll to top for internal navigation
+            if (this.getAttribute('href') === '#' || this.getAttribute('href') === '#top') {
+              e.preventDefault();
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          });
+        });`}
+      </script>
     </div>
   );
 };
