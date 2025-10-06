@@ -6,6 +6,8 @@ import TeamSection from "@/components/TeamSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import FloatingParticles from "@/components/FloatingParticles";
 import Footer from "@/components/Footer";
+import AIAssistant from "@/components/AIAssistant";
+import NewsletterPopup from "@/components/NewsletterPopup";
 
 const Index = () => {
   return (
@@ -25,6 +27,9 @@ const Index = () => {
       </main>
       
       <Footer />
+      
+      <AIAssistant />
+      <NewsletterPopup />
     </div>
   );
 };

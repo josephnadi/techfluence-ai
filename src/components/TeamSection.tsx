@@ -63,12 +63,14 @@ const TeamSection = () => {
         <div className="flex justify-center mb-16">
           {team.map((member, index) => (
             <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 overflow-hidden group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2 max-w-sm" style={{animationDelay: `${index * 100}ms`}}>
-              <div className="aspect-square overflow-hidden">
-                <img 
-                  src={member.image} 
-                  alt={member.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                />
+              <div className="flex justify-center pt-8 pb-4">
+                <div className="w-48 h-48 rounded-full overflow-hidden border-4 border-primary/20 group-hover:border-primary/50 transition-all duration-500">
+                  <img 
+                    src={member.image} 
+                    alt={member.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  />
+                </div>
               </div>
               <div className="p-6">
                 <h3 className="text-lg font-semibold mb-1">{member.name}</h3>

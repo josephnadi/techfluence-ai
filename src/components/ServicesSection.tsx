@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Cloud, HeadphonesIcon, Bot, Globe } from "lucide-react";
+import { Cloud, HeadphonesIcon, Bot, Globe, TrendingUp, Palette, Eye } from "lucide-react";
 
 const ServicesSection = () => {
   const scrollToContact = () => {
@@ -55,6 +55,39 @@ const ServicesSection = () => {
         "Mobile Responsive",
         "SEO Optimization"
       ]
+    },
+    {
+      icon: <TrendingUp className="w-8 h-8" />,
+      title: "Digital Marketing",
+      description: "Boost your online presence with data-driven marketing strategies that deliver measurable results.",
+      features: [
+        "SEO & SEM",
+        "Content Marketing",
+        "Social Media Strategy",
+        "Analytics & Reporting"
+      ]
+    },
+    {
+      icon: <Palette className="w-8 h-8" />,
+      title: "Brand Design",
+      description: "Create a memorable brand identity that resonates with your audience and stands out in the market.",
+      features: [
+        "Logo Design",
+        "Brand Guidelines",
+        "Visual Identity",
+        "Marketing Collateral"
+      ]
+    },
+    {
+      icon: <Eye className="w-8 h-8" />,
+      title: "Visibility Services",
+      description: "Enhance your digital footprint and reputation with comprehensive visibility and online presence management.",
+      features: [
+        "Online Reputation",
+        "Local SEO",
+        "Review Management",
+        "Citation Building"
+      ]
     }
   ];
 
@@ -76,8 +109,8 @@ const ServicesSection = () => {
           </p>
         </div>
 
-        {/* Services Grid - Horizontal Row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        {/* Services Grid - Responsive Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
           {services.map((service, index) => (
             <Card 
               key={index} 
