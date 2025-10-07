@@ -1,18 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import techfluenceLogo from "@/assets/techfluence-logo.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
-
-  // Scroll to top on route change
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, [location.pathname]);
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -25,18 +19,12 @@ const Header = () => {
   const handleNavClick = (href: string) => {
     setIsMenuOpen(false);
     if (href.startsWith("/#")) {
-      // Handle anchor links after navigation
-      setTimeout(() => {
-        const element = document.getElementById(href.substring(2));
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
-      }, 100);
+      // Handle anchor links
+      const element = document.getElementById(href.substring(2));
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
-  };
-
-  const handleGetStarted = () => {
-    navigate("/contact");
   };
 
   return (
@@ -78,12 +66,8 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button
-              size="lg"
-              onClick={handleGetStarted}
-              className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity"
-            >
-              Get Started Today
+            <Button className="gradient-primary text-white border-0 hover:opacity-90">
+              Get Started ⚡
             </Button>
           </div>
 

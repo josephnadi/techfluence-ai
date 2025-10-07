@@ -306,7 +306,7 @@
 
 /* Navbar font size and base color */
 .navbar {
-  font-size: var(--font-size-3xl, 2rem); /* Increased by 2 steps */
+  font-size: var(--font-size-xl, 1.3125rem); /* Larger font size */
   font-weight: 900;
   background: transparent;
 }
@@ -328,18 +328,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
-  box-shadow:
-    0 0 32px 8px #7B3FE4,
-    0 0 64px 16px #FF9500,
-    0 0 80px 20px #FF2AD8,
-    0 0 24px 8px #FF2AD8;
-  text-shadow:
-    0 0 16px #7B3FE4,
-    0 0 32px #FF9500,
-    0 0 48px #FF2AD8,
-    0 0 24px #FF2AD8;
-  font-size: var(--font-size-5xl, 3.25rem); /* Increased by 2 steps */
+  box-shadow: 0 0 12px 2px #7B3FE4, 0 0 24px 4px #FF9500, 0 0 32px 6px #FF2AD8;
+  font-size: var(--font-size-2xl, 1.5625rem); /* Even larger when active */
 }
 
 /* Optional: glowing underline for active */
@@ -347,9 +337,9 @@
 .navbar a[aria-current="page"]::after {
   content: '';
   display: block;
-  height: 4px;
+  height: 3px;
   border-radius: 2px;
-  margin-top: 8px;
+  margin-top: 6px;
   background: linear-gradient(90deg, #7B3FE4, #FF9500, #FF2AD8);
-  box-shadow: 0 0 24px #FF2AD8, 0 0 32px #7B3FE4;
+  box-shadow: 0 0 8px #FF2AD8;
 }
