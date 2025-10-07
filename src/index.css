@@ -122,8 +122,66 @@
   body {
     @apply bg-background text-foreground;
     font-size: 17px; /* Increased base font size */
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+/* Navigation Link Active Glow Animation */
+.nav-link-active {
+  position: relative;
+  animation: navGlow 2s ease-in-out infinite;
+}
+
+.nav-link-active::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 0.5rem;
+  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+  opacity: 0.15;
+  animation: pulseGlow 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+  opacity: 0.1;
+  filter: blur(8px);
+  animation: glowPulse 2s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes navGlow {
+  0%, 100% {
+    text-shadow: 0 0 10px hsl(var(--primary) / 0.3);
   }
+  50% {
+    text-shadow: 0 0 20px hsl(var(--primary) / 0.6), 0 0 30px hsl(var(--accent) / 0.4);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.25;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+}
   
   /* Smooth scroll */
   html {

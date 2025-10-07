@@ -61,23 +61,27 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                onClick={(e) => handleNavClick(item.href, e)}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  location.pathname === item.href || 
-                  (item.href === "/" && location.pathname === "/") ||
-                  (item.href.startsWith("/#") && location.pathname === "/")
-                    ? "text-primary" 
-                    : "text-muted-foreground"
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+          <div className="hidden md:flex items-center space-x-2">
+            {navigation.map((item) => {
+              const isActive = location.pathname === item.href || 
+                (item.href === "/" && location.pathname === "/") ||
+                (item.href.startsWith("/#") && location.pathname === "/");
+              
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={(e) => handleNavClick(item.href, e)}
+                  className={`relative px-4 py-2 text-base font-bold rounded-lg transition-all duration-300 hover:scale-105 ${
+                    isActive
+                      ? "text-primary nav-link-active" 
+                      : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </div>
 
           {/* CTA Button */}
@@ -106,23 +110,27 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden mt-4 py-4 border-t border-border/50">
-            <div className="flex flex-col space-y-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={(e) => handleNavClick(item.href, e)}
-                  className={`text-sm font-medium transition-colors hover:text-primary ${
-                    location.pathname === item.href || 
-                    (item.href === "/" && location.pathname === "/") ||
-                    (item.href.startsWith("/#") && location.pathname === "/")
-                      ? "text-primary" 
-                      : "text-muted-foreground"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+            <div className="flex flex-col space-y-2">
+              {navigation.map((item) => {
+                const isActive = location.pathname === item.href || 
+                  (item.href === "/" && location.pathname === "/") ||
+                  (item.href.startsWith("/#") && location.pathname === "/");
+                
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={(e) => handleNavClick(item.href, e)}
+                    className={`relative px-4 py-2 text-base font-bold rounded-lg transition-all duration-300 ${
+                      isActive
+                        ? "text-primary nav-link-active" 
+                        : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
               <Link to="/contact">
                 <Button className="gradient-primary text-white border-0 hover:opacity-90 w-fit">
                   Get Started ⚡
