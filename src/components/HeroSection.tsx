@@ -1,20 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Play } from "lucide-react";
+import { Link } from "react-router-dom";
 import AnimatedText from "./AnimatedText";
 import DashboardMockup from "./DashboardMockup";
 import StatsSection from "./StatsSection";
 
 const HeroSection = () => {
-  const scrollToContact = () => {
-    const contactElement = document.getElementById('contact');
-    if (contactElement) {
-      contactElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16">
+    <section className="relative min-h-screen flex items-center justify-center pt-20 pb-16 animate-fade-in">
       <div className="container mx-auto px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Hero Content */}
@@ -45,18 +39,19 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-            <Button 
-              size="lg" 
-              onClick={scrollToContact}
-              className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity"
-            >
-              Get Started Today
-            </Button>
+              <Link to="/contact">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-all hover:scale-105"
+                >
+                  Get Started Today
+                </Button>
+              </Link>
               
               <Button 
                 variant="ghost" 
                 size="lg"
-                className="text-foreground hover:text-primary px-8 py-6 text-lg font-medium"
+                className="text-foreground hover:text-primary px-8 py-6 text-lg font-medium transition-all hover:scale-105"
               >
                 <Play className="w-5 h-5 mr-2" />
                 Watch Demo

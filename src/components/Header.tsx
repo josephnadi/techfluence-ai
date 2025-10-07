@@ -16,14 +16,30 @@ const Header = () => {
     { name: "Contact", href: "/contact" }
   ];
 
-  const handleNavClick = (href: string) => {
+  const handleNavClick = (href: string, e: React.MouseEvent) => {
     setIsMenuOpen(false);
-    if (href.startsWith("/#")) {
-      // Handle anchor links
-      const element = document.getElementById(href.substring(2));
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+    
+    if (href === "/") {
+      // Scroll to top for home
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else if (href.startsWith("/#")) {
+      // Handle anchor links on home page
+      e.preventDefault();
+      
+      // If not on home page, navigate there first
+      if (location.pathname !== "/") {
+        window.location.href = href;
+      } else {
+        const element = document.getElementById(href.substring(2));
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
       }
+    } else {
+      // For other routes, scroll to top after navigation
+      setTimeout(() => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }, 100);
     }
   };
 
@@ -50,7 +66,7 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                onClick={() => handleNavClick(item.href)}
+                onClick={(e) => handleNavClick(item.href, e)}
                 className={`text-sm font-medium transition-colors hover:text-primary ${
                   location.pathname === item.href || 
                   (item.href === "/" && location.pathname === "/") ||
@@ -66,9 +82,11 @@ const Header = () => {
 
           {/* CTA Button */}
           <div className="hidden md:block">
-            <Button className="gradient-primary text-white border-0 hover:opacity-90">
-              Get Started ⚡
-            </Button>
+            <Link to="/contact">
+              <Button className="gradient-primary text-white border-0 hover:opacity-90">
+                Get Started ⚡
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -93,7 +111,7 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  onClick={() => handleNavClick(item.href)}
+                  onClick={(e) => handleNavClick(item.href, e)}
                   className={`text-sm font-medium transition-colors hover:text-primary ${
                     location.pathname === item.href || 
                     (item.href === "/" && location.pathname === "/") ||
@@ -105,9 +123,11 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-              <Button className="gradient-primary text-white border-0 hover:opacity-90 w-fit">
-                Get Started ⚡
-              </Button>
+              <Link to="/contact">
+                <Button className="gradient-primary text-white border-0 hover:opacity-90 w-fit">
+                  Get Started ⚡
+                </Button>
+              </Link>
             </div>
           </div>
         )}

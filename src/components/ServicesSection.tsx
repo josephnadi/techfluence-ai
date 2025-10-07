@@ -2,17 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Cloud, HeadphonesIcon, Bot, Globe, TrendingUp, Palette, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const ServicesSection = () => {
   const { ref, isVisible } = useScrollAnimation();
-  
-  const scrollToContact = () => {
-    const contactElement = document.getElementById('contact');
-    if (contactElement) {
-      contactElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
   
   const services = [
     {
@@ -148,13 +142,14 @@ const ServicesSection = () => {
 
         {/* CTA */}
         <div className="text-center">
-          <Button 
-            size="lg" 
-            className="gradient-primary text-white border-0 hover:opacity-90 px-8 py-6"
-            onClick={scrollToContact}
-          >
-            Schedule Your Free Consultation
-          </Button>
+          <Link to="/contact">
+            <Button 
+              size="lg" 
+              className="gradient-primary text-white border-0 hover:opacity-90 px-8 py-6 transition-all hover:scale-105"
+            >
+              Schedule Your Free Consultation
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

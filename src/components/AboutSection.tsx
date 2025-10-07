@@ -1,18 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { CheckCircle, Award, Clock, Building, ArrowRight } from "lucide-react";
 
 const AboutSection = () => {
   const { ref, isVisible } = useScrollAnimation();
-  
-  const scrollToContact = () => {
-    const contactElement = document.getElementById('contact');
-    if (contactElement) {
-      contactElement.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
   
   const features = [
     {
@@ -77,14 +71,15 @@ const AboutSection = () => {
 
         {/* Add CTA at the end */}
         <div className="text-center mt-16">
-          <Button 
-            size="lg" 
-            className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity"
-            onClick={scrollToContact}
-          >
-            Schedule Your Free Consultation
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Button>
+          <Link to="/contact">
+            <Button 
+              size="lg" 
+              className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-all hover:scale-105"
+            >
+              Schedule Your Free Consultation
+              <ArrowRight className="ml-2 w-4 h-4" />
+            </Button>
+          </Link>
         </div>
 
         {/* Stats */}
