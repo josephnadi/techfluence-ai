@@ -3,10 +3,12 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import techfluenceLogo from "@/assets/techfluence-logo.png";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const activeSection = useActiveSection();
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -63,9 +65,21 @@ const Header = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
             {navigation.map((item) => {
-              const isActive = location.pathname === item.href || 
-                (item.href === "/" && location.pathname === "/") ||
-                (item.href.startsWith("/#") && location.pathname === "/");
+              let isActive = false;
+              
+              if (location.pathname !== "/") {
+                // For non-home pages, check exact path match
+                isActive = location.pathname === item.href;
+              } else {
+                // For home page, check active section
+                if (item.href === "/") {
+                  isActive = activeSection === "home";
+                } else if (item.href === "/#services") {
+                  isActive = activeSection === "services";
+                } else if (item.href === "/#about") {
+                  isActive = activeSection === "about";
+                }
+              }
               
               return (
                 <Link
@@ -112,9 +126,21 @@ const Header = () => {
           <div className="md:hidden mt-4 py-4 border-t border-border/50">
             <div className="flex flex-col space-y-2">
               {navigation.map((item) => {
-                const isActive = location.pathname === item.href || 
-                  (item.href === "/" && location.pathname === "/") ||
-                  (item.href.startsWith("/#") && location.pathname === "/");
+                let isActive = false;
+                
+                if (location.pathname !== "/") {
+                  // For non-home pages, check exact path match
+                  isActive = location.pathname === item.href;
+                } else {
+                  // For home page, check active section
+                  if (item.href === "/") {
+                    isActive = activeSection === "home";
+                  } else if (item.href === "/#services") {
+                    isActive = activeSection === "services";
+                  } else if (item.href === "/#about") {
+                    isActive = activeSection === "about";
+                  }
+                }
                 
                 return (
                   <Link
