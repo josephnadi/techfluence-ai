@@ -4,13 +4,13 @@ import { Play } from "lucide-react";
 import AnimatedText from "./AnimatedText";
 import DashboardMockup from "./DashboardMockup";
 import StatsSection from "./StatsSection";
+import { useNavigate } from "react-router-dom";
 
 const HeroSection = () => {
-  const scrollToContact = () => {
-    const contactElement = document.getElementById('contact');
-    if (contactElement) {
-      contactElement.scrollIntoView({ behavior: 'smooth' });
-    }
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate("/contact");
   };
 
   return (
@@ -45,13 +45,13 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-            <Button 
-              size="lg" 
-              onClick={scrollToContact}
-              className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity"
-            >
-              Get Started Today
-            </Button>
+              <Button
+                size="lg"
+                onClick={handleGetStarted}
+                className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-opacity"
+              >
+                Get Started Today
+              </Button>
               
               <Button 
                 variant="ghost" 

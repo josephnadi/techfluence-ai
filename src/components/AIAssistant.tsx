@@ -13,7 +13,7 @@ const AIAssistant = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hi! I'm your Techfluence AI assistant. I can help you with information about our services, answer FAQs, or help you navigate the site. How can I assist you today?"
+      content: "Hi! I'm your Techfluence Customer support assistant. I can help you with information about our services, answer FAQs, or help you navigate the site. How can I assist you today?"
     }
   ]);
   const [input, setInput] = useState("");
@@ -131,7 +131,7 @@ const AIAssistant = () => {
           <div className="flex items-center justify-between p-4 border-b bg-primary text-white rounded-t-lg">
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5" />
-              <h3 className="font-semibold">AI Assistant</h3>
+              <h3 className="font-semibold">Joseph</h3>
             </div>
             <Button
               variant="ghost"
