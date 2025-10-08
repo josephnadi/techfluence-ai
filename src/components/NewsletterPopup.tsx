@@ -11,11 +11,11 @@ const NewsletterPopup = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    const hasSeenPopup = localStorage.getItem("newsletter-popup-seen");
-    if (!hasSeenPopup) {
+    const hasSubscribed = localStorage.getItem("newsletter-subscribed");
+    if (!hasSubscribed) {
       const timer = setTimeout(() => {
         setIsOpen(true);
-      }, 10000); // 10 seconds
+      }, 3000); // 3 seconds after page load
       return () => clearTimeout(timer);
     }
   }, []);
@@ -23,7 +23,7 @@ const NewsletterPopup = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
-    localStorage.setItem("newsletter-popup-seen", "true");
+    localStorage.setItem("newsletter-subscribed", "true");
     toast({
       title: "Success!",
       description: "You've been subscribed to our newsletter.",
@@ -33,7 +33,6 @@ const NewsletterPopup = () => {
   };
 
   const handleClose = () => {
-    localStorage.setItem("newsletter-popup-seen", "true");
     setIsOpen(false);
   };
 

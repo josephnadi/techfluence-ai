@@ -10,16 +10,28 @@ type Message = { role: "user" | "assistant"; content: string };
 
 const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hi! I'm your Techfluence AI assistant. I can help you with information about our services, answer FAQs, or help you navigate the site. How can I assist you today?"
+      content: "Hi! I'm Joseph, your Techfluence AI assistant. I can help you with information about our services, answer FAQs, or help you navigate the site. How can I assist you today?"
     }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Show notification after 3 seconds on page load
+    const timer = setTimeout(() => {
+      setShowNotification(true);
+      // Auto-hide notification after 5 seconds
+      setTimeout(() => setShowNotification(false), 5000);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -113,10 +125,36 @@ const AIAssistant = () => {
 
   return (
     <>
+      {/* Notification Popup */}
+      {showNotification && !isOpen && (
+        <Card className="fixed bottom-24 right-6 w-80 shadow-2xl z-50 animate-scale-in p-4">
+          <div className="flex items-start gap-3">
+            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <Bot className="h-5 w-5 text-primary" />
+            </div>
+            <div className="flex-1">
+              <h4 className="font-semibold mb-1">Chat with Joseph!</h4>
+              <p className="text-sm text-muted-foreground">Hi! I'm here to help you with any questions about our services.</p>
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowNotification(false)}
+              className="h-6 w-6 flex-shrink-0"
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        </Card>
+      )}
+
       {/* Floating Button */}
       {!isOpen && (
         <Button
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setIsOpen(true);
+            setShowNotification(false);
+          }}
           className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg bg-primary hover:bg-primary/90 z-50"
           size="icon"
         >
@@ -131,7 +169,7 @@ const AIAssistant = () => {
           <div className="flex items-center justify-between p-4 border-b bg-primary text-white rounded-t-lg">
             <div className="flex items-center gap-2">
               <Bot className="h-5 w-5" />
-              <h3 className="font-semibold">AI Assistant</h3>
+              <h3 className="font-semibold">Joseph - AI Assistant</h3>
             </div>
             <Button
               variant="ghost"

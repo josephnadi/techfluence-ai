@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -6,8 +7,59 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Phone, Mail, Clock, Headphones, Zap, Shield, Users } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    inquiryType: "",
+    priority: "medium",
+    message: ""
+  });
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: formData
+      });
+
+      if (error) throw error;
+
+      toast({
+        title: "Message Sent!",
+        description: "We've received your message and will get back to you soon.",
+      });
+
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        inquiryType: "",
+        priority: "medium",
+        message: ""
+      });
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again or contact us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Place this as the first element in your <body> */}
@@ -27,60 +79,42 @@ const Contact = () => {
             </div>
 
             {/* Quick Contact Cards */}
-            <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
-              <a href="tel:+233595521498" className="block group">
-                <Card className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 transition-all duration-300 animate-fade-in h-full" style={{animationDelay: '100ms'}}>
-                  <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-green-500/30">
-                    <Phone className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="font-semibold text-center mb-2 text-lg">Call Directly</h3>
-                  <p className="text-primary hover:underline block text-center mb-1 font-medium">+233595521498</p>
-                  <p className="text-sm text-muted-foreground text-center">Available 24/7 for emergencies</p>
-                </Card>
-              </a>
-              
-              <a href="mailto:techfluence@gmail.com" className="block group">
-                <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 animate-fade-in h-full" style={{animationDelay: '200ms'}}>
-                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-blue-500/30">
-                    <Mail className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="font-semibold text-center mb-2 text-lg">Send Email</h3>
-                  <p className="text-primary hover:underline block text-center mb-1 font-medium">techfluence@gmail.com</p>
-                  <p className="text-sm text-muted-foreground text-center">Response within 24 hours</p>
-                </Card>
-              </a>
-
-              <Card className="p-6 bg-gradient-to-br from-primary/10 to-purple-500/5 border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer group" style={{animationDelay: '300ms'}}>
-                <div className="w-14 h-14 bg-gradient-to-br from-primary to-purple-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
-                  <Headphones className="w-7 h-7 text-white" />
-                </div>
-                <h3 className="font-semibold text-center mb-2 text-lg">Book Consultation</h3>
-                <p className="text-primary text-center mb-1 font-medium">Free 30-min Call</p>
-                <p className="text-sm text-muted-foreground text-center">Schedule at your convenience</p>
-              </Card>
-            </div>
-
             {/* Main Content Grid */}
-            <div className="grid md:grid-cols-5 gap-8 max-w-6xl mx-auto">
-              {/* Left Sidebar - Contact Info */}
-              <div className="md:col-span-2 space-y-6">
+            <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {/* Left Sidebar - Quick Contact Cards */}
+              <div className="space-y-6">
+                <a href="tel:+233595521498" className="block group">
+                  <Card className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 transition-all duration-300 animate-fade-in h-full" style={{animationDelay: '100ms'}}>
+                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-green-500/30">
+                      <Phone className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-center mb-2 text-lg">Call Directly</h3>
+                    <p className="text-primary hover:underline block text-center mb-1 font-medium">+233595521498</p>
+                    <p className="text-sm text-muted-foreground text-center">Available 24/7 for emergencies</p>
+                  </Card>
+                </a>
+                
+                <a href="mailto:techfluence.ai@outlook.com" className="block group">
+                  <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 animate-fade-in h-full" style={{animationDelay: '200ms'}}>
+                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-blue-500/30">
+                      <Mail className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-center mb-2 text-lg">Send Email</h3>
+                    <p className="text-primary hover:underline block text-center mb-1 font-medium break-all">techfluence.ai@outlook.com</p>
+                    <p className="text-sm text-muted-foreground text-center">Response within 24 hours</p>
+                  </Card>
+                </a>
+
+                <Card className="p-6 bg-gradient-to-br from-primary/10 to-purple-500/5 border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer group" style={{animationDelay: '300ms'}}>
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-purple-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
+                    <Headphones className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-center mb-2 text-lg">Book Consultation</h3>
+                  <p className="text-primary text-center mb-1 font-medium">Free 30-min Call</p>
+                  <p className="text-sm text-muted-foreground text-center">Schedule at your convenience</p>
+                </Card>
+
                 <Card className="p-6 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '400ms'}}>
-                  <Phone className="w-6 h-6 text-primary mb-3" />
-                  <h3 className="font-semibold mb-2">Call Us</h3>
-                  <p className="text-sm text-muted-foreground mb-2">Direct Line</p>
-                  <a href="tel:+233595521498" className="font-medium mb-2 block hover:text-primary transition-colors">+233595521498</a>
-                  <p className="text-xs text-muted-foreground">Available 24/7 for emergencies</p>
-                </Card>
-
-                <Card className="p-6 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '500ms'}}>
-                  <Mail className="w-6 h-6 text-primary mb-3" />
-                  <h3 className="font-semibold mb-2">Email Us</h3>
-                  <p className="text-sm text-muted-foreground mb-2">General Inquiries</p>
-                  <a href="mailto:techfluence@gmail.com" className="font-medium mb-2 block hover:text-primary transition-colors">techfluence@gmail.com</a>
-                  <p className="text-xs text-muted-foreground">Response within 24 hours</p>
-                </Card>
-
-                <Card className="p-6 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '600ms'}}>
                   <Clock className="w-6 h-6 text-primary mb-3" />
                   <h3 className="font-semibold mb-2">Business Hours</h3>
                   <div className="space-y-1 text-sm">
@@ -92,35 +126,58 @@ const Contact = () => {
               </div>
 
               {/* Right Side - Contact Form */}
-              <Card className="md:col-span-3 p-8 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '700ms'}}>
+              <Card className="lg:col-span-2 p-8 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '500ms'}}>
                 <h3 className="text-2xl font-semibold mb-6">Send Us a Message</h3>
-                <form className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium mb-2">Full Name *</label>
-                      <Input placeholder="Your full name" className="bg-background/50" />
+                      <Input 
+                        placeholder="Your full name" 
+                        className="bg-background/50"
+                        value={formData.name}
+                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                        required
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">Email Address *</label>
-                      <Input type="email" placeholder="your.email@company.com" className="bg-background/50" />
+                      <Input 
+                        type="email" 
+                        placeholder="your.email@company.com" 
+                        className="bg-background/50"
+                        value={formData.email}
+                        onChange={(e) => setFormData({...formData, email: e.target.value})}
+                        required
+                      />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium mb-2">Phone Number</label>
-                      <Input placeholder="+233 XX XXX XXXX" className="bg-background/50" />
+                      <Input 
+                        placeholder="+233 XX XXX XXXX" 
+                        className="bg-background/50"
+                        value={formData.phone}
+                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">Company Name</label>
-                      <Input placeholder="Your company name" className="bg-background/50" />
+                      <Input 
+                        placeholder="Your company name" 
+                        className="bg-background/50"
+                        value={formData.company}
+                        onChange={(e) => setFormData({...formData, company: e.target.value})}
+                      />
                     </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium mb-2">Inquiry Type</label>
-                      <Select>
+                      <Select value={formData.inquiryType} onValueChange={(value) => setFormData({...formData, inquiryType: value})}>
                         <SelectTrigger className="bg-background/50">
                           <SelectValue placeholder="Select inquiry type" />
                         </SelectTrigger>
@@ -137,7 +194,7 @@ const Contact = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium mb-2">Priority Level</label>
-                      <Select defaultValue="medium">
+                      <Select value={formData.priority} onValueChange={(value) => setFormData({...formData, priority: value})}>
                         <SelectTrigger className="bg-background/50">
                           <SelectValue />
                         </SelectTrigger>
@@ -156,6 +213,9 @@ const Contact = () => {
                     <Textarea 
                       placeholder="Tell us about your project requirements, current challenges, or how we can help you..." 
                       className="min-h-[150px] bg-background/50"
+                      value={formData.message}
+                      onChange={(e) => setFormData({...formData, message: e.target.value})}
+                      required
                     />
                   </div>
 
@@ -163,8 +223,9 @@ const Contact = () => {
                     type="submit" 
                     size="lg" 
                     className="w-full gradient-primary text-white border-0 hover:opacity-90"
+                    disabled={isSubmitting}
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </Card>
