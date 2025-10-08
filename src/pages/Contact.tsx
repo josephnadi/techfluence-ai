@@ -78,12 +78,11 @@ const Contact = () => {
               </p>
             </div>
 
-            {/* Quick Contact Cards */}
             {/* Main Content Grid */}
-            <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {/* Left Sidebar - Quick Contact Cards */}
-              <div className="space-y-6">
-                <a href="tel:+233595521498" className="block group">
+            <div className="grid grid-cols-5 grid-rows-5 gap-4 max-w-7xl mx-auto">
+              {/* 1. Call Directly */}
+              <div className="col-span-2">
+                <a href="tel:+233595521498" className="block group h-full">
                   <Card className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 transition-all duration-300 animate-fade-in h-full" style={{animationDelay: '100ms'}}>
                     <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-green-500/30">
                       <Phone className="w-7 h-7 text-white" />
@@ -93,8 +92,11 @@ const Contact = () => {
                     <p className="text-sm text-muted-foreground text-center">Available 24/7 for emergencies</p>
                   </Card>
                 </a>
-                
-                <a href="mailto:techfluence.ai@outlook.com" className="block group">
+              </div>
+
+              {/* 2. Send Email */}
+              <div className="col-span-2 col-start-1 row-start-2">
+                <a href="mailto:techfluence.ai@outlook.com" className="block group h-full">
                   <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 animate-fade-in h-full" style={{animationDelay: '200ms'}}>
                     <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-blue-500/30">
                       <Mail className="w-7 h-7 text-white" />
@@ -104,8 +106,11 @@ const Contact = () => {
                     <p className="text-sm text-muted-foreground text-center">Response within 24 hours</p>
                   </Card>
                 </a>
+              </div>
 
-                <Card className="p-6 bg-gradient-to-br from-primary/10 to-purple-500/5 border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer group" style={{animationDelay: '300ms'}}>
+              {/* 3. Book Consultation */}
+              <div className="col-span-2 col-start-1 row-start-3">
+                <Card className="p-6 bg-gradient-to-br from-primary/10 to-purple-500/5 border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer group h-full" style={{animationDelay: '300ms'}}>
                   <div className="w-14 h-14 bg-gradient-to-br from-primary to-purple-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
                     <Headphones className="w-7 h-7 text-white" />
                   </div>
@@ -113,8 +118,11 @@ const Contact = () => {
                   <p className="text-primary text-center mb-1 font-medium">Free 30-min Call</p>
                   <p className="text-sm text-muted-foreground text-center">Schedule at your convenience</p>
                 </Card>
+              </div>
 
-                <Card className="p-6 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '400ms'}}>
+              {/* 4. Business Hours */}
+              <div className="col-span-2 row-span-2 col-start-1 row-start-4">
+                <Card className="p-6 bg-muted/50 border border-border/50 animate-fade-in h-full" style={{animationDelay: '400ms'}}>
                   <Clock className="w-6 h-6 text-primary mb-3" />
                   <h3 className="font-semibold mb-2">Business Hours</h3>
                   <div className="space-y-1 text-sm">
@@ -125,148 +133,143 @@ const Contact = () => {
                 </Card>
               </div>
 
-              {/* Right Side - Contact Form */}
-              <Card className="lg:col-span-2 p-8 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '500ms'}}>
-                <h3 className="text-2xl font-semibold mb-6">Send Us a Message</h3>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-4">
+              {/* 5. Contact Form - Large */}
+              <div className="col-span-3 row-span-3 col-start-3 row-start-1">
+                <Card className="p-8 bg-muted/50 border border-border/50 animate-fade-in h-full" style={{animationDelay: '500ms'}}>
+                  <h3 className="text-2xl font-semibold mb-6">Send Us a Message</h3>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Full Name *</label>
+                        <Input 
+                          placeholder="Your full name" 
+                          className="bg-background/50"
+                          value={formData.name}
+                          onChange={(e) => setFormData({...formData, name: e.target.value})}
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Email Address *</label>
+                        <Input 
+                          type="email" 
+                          placeholder="your.email@company.com" 
+                          className="bg-background/50"
+                          value={formData.email}
+                          onChange={(e) => setFormData({...formData, email: e.target.value})}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Phone Number</label>
+                        <Input 
+                          placeholder="+233 XX XXX XXXX" 
+                          className="bg-background/50"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Company Name</label>
+                        <Input 
+                          placeholder="Your company name" 
+                          className="bg-background/50"
+                          value={formData.company}
+                          onChange={(e) => setFormData({...formData, company: e.target.value})}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Inquiry Type</label>
+                        <Select value={formData.inquiryType} onValueChange={(value) => setFormData({...formData, inquiryType: value})}>
+                          <SelectTrigger className="bg-background/50">
+                            <SelectValue placeholder="Select inquiry type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="general">General Inquiry</SelectItem>
+                            <SelectItem value="cloud">Cloud Migration</SelectItem>
+                            <SelectItem value="support">IT Support & Consulting</SelectItem>
+                            <SelectItem value="ai">AI Agent Automation</SelectItem>
+                            <SelectItem value="web">Website Development</SelectItem>
+                            <SelectItem value="partnership">Partnership Opportunity</SelectItem>
+                            <SelectItem value="other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Priority Level</label>
+                        <Select value={formData.priority} onValueChange={(value) => setFormData({...formData, priority: value})}>
+                          <SelectTrigger className="bg-background/50">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="low">Low Priority</SelectItem>
+                            <SelectItem value="medium">Medium Priority</SelectItem>
+                            <SelectItem value="high">High Priority</SelectItem>
+                            <SelectItem value="urgent">Urgent</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
                     <div>
-                      <label className="block text-sm font-medium mb-2">Full Name *</label>
-                      <Input 
-                        placeholder="Your full name" 
-                        className="bg-background/50"
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
+                      <label className="block text-sm font-medium mb-2">Message *</label>
+                      <Textarea 
+                        placeholder="Tell us about your project requirements, current challenges, or how we can help you..." 
+                        className="min-h-[120px] bg-background/50"
+                        value={formData.message}
+                        onChange={(e) => setFormData({...formData, message: e.target.value})}
                         required
                       />
                     </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Email Address *</label>
-                      <Input 
-                        type="email" 
-                        placeholder="your.email@company.com" 
-                        className="bg-background/50"
-                        value={formData.email}
-                        onChange={(e) => setFormData({...formData, email: e.target.value})}
-                        required
-                      />
-                    </div>
-                  </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Phone Number</label>
-                      <Input 
-                        placeholder="+233 XX XXX XXXX" 
-                        className="bg-background/50"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Company Name</label>
-                      <Input 
-                        placeholder="Your company name" 
-                        className="bg-background/50"
-                        value={formData.company}
-                        onChange={(e) => setFormData({...formData, company: e.target.value})}
-                      />
-                    </div>
-                  </div>
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full gradient-primary text-white border-0 hover:opacity-90"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                  </form>
+                </Card>
+              </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Inquiry Type</label>
-                      <Select value={formData.inquiryType} onValueChange={(value) => setFormData({...formData, inquiryType: value})}>
-                        <SelectTrigger className="bg-background/50">
-                          <SelectValue placeholder="Select inquiry type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="general">General Inquiry</SelectItem>
-                          <SelectItem value="cloud">Cloud Migration</SelectItem>
-                          <SelectItem value="support">IT Support & Consulting</SelectItem>
-                          <SelectItem value="ai">AI Agent Automation</SelectItem>
-                          <SelectItem value="web">Website Development</SelectItem>
-                          <SelectItem value="partnership">Partnership Opportunity</SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Priority Level</label>
-                      <Select value={formData.priority} onValueChange={(value) => setFormData({...formData, priority: value})}>
-                        <SelectTrigger className="bg-background/50">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="low">Low Priority</SelectItem>
-                          <SelectItem value="medium">Medium Priority</SelectItem>
-                          <SelectItem value="high">High Priority</SelectItem>
-                          <SelectItem value="urgent">Urgent</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Message *</label>
-                    <Textarea 
-                      placeholder="Tell us about your project requirements, current challenges, or how we can help you..." 
-                      className="min-h-[150px] bg-background/50"
-                      value={formData.message}
-                      onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      required
-                    />
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full gradient-primary text-white border-0 hover:opacity-90"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </form>
-              </Card>
-            </div>
-
-            {/* Why Choose Section */}
-            <div className="mt-16 max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-center mb-12">
-                <span className="gradient-text">Why Choose Techfluence?</span>
-              </h2>
-              <div className="grid md:grid-cols-4 gap-6">
-                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300" style={{animationDelay: '800ms'}}>
+              {/* 6. Why Choose - Rapid Response */}
+              <div className="col-span-3 col-start-3 row-start-4">
+                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 h-full flex flex-col items-center justify-center" style={{animationDelay: '800ms'}}>
                   <div className="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
                     <Zap className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="font-semibold mb-2">Rapid Response</h3>
                   <p className="text-sm text-muted-foreground">We respond to all inquiries within 24 hours, often much sooner.</p>
                 </Card>
+              </div>
 
-                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300" style={{animationDelay: '900ms'}}>
+              {/* 7. Why Choose - Expert Consultation */}
+              <div className="col-span-2 col-start-3 row-start-5">
+                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 h-full flex flex-col items-center justify-center" style={{animationDelay: '900ms'}}>
                   <div className="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
                     <Users className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="font-semibold mb-2">Expert Consultation</h3>
                   <p className="text-sm text-muted-foreground">Free initial consultation with our certified IT professionals.</p>
                 </Card>
+              </div>
 
-                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300" style={{animationDelay: '1000ms'}}>
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
-                    <Shield className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="font-semibold mb-2">Custom Solutions</h3>
-                  <p className="text-sm text-muted-foreground">Tailored IT solutions designed specifically for your business needs.</p>
-                </Card>
-
-                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300" style={{animationDelay: '1100ms'}}>
+              {/* 8. Why Choose - 24/7 Support */}
+              <div className="col-start-5 row-start-5">
+                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 h-full flex flex-col items-center justify-center" style={{animationDelay: '1000ms'}}>
                   <div className="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
                     <Headphones className="w-6 h-6 text-white" />
                   </div>
                   <h3 className="font-semibold mb-2">24/7 Support</h3>
-                  <p className="text-sm text-muted-foreground">Round-the-clock support for critical business operations.</p>
+                  <p className="text-sm text-muted-foreground">Round-the-clock support for critical operations.</p>
                 </Card>
               </div>
             </div>
