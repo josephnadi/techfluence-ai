@@ -17,7 +17,7 @@
     --popover: 240 10% 6%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 262 83% 58%;
+    --primary: 239 97% 33%;
     --primary-foreground: 0 0% 98%;
 
     --secondary: 240 4% 15%;
@@ -26,7 +26,7 @@
     --muted: 240 4% 15%;
     --muted-foreground: 240 5% 64%;
 
-    --accent: 25 95% 53%;
+    --accent: 1 100% 38%;
     --accent-foreground: 0 0% 98%;
 
     --destructive: 0 84% 60%;
@@ -34,7 +34,7 @@
 
     --border: 240 4% 15%;
     --input: 240 4% 15%;
-    --ring: 262 83% 58%;
+    --ring: 239 97% 33%;
 
     --radius: 0.75rem;
     
@@ -50,9 +50,9 @@
     --font-size-5xl: 3.25rem; /* 52px */
     
     /* Custom Techfluence gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%), hsl(25, 95%, 53%));
-    --gradient-hero: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(280, 80%, 50%) 50%, hsl(25, 95%, 53%) 100%);
-    --gradient-text: linear-gradient(135deg, #7B3FE4, #FF9500);
+    --gradient-primary: linear-gradient(135deg, hsl(239, 97%, 33%), hsl(1, 100%, 38%));
+    --gradient-hero: linear-gradient(135deg, hsl(239, 97%, 33%) 0%, hsl(239, 97%, 40%) 50%, hsl(1, 100%, 38%) 100%);
+    --gradient-text: linear-gradient(135deg, #0305a7, #c10200);
     
     /* Floating animations */
     --float-duration: 6s;
@@ -249,7 +249,7 @@
   }
   
   .hero-glow {
-    box-shadow: 0 0 50px rgba(123, 63, 228, 0.3);
+    box-shadow: 0 0 50px rgba(3, 5, 167, 0.3);
   }
   
   /* Gradient text utility */
@@ -274,13 +274,13 @@
 
   .card:hover, .tf-card:hover {
     transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 8px 32px rgba(123,63,228,0.18), 0 2px 12px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 32px rgba(3,5,167,0.18), 0 2px 12px rgba(0,0,0,0.12);
     border-color: hsl(var(--primary));
   }
 
   /* Optional: subtle glow on hover */
   .card:hover, .tf-card:hover {
-    box-shadow: 0 0 0 4px rgba(123,63,228,0.12), 0 8px 32px rgba(123,63,228,0.18), 0 2px 12px rgba(0,0,0,0.12);
+    box-shadow: 0 0 0 4px rgba(3,5,167,0.12), 0 8px 32px rgba(3,5,167,0.18), 0 2px 12px rgba(0,0,0,0.12);
   }
 
   a, button, .card, .tf-card {
@@ -342,7 +342,7 @@
 }
 .card:hover, .tf-card:hover, .gradient-border:hover {
   transform: translateY(-10px) scale(1.04) rotate(-1deg);
-  box-shadow: 0 0 0 6px rgba(123,63,228,0.14), 0 12px 36px rgba(123,63,228,0.22), 0 2px 12px rgba(0,0,0,0.14);
+  box-shadow: 0 0 0 6px rgba(3,5,167,0.14), 0 12px 36px rgba(3,5,167,0.22), 0 2px 12px rgba(0,0,0,0.14);
   border-color: transparent;
 }
 
@@ -382,11 +382,11 @@
 /* Active link: glowing gradient text and shadow */
 .navbar a.active,
 .navbar a[aria-current="page"] {
-  background: linear-gradient(90deg, #7B3FE4, #FF9500, #FF2AD8);
+  background: linear-gradient(90deg, #0305a7, #c10200, #0305a7);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  box-shadow: 0 0 12px 2px #7B3FE4, 0 0 24px 4px #FF9500, 0 0 32px 6px #FF2AD8;
+  box-shadow: 0 0 12px 2px #0305a7, 0 0 24px 4px #c10200, 0 0 32px 6px #0305a7;
   font-size: var(--font-size-2xl, 1.5625rem); /* Even larger when active */
 }
 
@@ -398,6 +398,6 @@
   height: 3px;
   border-radius: 2px;
   margin-top: 6px;
-  background: linear-gradient(90deg, #7B3FE4, #FF9500, #FF2AD8);
-  box-shadow: 0 0 8px #FF2AD8;
+  background: linear-gradient(90deg, #0305a7, #c10200, #0305a7);
+  box-shadow: 0 0 8px #0305a7;
 }
