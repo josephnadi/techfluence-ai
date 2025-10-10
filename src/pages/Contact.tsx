@@ -79,53 +79,48 @@ const Contact = () => {
             </div>
 
             {/* Main Content Grid */}
-            <div className="grid grid-cols-5 grid-rows-5 gap-4 max-w-7xl mx-auto">
-              {/* 1. Call Directly */}
-              <div className="col-span-2">
-                <a href="tel:+233595521498" className="block group h-full">
-                  <Card className="p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 transition-all duration-300 animate-fade-in h-full" style={{animationDelay: '100ms'}}>
-                    <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-green-500/30">
-                      <Phone className="w-7 h-7 text-white" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6 max-w-7xl mx-auto">
+              {/* Left Column - Contact Methods */}
+              <div className="lg:col-span-1 space-y-4">
+                {/* 1. Call Directly */}
+                <a href="tel:+233595521498" className="block group">
+                  <Card className="p-4 sm:p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 transition-all duration-300 animate-fade-in" style={{animationDelay: '100ms'}}>
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-green-500/30">
+                      <Phone className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                     </div>
-                    <h3 className="font-semibold text-center mb-2 text-lg">Call Directly</h3>
-                    <p className="text-primary hover:underline block text-center mb-1 font-medium">+233595521498</p>
-                    <p className="text-sm text-muted-foreground text-center">Available 24/7 for emergencies</p>
+                    <h3 className="font-semibold text-center mb-2 text-base sm:text-lg">Call Directly</h3>
+                    <p className="text-primary hover:underline block text-center mb-1 font-medium text-sm sm:text-base">+233595521498</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground text-center">Available 24/7 for emergencies</p>
                   </Card>
                 </a>
-              </div>
 
-              {/* 2. Send Email */}
-              <div className="col-span-2 col-start-1 row-start-2">
-                <a href="mailto:techfluence.ai@outlook.com" className="block group h-full">
-                  <Card className="p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 animate-fade-in h-full" style={{animationDelay: '200ms'}}>
-                    <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-blue-500/30">
-                      <Mail className="w-7 h-7 text-white" />
+                {/* 2. Send Email */}
+                <a href="mailto:techfluence.ai@outlook.com" className="block group">
+                  <Card className="p-4 sm:p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/5 border border-blue-500/20 hover:border-blue-500/40 transition-all duration-300 animate-fade-in" style={{animationDelay: '200ms'}}>
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-blue-500/30">
+                      <Mail className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                     </div>
-                    <h3 className="font-semibold text-center mb-2 text-lg">Send Email</h3>
-                    <p className="text-primary hover:underline block text-center mb-1 font-medium break-all">techfluence.ai@outlook.com</p>
-                    <p className="text-sm text-muted-foreground text-center">Response within 24 hours</p>
+                    <h3 className="font-semibold text-center mb-2 text-base sm:text-lg">Send Email</h3>
+                    <p className="text-primary hover:underline block text-center mb-1 font-medium break-all text-xs sm:text-base">techfluence.ai@outlook.com</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground text-center">Response within 24 hours</p>
                   </Card>
                 </a>
-              </div>
 
-              {/* 3. Book Consultation */}
-              <div className="col-span-2 col-start-1 row-start-3">
-                <Card className="p-6 bg-gradient-to-br from-primary/10 to-purple-500/5 border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer group h-full" style={{animationDelay: '300ms'}}>
-                  <div className="w-14 h-14 bg-gradient-to-br from-primary to-purple-600 rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
-                    <Headphones className="w-7 h-7 text-white" />
+                {/* 3. Book Consultation */}
+                <Card className="p-4 sm:p-6 bg-gradient-to-br from-primary/10 to-purple-500/5 border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer group" style={{animationDelay: '300ms'}}>
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-primary to-purple-600 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-primary/30">
+                    <Headphones className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                   </div>
-                  <h3 className="font-semibold text-center mb-2 text-lg">Book Consultation</h3>
-                  <p className="text-primary text-center mb-1 font-medium">Free 30-min Call</p>
-                  <p className="text-sm text-muted-foreground text-center">Schedule at your convenience</p>
+                  <h3 className="font-semibold text-center mb-2 text-base sm:text-lg">Book Consultation</h3>
+                  <p className="text-primary text-center mb-1 font-medium text-sm sm:text-base">Free 30-min Call</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground text-center">Schedule at your convenience</p>
                 </Card>
-              </div>
 
-              {/* 4. Business Hours */}
-              <div className="col-span-2 row-span-2 col-start-1 row-start-4">
-                <Card className="p-6 bg-muted/50 border border-border/50 animate-fade-in h-full" style={{animationDelay: '400ms'}}>
-                  <Clock className="w-6 h-6 text-primary mb-3" />
-                  <h3 className="font-semibold mb-2">Business Hours</h3>
-                  <div className="space-y-1 text-sm">
+                {/* 4. Business Hours */}
+                <Card className="p-4 sm:p-6 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '400ms'}}>
+                  <Clock className="w-5 h-5 sm:w-6 sm:h-6 text-primary mb-2 sm:mb-3" />
+                  <h3 className="font-semibold mb-2 text-base sm:text-lg">Business Hours</h3>
+                  <div className="space-y-1 text-xs sm:text-sm">
                     <p className="text-muted-foreground">Mon - Fri: 9:00 AM - 6:00 PM</p>
                     <p className="text-muted-foreground">Saturday: 10:00 AM - 4:00 PM</p>
                     <p className="text-muted-foreground">Sunday: Emergency Support Only</p>
@@ -133,14 +128,14 @@ const Contact = () => {
                 </Card>
               </div>
 
-              {/* 5. Contact Form - Large */}
-              <div className="col-span-3 row-span-3 col-start-3 row-start-1">
-                <Card className="p-8 bg-muted/50 border border-border/50 animate-fade-in h-full" style={{animationDelay: '500ms'}}>
-                  <h3 className="text-2xl font-semibold mb-6">Send Us a Message</h3>
-                  <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4">
+              {/* Right Column - Contact Form */}
+              <div className="lg:col-span-2">
+                <Card className="p-4 sm:p-6 lg:p-8 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '500ms'}}>
+                  <h3 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">Send Us a Message</h3>
+                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                    <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium mb-2">Full Name *</label>
+                        <label className="block text-xs sm:text-sm font-medium mb-2">Full Name *</label>
                         <Input 
                           placeholder="Your full name" 
                           className="bg-background/50"
@@ -150,7 +145,7 @@ const Contact = () => {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium mb-2">Email Address *</label>
+                        <label className="block text-xs sm:text-sm font-medium mb-2">Email Address *</label>
                         <Input 
                           type="email" 
                           placeholder="your.email@company.com" 
@@ -162,9 +157,9 @@ const Contact = () => {
                       </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium mb-2">Phone Number</label>
+                        <label className="block text-xs sm:text-sm font-medium mb-2">Phone Number</label>
                         <Input 
                           placeholder="+233 XX XXX XXXX" 
                           className="bg-background/50"
@@ -173,7 +168,7 @@ const Contact = () => {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium mb-2">Company Name</label>
+                        <label className="block text-xs sm:text-sm font-medium mb-2">Company Name</label>
                         <Input 
                           placeholder="Your company name" 
                           className="bg-background/50"
@@ -183,9 +178,9 @@ const Contact = () => {
                       </div>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-4">
+                    <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium mb-2">Inquiry Type</label>
+                        <label className="block text-xs sm:text-sm font-medium mb-2">Inquiry Type</label>
                         <Select value={formData.inquiryType} onValueChange={(value) => setFormData({...formData, inquiryType: value})}>
                           <SelectTrigger className="bg-background/50">
                             <SelectValue placeholder="Select inquiry type" />
@@ -202,7 +197,7 @@ const Contact = () => {
                         </Select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium mb-2">Priority Level</label>
+                        <label className="block text-xs sm:text-sm font-medium mb-2">Priority Level</label>
                         <Select value={formData.priority} onValueChange={(value) => setFormData({...formData, priority: value})}>
                           <SelectTrigger className="bg-background/50">
                             <SelectValue />
@@ -218,10 +213,10 @@ const Contact = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-2">Message *</label>
+                      <label className="block text-xs sm:text-sm font-medium mb-2">Message *</label>
                       <Textarea 
                         placeholder="Tell us about your project requirements, current challenges, or how we can help you..." 
-                        className="min-h-[120px] bg-background/50"
+                        className="min-h-[100px] sm:min-h-[120px] bg-background/50"
                         value={formData.message}
                         onChange={(e) => setFormData({...formData, message: e.target.value})}
                         required
@@ -240,36 +235,33 @@ const Contact = () => {
                 </Card>
               </div>
 
-              {/* 6. Why Choose - Rapid Response */}
-              <div className="col-span-3 col-start-3 row-start-4">
-                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 h-full flex flex-col items-center justify-center" style={{animationDelay: '800ms'}}>
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
-                    <Zap className="w-6 h-6 text-white" />
+              {/* Why Choose Us Cards */}
+              <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Rapid Response */}
+                <Card className="p-4 sm:p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 flex flex-col items-center justify-center" style={{animationDelay: '800ms'}}>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-primary/30">
+                    <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2">Rapid Response</h3>
-                  <p className="text-sm text-muted-foreground">We respond to all inquiries within 24 hours, often much sooner.</p>
+                  <h3 className="font-semibold mb-2 text-base sm:text-lg">Rapid Response</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">We respond to all inquiries within 24 hours, often much sooner.</p>
                 </Card>
-              </div>
 
-              {/* 7. Why Choose - Expert Consultation */}
-              <div className="col-span-2 col-start-3 row-start-5">
-                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 h-full flex flex-col items-center justify-center" style={{animationDelay: '900ms'}}>
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
-                    <Users className="w-6 h-6 text-white" />
+                {/* Expert Consultation */}
+                <Card className="p-4 sm:p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 flex flex-col items-center justify-center" style={{animationDelay: '900ms'}}>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-primary/30">
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2">Expert Consultation</h3>
-                  <p className="text-sm text-muted-foreground">Free initial consultation with our certified IT professionals.</p>
+                  <h3 className="font-semibold mb-2 text-base sm:text-lg">Expert Consultation</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Free initial consultation with our certified IT professionals.</p>
                 </Card>
-              </div>
 
-              {/* 8. Why Choose - 24/7 Support */}
-              <div className="col-start-5 row-start-5">
-                <Card className="p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 h-full flex flex-col items-center justify-center" style={{animationDelay: '1000ms'}}>
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-4 mx-auto shadow-lg shadow-primary/30">
-                    <Headphones className="w-6 h-6 text-white" />
+                {/* 24/7 Support */}
+                <Card className="p-4 sm:p-6 bg-muted/50 border border-border/50 text-center animate-fade-in hover:border-primary/30 transition-all duration-300 flex flex-col items-center justify-center sm:col-span-2 lg:col-span-1" style={{animationDelay: '1000ms'}}>
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary to-purple-600 rounded-lg flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-primary/30">
+                    <Headphones className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                   </div>
-                  <h3 className="font-semibold mb-2">24/7 Support</h3>
-                  <p className="text-sm text-muted-foreground">Round-the-clock support for critical operations.</p>
+                  <h3 className="font-semibold mb-2 text-base sm:text-lg">24/7 Support</h3>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Round-the-clock support for critical operations.</p>
                 </Card>
               </div>
             </div>
