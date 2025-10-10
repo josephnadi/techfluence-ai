@@ -107,14 +107,16 @@ const Contact = () => {
                 </a>
 
                 {/* 3. Book Consultation */}
-                <Card className="p-4 sm:p-6 bg-gradient-to-br from-primary/10 to-purple-500/5 border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer group" style={{animationDelay: '300ms'}}>
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-primary to-purple-600 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-primary/30">
-                    <Headphones className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                  </div>
-                  <h3 className="font-semibold text-center mb-2 text-base sm:text-lg">Book Consultation</h3>
-                  <p className="text-primary text-center mb-1 font-medium text-sm sm:text-base">Free 30-min Call</p>
-                  <p className="text-xs sm:text-sm text-muted-foreground text-center">Schedule at your convenience</p>
-                </Card>
+                <a href="/book-consultation" className="block group">
+                  <Card className="p-4 sm:p-6 bg-gradient-to-br from-primary/10 to-purple-500/5 border border-primary/20 hover:border-primary/40 transition-all duration-300 animate-fade-in cursor-pointer" style={{animationDelay: '300ms'}}>
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-primary to-purple-600 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-primary/30">
+                      <Headphones className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                    </div>
+                    <h3 className="font-semibold text-center mb-2 text-base sm:text-lg">Book Consultation</h3>
+                    <p className="text-primary text-center mb-1 font-medium text-sm sm:text-base">Free 20-min Call</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground text-center">Schedule at your convenience</p>
+                  </Card>
+                </a>
 
                 {/* 4. Business Hours */}
                 <Card className="p-4 sm:p-6 bg-muted/50 border border-border/50 animate-fade-in" style={{animationDelay: '400ms'}}>

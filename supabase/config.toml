@@ -12,3 +12,6 @@ verify_jwt = false
 
 [functions.send-contact-email]
 verify_jwt = false
+
+[functions.book-consultation]
+verify_jwt = false
