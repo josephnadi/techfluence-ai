@@ -364,7 +364,7 @@
 
 /* Navbar font size and base color */
 .navbar {
-  font-size: var(--font-size-xl, 1.3125rem); /* Larger font size */
+  font-size: var(--font-size-2xl, 1.5625rem); /* Increased font size by +2 levels */
   font-weight: 900;
   background: transparent;
 }
