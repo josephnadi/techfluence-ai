@@ -58,7 +58,24 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      consultation_availability: {
+        Row: {
+          consultation_date: string | null
+          consultation_time: string | null
+          status: string | null
+        }
+        Insert: {
+          consultation_date?: string | null
+          consultation_time?: string | null
+          status?: string | null
+        }
+        Update: {
+          consultation_date?: string | null
+          consultation_time?: string | null
+          status?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
