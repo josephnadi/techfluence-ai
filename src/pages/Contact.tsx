@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Phone, Mail, Clock, Headphones, Zap, Shield, Users } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -62,6 +63,12 @@ const Contact = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <SEO 
+        title="Contact Us - AI Solutions & Tech Consulting Ghana"
+        description="Get in touch with Ghana's leading AI solutions provider. Free consultation for generative AI, digital transformation, and IT strategy projects."
+        canonical="https://techfluence-ai.lovable.app/contact"
+        keywords="contact AI consultant Ghana, tech consulting inquiry, IT solutions support, AI consultation booking"
+      />
       {/* Place this as the first element in your <body> */}
       <div id="top"></div>
       <Header />

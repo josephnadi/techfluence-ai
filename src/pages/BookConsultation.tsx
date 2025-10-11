@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -105,6 +106,12 @@ const BookConsultation = () => {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO 
+        title="Book Free AI Consultation | Generative AI Expert Ghana"
+        description="Schedule a free consultation with Ghana's leading AI experts. Discuss generative AI, custom software, and digital transformation strategies."
+        canonical="https://techfluence-ai.lovable.app/book-consultation"
+        keywords="AI consultation Ghana, free tech consultation, generative AI expert, IT strategy meeting"
+      />
       <Header />
       
       <main className="flex-1 pt-20 pb-16 bg-gradient-to-b from-background to-accent/20">

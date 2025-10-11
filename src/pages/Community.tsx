@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { BookOpen, Video, FileText, Download, ExternalLink, Brain } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import SEO from "@/components/SEO";
 
 const Community = () => {
   const learningMaterials = {
@@ -28,6 +29,12 @@ const Community = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <SEO 
+        title="Tech Community Ghana | AI & Digital Transformation Events"
+        description="Join Ghana's premier tech community. Connect with AI experts, attend digital transformation workshops, and grow your tech skills. Free membership."
+        canonical="https://techfluence-ai.lovable.app/community"
+        keywords="tech community Ghana, AI networking, digital transformation events, tech meetups Africa"
+      />
       <div id="top"></div>
       <Header />
       <main className="relative z-10 pt-24">
