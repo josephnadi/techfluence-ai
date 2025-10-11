@@ -1,5 +1,6 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const resendApiKey = Deno.env.get("RESEND_API_KEY");
 
@@ -8,14 +9,31 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-interface ContactEmailRequest {
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  inquiryType?: string;
-  priority?: string;
-  message: string;
+// Validation schema
+const ContactSchema = z.object({
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  phone: z.string().trim().max(20).optional(),
+  company: z.string().trim().max(100).optional(),
+  inquiryType: z.enum(['general', 'cloud', 'support', 'ai', 'web', 'partnership', 'other']).optional(),
+  priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
+  message: z.string().trim().min(10, "Message must be at least 10 characters").max(5000, "Message must be less than 5000 characters")
+});
+
+// Helper to escape HTML
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+// Helper to mask email for logging
+function maskEmail(email: string): string {
+  const [local, domain] = email.split('@');
+  return `${local.substring(0, 2)}***@${domain}`;
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -24,9 +42,25 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
-    const { name, email, phone, company, inquiryType, priority, message }: ContactEmailRequest = await req.json();
+    const rawData = await req.json();
+    
+    // Validate input
+    const validation = ContactSchema.safeParse(rawData);
+    if (!validation.success) {
+      console.error("Validation failed:", validation.error.errors);
+      return new Response(
+        JSON.stringify({ error: "Invalid input data", details: validation.error.errors }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+    
+    const { name, email, phone, company, inquiryType, priority, message } = validation.data;
 
-    console.log("Sending contact email from:", email);
+    console.log("Processing contact form:", {
+      email: maskEmail(email),
+      inquiryType,
+      priority
+    });
 
     const emailResponse = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -37,30 +71,30 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "Techfluence <onboarding@resend.dev>",
         to: ["techfluence.ai@outlook.com"],
-        subject: `New Contact Form Submission from ${name}`,
+        subject: `New Contact Form Submission from ${escapeHtml(name)}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #333;">New Contact Form Submission</h2>
             
             <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #666; margin-top: 0;">Contact Information</h3>
-              <p><strong>Name:</strong> ${name}</p>
-              <p><strong>Email:</strong> ${email}</p>
-              ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
-              ${company ? `<p><strong>Company:</strong> ${company}</p>` : ''}
+              <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+              <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+              ${phone ? `<p><strong>Phone:</strong> ${escapeHtml(phone)}</p>` : ''}
+              ${company ? `<p><strong>Company:</strong> ${escapeHtml(company)}</p>` : ''}
             </div>
 
             ${inquiryType || priority ? `
               <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
                 <h3 style="color: #666; margin-top: 0;">Inquiry Details</h3>
-                ${inquiryType ? `<p><strong>Inquiry Type:</strong> ${inquiryType}</p>` : ''}
-                ${priority ? `<p><strong>Priority:</strong> ${priority}</p>` : ''}
+                ${inquiryType ? `<p><strong>Inquiry Type:</strong> ${escapeHtml(inquiryType)}</p>` : ''}
+                ${priority ? `<p><strong>Priority:</strong> ${escapeHtml(priority)}</p>` : ''}
               </div>
             ` : ''}
 
             <div style="background-color: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="color: #666; margin-top: 0;">Message</h3>
-              <p style="white-space: pre-wrap;">${message}</p>
+              <p style="white-space: pre-wrap;">${escapeHtml(message)}</p>
             </div>
 
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px;">
@@ -73,14 +107,13 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (!emailResponse.ok) {
       const errorText = await emailResponse.text();
-      console.error("Resend API error:", errorText);
+      console.error("Failed to send email");
       throw new Error(`Failed to send email: ${errorText}`);
     }
 
-    const data = await emailResponse.json();
-    console.log("Email sent successfully:", data);
+    console.log("Contact email sent successfully");
 
-    return new Response(JSON.stringify(data), {
+    return new Response(JSON.stringify({ success: true }), {
       status: 200,
       headers: {
         "Content-Type": "application/json",

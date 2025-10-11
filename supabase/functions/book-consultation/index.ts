@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.39.3";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const resendApiKey = Deno.env.get("RESEND_API_KEY");
 const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
@@ -10,14 +11,34 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-interface BookingRequest {
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  consultation_date: string;
-  consultation_time: string;
-  message?: string;
+// Validation schema
+const BookingSchema = z.object({
+  name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
+  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  phone: z.string().trim().regex(/^\+?[0-9\s\-()]{10,20}$/, "Invalid phone number format").optional(),
+  company: z.string().trim().max(100, "Company name must be less than 100 characters").optional(),
+  consultation_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
+  consultation_time: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format"),
+  message: z.string().trim().max(1000, "Message must be less than 1000 characters").optional()
+});
+
+// Helper to mask sensitive data in logs
+function maskEmail(email: string): string {
+  const [local, domain] = email.split('@');
+  return `${local.substring(0, 2)}***@${domain}`;
+}
+
+function maskPhone(phone?: string): string {
+  return phone ? `***${phone.slice(-4)}` : '';
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
 }
 
 const handler = async (req: Request): Promise<Response> => {
@@ -27,9 +48,45 @@ const handler = async (req: Request): Promise<Response> => {
 
   try {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
-    const booking: BookingRequest = await req.json();
-
-    console.log("Processing booking:", booking);
+    const rawBooking = await req.json();
+    
+    // Validate input
+    const validation = BookingSchema.safeParse(rawBooking);
+    if (!validation.success) {
+      console.error("Validation failed:", validation.error.errors);
+      return new Response(
+        JSON.stringify({ error: "Invalid input data", details: validation.error.errors }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+    
+    const booking = validation.data;
+    
+    // Log without PII
+    console.log("Processing booking:", {
+      email: maskEmail(booking.email),
+      phone: maskPhone(booking.phone),
+      date: booking.consultation_date,
+      time: booking.consultation_time
+    });
+    
+    // Validate date is in future
+    const bookingDate = new Date(booking.consultation_date);
+    if (bookingDate <= new Date()) {
+      return new Response(
+        JSON.stringify({ error: "Cannot book consultations in the past" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+    
+    // Validate time slot
+    const validTimes = ["09:00", "09:30", "10:00", "10:30", "11:00", "13:00", "13:30", "14:00", "14:30", "15:00"];
+    if (!validTimes.includes(booking.consultation_time)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid consultation time slot" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
     // Check if slot is still available
     const { data: existingBookings, error: checkError } = await supabase
@@ -75,7 +132,11 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Failed to create booking");
     }
 
-    console.log("Booking created:", consultation.id);
+    console.log("Booking created successfully:", {
+      id: consultation.id,
+      date: booking.consultation_date,
+      time: booking.consultation_time
+    });
 
     // Format date and time for emails
     const formattedDate = new Date(booking.consultation_date).toLocaleDateString("en-US", {
@@ -95,7 +156,7 @@ DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").split(".")[0]}Z
 DTSTART:${booking.consultation_date.replace(/-/g, "")}T${booking.consultation_time.replace(":", "")}00Z
 DTEND:${booking.consultation_date.replace(/-/g, "")}T${(parseInt(booking.consultation_time.split(":")[0]) * 60 + parseInt(booking.consultation_time.split(":")[1]) + 20).toString().padStart(4, "0")}00Z
 SUMMARY:TechFluence Consultation
-DESCRIPTION:Consultation with ${booking.name}
+DESCRIPTION:Consultation with ${escapeHtml(booking.name)}
 LOCATION:Online
 STATUS:CONFIRMED
 SEQUENCE:0
@@ -135,18 +196,18 @@ END:VCALENDAR`;
                   <h1>🎉 Consultation Confirmed!</h1>
                 </div>
                 <div class="content">
-                  <p>Dear ${booking.name},</p>
+                  <p>Dear ${escapeHtml(booking.name)},</p>
                   <p>Your consultation has been successfully booked with TechFluence.</p>
                   
                   <div class="details">
                     <h3 style="margin-top: 0; color: #3b82f6;">Consultation Details</h3>
                     <div class="detail-row">
                       <span class="detail-label">Date:</span>
-                      <span>${formattedDate}</span>
+                      <span>${escapeHtml(formattedDate)}</span>
                     </div>
                     <div class="detail-row">
                       <span class="detail-label">Time:</span>
-                      <span>${booking.consultation_time}</span>
+                      <span>${escapeHtml(booking.consultation_time)}</span>
                     </div>
                     <div class="detail-row">
                       <span class="detail-label">Duration:</span>
@@ -155,7 +216,7 @@ END:VCALENDAR`;
                     ${booking.company ? `
                     <div class="detail-row">
                       <span class="detail-label">Company:</span>
-                      <span>${booking.company}</span>
+                      <span>${escapeHtml(booking.company)}</span>
                     </div>
                     ` : ""}
                   </div>
@@ -191,12 +252,11 @@ END:VCALENDAR`;
 
     if (!userEmailResponse.ok) {
       const errorText = await userEmailResponse.text();
-      console.error("Resend API error (user email):", errorText);
+      console.error("Failed to send user email");
       throw new Error(`Failed to send user email: ${errorText}`);
     }
 
-    const userEmailData = await userEmailResponse.json();
-    console.log("User email sent:", userEmailData);
+    console.log("User confirmation email sent successfully");
 
     // Send notification email to admin
     const adminEmailResponse = await fetch("https://api.resend.com/emails", {
@@ -208,7 +268,7 @@ END:VCALENDAR`;
       body: JSON.stringify({
         from: "TechFluence Bookings <onboarding@resend.dev>",
         to: ["techfluence.ai@outlook.com"],
-        subject: `New Consultation Booked - ${booking.name}`,
+        subject: `New Consultation Booked - ${escapeHtml(booking.name)}`,
         html: `
           <!DOCTYPE html>
           <html>
@@ -235,32 +295,32 @@ END:VCALENDAR`;
                   <div class="info-grid">
                     <div class="info-item">
                       <div class="label">Client Name</div>
-                      <div class="value">${booking.name}</div>
+                      <div class="value">${escapeHtml(booking.name)}</div>
                     </div>
                     <div class="info-item">
                       <div class="label">Email</div>
-                      <div class="value">${booking.email}</div>
+                      <div class="value">${escapeHtml(booking.email)}</div>
                     </div>
                     ${booking.phone ? `
                     <div class="info-item">
                       <div class="label">Phone</div>
-                      <div class="value">${booking.phone}</div>
+                      <div class="value">${escapeHtml(booking.phone)}</div>
                     </div>
                     ` : ""}
                     ${booking.company ? `
                     <div class="info-item">
                       <div class="label">Company</div>
-                      <div class="value">${booking.company}</div>
+                      <div class="value">${escapeHtml(booking.company)}</div>
                     </div>
                     ` : ""}
                     <div class="info-item">
                       <div class="label">Date & Time</div>
-                      <div class="value">${formattedDate} at ${booking.consultation_time}</div>
+                      <div class="value">${escapeHtml(formattedDate)} at ${escapeHtml(booking.consultation_time)}</div>
                     </div>
                     ${booking.message ? `
                     <div class="info-item">
                       <div class="label">Message</div>
-                      <div class="value">${booking.message}</div>
+                      <div class="value">${escapeHtml(booking.message)}</div>
                     </div>
                     ` : ""}
                   </div>
@@ -276,12 +336,11 @@ END:VCALENDAR`;
 
     if (!adminEmailResponse.ok) {
       const errorText = await adminEmailResponse.text();
-      console.error("Resend API error (admin email):", errorText);
+      console.error("Failed to send admin notification");
       // Don't throw error for admin email, as user booking is already confirmed
+    } else {
+      console.log("Admin notification email sent successfully");
     }
-
-    const adminEmailData = await adminEmailResponse.json();
-    console.log("Admin email sent:", adminEmailData);
 
     return new Response(
       JSON.stringify({ success: true, bookingId: consultation.id }),

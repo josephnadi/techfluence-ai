@@ -38,7 +38,7 @@ const BookConsultation = () => {
       if (!selectedDate) return;
 
       const { data, error } = await supabase
-        .from("consultations")
+        .from("consultation_availability")
         .select("consultation_time")
         .eq("consultation_date", format(selectedDate, "yyyy-MM-dd"))
         .eq("status", "scheduled");
