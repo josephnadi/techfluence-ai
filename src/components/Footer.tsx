@@ -95,7 +95,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-sm text-gray-400 uppercase tracking-wider">PHONE</p>
-                  <p className="font-semibold text-white text-base">+233595521498</p>
+                  <p className="font-semibold text-white text-base">+14782495284</p>
                 </div>
               </div>
               
