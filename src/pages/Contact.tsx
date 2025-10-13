@@ -90,13 +90,13 @@ const Contact = () => {
               {/* Left Column - Contact Methods */}
               <div className="lg:col-span-1 space-y-4">
                 {/* 1. Call Directly */}
-                <a href="tel:+233595521498" className="block group">
+                <a href="tel:+14782495284" className="block group">
                   <Card className="p-4 sm:p-6 bg-gradient-to-br from-green-500/10 to-emerald-500/5 border border-green-500/20 hover:border-green-500/40 transition-all duration-300 animate-fade-in" style={{animationDelay: '100ms'}}>
                     <div className="w-12 h-12 sm:w-14 sm:h-14 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-3 sm:mb-4 mx-auto shadow-lg shadow-green-500/30">
                       <Phone className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                     </div>
                     <h3 className="font-semibold text-center mb-2 text-base sm:text-lg">Call Directly</h3>
-                    <p className="text-primary hover:underline block text-center mb-1 font-medium text-sm sm:text-base">+233595521498</p>
+                    <p className="text-primary hover:underline block text-center mb-1 font-medium text-sm sm:text-base">+14782495284</p>
                     <p className="text-xs sm:text-sm text-muted-foreground text-center">Available 24/7 for emergencies</p>
                   </Card>
                 </a>
