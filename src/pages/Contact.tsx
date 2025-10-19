@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Phone, Mail, Clock, Headphones } from "lucide-react";
+import { Phone, Mail, Clock } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -20,7 +20,7 @@ const Contact = () => {
     inquiryType: "",
     priority: "medium",
     message: "",
-    source: "techfluence-website", // hidden field for tracking
+    source: "techfluence-website",
   });
   const { toast } = useToast();
 
@@ -29,9 +29,8 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-        const response = await fetch(
+      const response = await fetch(
         "https://tyesha-unharped-unpersuasively.ngrok-free.dev/webhook/contact-form",
-
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -46,7 +45,7 @@ const Contact = () => {
         description: "We've received your message and will get back to you soon.",
       });
 
-      // Reset form
+      // Reset form after successful submission
       setFormData({
         name: "",
         email: "",
@@ -75,9 +74,12 @@ const Contact = () => {
         title="Contact Us - TechFluence Ghana"
         description="Reach out to TechFluence for web development, AI automation, or IT strategy projects. Let's create something great together!"
         canonical="https://techfluence-ai.lovable.app/contact"
-        keywords="contact techfluence ghana, web development inquiry, ai automation contact, it solutions"
+        keywords="contact techfluence ghana, web development inquiry, ai automation contact, it solutions, digital transformation, techfluence support, business it consulting, techfluence email, techfluence phone number, 
+        techfluence office hours, techfluence customer service, techfluence contact form, techfluence digital services, techfluence technology solutions, techfluence partnership, techfluence project inquiry,
+        techfluence collaboration, ai solutions ghana, web solutions ghana, it consulting ghana"
       />
       <Header />
+
       <main className="relative z-10 pt-24">
         <section className="py-16">
           <div className="container mx-auto px-6">
@@ -113,7 +115,9 @@ const Contact = () => {
                         <Mail className="w-6 h-6 text-white" />
                       </div>
                       <h3 className="font-semibold mb-1">Email Us</h3>
-                      <p className="text-primary font-medium break-all">techfluence.ai@outlook.com</p>
+                      <p className="text-primary font-medium break-all">
+                        techfluence.ai@outlook.com
+                      </p>
                       <p className="text-sm text-muted-foreground">Response within 24 hours</p>
                     </div>
                   </Card>
@@ -220,6 +224,7 @@ const Contact = () => {
           </div>
         </section>
       </main>
+
       <Footer />
     </div>
   );
