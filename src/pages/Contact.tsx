@@ -29,8 +29,9 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(
-        "https://tyesha-unharped-unpersuasively.ngrok-free.dev/webhook-test/contact-form",
+        const response = await fetch(
+        "https://tyesha-unharped-unpersuasively.ngrok-free.dev/webhook/contact-form",
+
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
