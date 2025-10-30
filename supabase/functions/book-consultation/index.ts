@@ -189,6 +189,10 @@ END:VCALENDAR`;
                 .button { display: inline-block; background: #3b82f6; color: white; padding: 12px 30px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
                 .footer { text-align: center; color: #6b7280; font-size: 14px; margin-top: 30px; }
               </style>
+              <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
+  o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
+  o.onload=function(){window.trackingFunctions.onLoad({appId:"69039ecd289111001963b8b9"})},
+  document.head.appendChild(o)}initApollo();</script>
             </head>
             <body>
               <div class="container">
@@ -281,8 +285,12 @@ END:VCALENDAR`;
                 .info-grid { display: grid; gap: 15px; margin: 20px 0; }
                 .info-item { padding: 15px; background: #f9fafb; border-radius: 6px; }
                 .label { font-weight: bold; color: #6b7280; font-size: 14px; }
-                .value { color: #111827; font-size: 16px; margin-top: 5px; }
+                .value { color: #0804fcff; font-size: 16px; margin-top: 5px; }
               </style>
+              <script>function initApollo(){var n=Math.random().toString(36).substring(7),o=document.createElement("script");
+  o.src="https://assets.apollo.io/micro/website-tracker/tracker.iife.js?nocache="+n,o.async=!0,o.defer=!0,
+  o.onload=function(){window.trackingFunctions.onLoad({appId:"69039ecd289111001963b8b9"})},
+  document.head.appendChild(o)}initApollo();</script>
             </head>
             <body>
               <div class="container">
