@@ -21,7 +21,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { Sparkles, Loader2 } from "lucide-react";
 
-const BlogGenerator = () => {
+interface BlogGeneratorProps {
+  onSuccess?: () => void;
+}
+
+const BlogGenerator = ({ onSuccess }: BlogGeneratorProps = {}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [topic, setTopic] = useState("");
@@ -61,10 +65,14 @@ const BlogGenerator = () => {
       setTopic("");
       setCategory("");
       
-      // Reload the page to show the new post
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      // Call onSuccess callback if provided, otherwise reload page
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
     } catch (error) {
       console.error("Error generating blog post:", error);
       toast.error("Failed to generate blog post. Please try again.");

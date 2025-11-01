@@ -5,9 +5,10 @@ interface SEOProps {
   description: string;
   canonical?: string;
   keywords?: string;
+  robots?: string;
 }
 
-const SEO = ({ title, description, canonical, keywords }: SEOProps) => {
+const SEO = ({ title, description, canonical, keywords, robots }: SEOProps) => {
   useEffect(() => {
     // Update title
     document.title = title;
@@ -27,6 +28,9 @@ const SEO = ({ title, description, canonical, keywords }: SEOProps) => {
     updateMetaTag('description', description);
     if (keywords) {
       updateMetaTag('keywords', keywords);
+    }
+    if (robots) {
+      updateMetaTag('robots', robots);
     }
 
     // Update Open Graph tags
@@ -50,7 +54,7 @@ const SEO = ({ title, description, canonical, keywords }: SEOProps) => {
       }
       linkElement.href = canonical;
     }
-  }, [title, description, canonical, keywords]);
+  }, [title, description, canonical, keywords, robots]);
 
   return null;
 };
