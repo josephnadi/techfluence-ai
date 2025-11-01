@@ -42,7 +42,7 @@ const HeroSection = () => {
               <Link to="/contact">
                 <Button 
                   size="lg" 
-                  className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-all hover:scale-105"
+                  className="bg-primary text-white hover:opacity-90 transition-all hover:scale-105 shadow-[0_0_30px_hsl(var(--primary)/0.5)]"
                 >
                   Get Started Today
                 </Button>

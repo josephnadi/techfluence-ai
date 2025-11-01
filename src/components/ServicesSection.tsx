@@ -98,7 +98,7 @@ const ServicesSection = () => {
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-foreground">Comprehensive</span><br />
-            <span className="gradient-text">IT Solutions</span>
+            <span className="text-primary">IT Solutions</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             From cloud infrastructure to AI automation, we provide end-to-end technology solutions
@@ -116,8 +116,8 @@ const ServicesSection = () => {
             >
               <CardHeader className="pb-4">
                 <div className="mb-6">
-                  <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center relative group-hover:shadow-[0_0_40px_rgba(124,58,237,0.6)] transition-all duration-500">
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-primary to-primary/60 blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
+                  <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center relative group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)] transition-all duration-500">
+                    <div className="absolute inset-0 rounded-3xl bg-primary blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
                     <div className="relative text-white">
                       {service.icon}
                     </div>
@@ -145,7 +145,7 @@ const ServicesSection = () => {
           <Link to="/contact">
             <Button 
               size="lg" 
-              className="gradient-primary text-white border-0 hover:opacity-90 px-8 py-6 transition-all hover:scale-105"
+              className="bg-primary text-white border-0 hover:opacity-90 px-8 py-6 transition-all hover:scale-105 shadow-[0_0_30px_hsl(var(--primary)/0.5)]"
             >
               Schedule Your Free Consultation
             </Button>

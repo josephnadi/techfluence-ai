@@ -49,10 +49,7 @@
     --font-size-4xl: 2.5rem; /* 40px */
     --font-size-5xl: 3.25rem; /* 52px */
     
-    /* Custom Techfluence gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(239, 97%, 33%), hsl(1, 100%, 38%));
-    --gradient-hero: linear-gradient(135deg, hsl(239, 97%, 33%) 0%, hsl(239, 97%, 40%) 50%, hsl(1, 100%, 38%) 100%);
-    --gradient-text: linear-gradient(135deg, #0305a7, #c10200);
+    /* Removed gradients - using solid colors */
     
     /* Floating animations */
     --float-duration: 6s;
@@ -136,7 +133,7 @@
   position: absolute;
   inset: -2px;
   border-radius: 0.5rem;
-  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+  background: hsl(var(--primary));
   opacity: 0.15;
   animation: pulseGlow 2s ease-in-out infinite;
   z-index: -1;
@@ -147,7 +144,7 @@
   position: absolute;
   inset: 0;
   border-radius: 0.5rem;
-  background: linear-gradient(45deg, hsl(var(--primary)), hsl(var(--accent)));
+  background: hsl(var(--primary));
   opacity: 0.1;
   filter: blur(8px);
   animation: glowPulse 2s ease-in-out infinite;
@@ -188,53 +185,118 @@
     scroll-behavior: smooth;
   }
   
-  /* Scroll fade-in animations */
-  @keyframes fadeInUp {
-    from {
+  /* Deep Authoritative Scroll Animations */
+  @keyframes deepFadeInUp {
+    0% {
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(120px) scale(0.85) rotateX(25deg);
+      filter: blur(10px);
     }
-    to {
+    60% {
+      opacity: 0.8;
+      transform: translateY(20px) scale(0.95) rotateX(5deg);
+      filter: blur(2px);
+    }
+    100% {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1) rotateX(0deg);
+      filter: blur(0);
     }
   }
   
-  @keyframes fadeInScale {
-    from {
+  @keyframes powerSlideIn {
+    0% {
       opacity: 0;
-      transform: scale(0.95);
+      transform: translateX(-150px) scale(0.7) rotate(-5deg);
+      filter: blur(15px);
     }
-    to {
+    70% {
+      opacity: 0.9;
+      transform: translateX(10px) scale(1.02) rotate(1deg);
+      filter: blur(1px);
+    }
+    100% {
       opacity: 1;
-      transform: scale(1);
+      transform: translateX(0) scale(1) rotate(0deg);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes massiveScale {
+    0% {
+      opacity: 0;
+      transform: scale(0.4) rotate(-10deg);
+      filter: blur(20px);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.1) rotate(2deg);
+      filter: blur(3px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+      filter: blur(0);
+    }
+  }
+
+  @keyframes epicReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(200px) translateZ(-500px) rotateX(45deg);
+      filter: blur(25px);
+    }
+    60% {
+      opacity: 0.8;
+      transform: translateY(30px) translateZ(-50px) rotateX(10deg);
+      filter: blur(5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) translateZ(0) rotateX(0deg);
+      filter: blur(0);
     }
   }
   
   .scroll-fade-in {
     opacity: 0;
-    animation: fadeInUp 1.0s ease-out forwards;
+    animation: deepFadeInUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-style: preserve-3d;
+    perspective: 1000px;
   }
   
   .scroll-scale-in {
     opacity: 0;
-    animation: fadeInScale 1.0s ease-out forwards;
+    animation: massiveScale 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .scroll-slide-in {
+    opacity: 0;
+    animation: powerSlideIn 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .scroll-epic-reveal {
+    opacity: 0;
+    animation: epicReveal 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    transform-style: preserve-3d;
+    perspective: 1500px;
   }
   
-  /* Techfluence custom styles */
-  .gradient-text {
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  /* Solid color styles - no gradients */
+  .primary-text {
+    color: hsl(var(--primary));
   }
   
-  .gradient-primary {
-    background: var(--gradient-primary);
+  .accent-text {
+    color: hsl(var(--accent));
   }
   
-  .gradient-hero {
-    background: var(--gradient-hero);
+  .primary-bg {
+    background: hsl(var(--primary));
+  }
+  
+  .accent-bg {
+    background: hsl(var(--accent));
   }
   
   .floating-particle {
@@ -252,12 +314,9 @@
     box-shadow: 0 0 50px rgba(3, 5, 167, 0.3);
   }
   
-  /* Gradient text utility */
+  /* Solid text utility */
   .gradient-text {
-    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: hsl(var(--primary));
   }
 
   /* Card hover animation */
@@ -289,23 +348,41 @@
 }
 /* ...existing code... */
 
-/* --- Scroll-based reveal animations --- */
+/* --- Deep Scroll-based Reveal Animations --- */
 @keyframes revealFadeUp {
-  from { opacity: 0; transform: translateY(40px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  0% { 
+    opacity: 0; 
+    transform: translateY(150px) scale(0.8) rotateX(30deg);
+    filter: blur(15px);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translateY(10px) scale(1.02) rotateX(3deg);
+    filter: blur(2px);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0) scale(1) rotateX(0deg);
+    filter: blur(0);
+  }
 }
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(40px) scale(0.96);
-  transition: opacity 0.7s, transform 0.7s;
+  transform: translateY(150px) scale(0.8) rotateX(30deg);
+  transition: opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-style: preserve-3d;
+  perspective: 1500px;
 }
 .reveal-on-scroll.visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
-  animation: revealFadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transform: translateY(0) scale(1) rotateX(0deg);
+  filter: blur(0);
+  animation: revealFadeUp 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* --- Gradient border effect for cards --- */
+/* --- Solid border effect for cards --- */
 .gradient-border {
   position: relative;
   border-radius: var(--radius, 0.75rem);
@@ -318,7 +395,7 @@
   inset: -2px;
   border-radius: inherit;
   padding: 0;
-  background: var(--gradient-primary);
+  background: hsl(var(--primary));
   z-index: -1;
   opacity: 0.7;
   transition: opacity 0.3s;
@@ -346,21 +423,28 @@
   border-color: transparent;
 }
 
-/* --- Utility for staggered animation --- */
+/* --- Deep Staggered Animation with Authority --- */
 .staggered > * {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s, transform 0.7s;
+  transform: translateY(120px) scale(0.8);
+  filter: blur(10px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 1.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .staggered.visible > * {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+  filter: blur(0);
 }
-.staggered.visible > *:nth-child(1) { transition-delay: 0.1s; }
-.staggered.visible > *:nth-child(2) { transition-delay: 0.25s; }
-.staggered.visible > *:nth-child(3) { transition-delay: 0.4s; }
-.staggered.visible > *:nth-child(4) { transition-delay: 0.55s; }
-/* Add more as needed */
+.staggered.visible > *:nth-child(1) { transition-delay: 0.15s; }
+.staggered.visible > *:nth-child(2) { transition-delay: 0.35s; }
+.staggered.visible > *:nth-child(3) { transition-delay: 0.55s; }
+.staggered.visible > *:nth-child(4) { transition-delay: 0.75s; }
+.staggered.visible > *:nth-child(5) { transition-delay: 0.95s; }
+.staggered.visible > *:nth-child(6) { transition-delay: 1.15s; }
+.staggered.visible > *:nth-child(7) { transition-delay: 1.35s; }
+.staggered.visible > *:nth-child(8) { transition-delay: 1.55s; }
 
 /* Navbar font size and base color */
 .navbar {
@@ -379,18 +463,15 @@
   position: relative;
 }
 
-/* Active link: glowing gradient text and shadow */
+/* Active link: solid color with shadow */
 .navbar a.active,
 .navbar a[aria-current="page"] {
-  background: linear-gradient(90deg, #0305a7, #c10200, #0305a7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  box-shadow: 0 0 12px 2px #0305a7, 0 0 24px 4px #c10200, 0 0 32px 6px #0305a7;
-  font-size: var(--font-size-2xl, 1.5625rem); /* Even larger when active */
+  color: hsl(var(--primary));
+  box-shadow: 0 0 20px hsl(var(--primary) / 0.5);
+  font-size: var(--font-size-2xl, 1.5625rem);
 }
 
-/* Optional: glowing underline for active */
+/* Solid underline for active */
 .navbar a.active::after,
 .navbar a[aria-current="page"]::after {
   content: '';
@@ -398,6 +479,6 @@
   height: 3px;
   border-radius: 2px;
   margin-top: 6px;
-  background: linear-gradient(90deg, #0305a7, #c10200, #0305a7);
-  box-shadow: 0 0 8px #0305a7;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 8px hsl(var(--primary));
 }

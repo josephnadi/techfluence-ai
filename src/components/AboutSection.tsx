@@ -48,7 +48,7 @@ const AboutSection = () => {
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-foreground">Why Choose</span><br />
-            <span className="gradient-text">Techfluence?</span>
+            <span className="text-primary">Techfluence?</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             With over a decade of experience in enterprise IT solutions, we've helped hundreds of 
@@ -74,7 +74,7 @@ const AboutSection = () => {
           <Link to="/contact">
             <Button 
               size="lg" 
-              className="bg-gradient-to-r from-primary to-accent text-white hover:opacity-90 transition-all hover:scale-105"
+              className="bg-primary text-white hover:opacity-90 transition-all hover:scale-105 shadow-[0_0_30px_hsl(var(--primary)/0.5)]"
             >
               Schedule Your Free Consultation
               <ArrowRight className="ml-2 w-4 h-4" />
