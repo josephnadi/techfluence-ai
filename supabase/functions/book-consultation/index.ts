@@ -11,6 +11,26 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Rate limiting
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+
+function checkRateLimit(ip: string, maxRequests: number, windowMs: number): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+  
+  if (!record || now > record.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + windowMs });
+    return true;
+  }
+  
+  if (record.count >= maxRequests) {
+    return false;
+  }
+  
+  record.count++;
+  return true;
+}
+
 // Validation schema
 const BookingSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
@@ -47,6 +67,15 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Rate limiting - 5 requests per day per IP
+    const clientIP = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+    if (!checkRateLimit(clientIP, 5, 86400000)) {
+      return new Response(
+        JSON.stringify({ error: 'Rate limit exceeded. Please try again tomorrow.' }),
+        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     const rawBooking = await req.json();
     
