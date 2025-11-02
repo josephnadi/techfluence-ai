@@ -1,14 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, LogIn, LogOut, User } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import techfluenceLogo from "@/assets/techfluence-logo.png";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
   const location = useLocation();
   const activeSection = useActiveSection();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      toast.error("Failed to log out");
+    } else {
+      toast.success("Logged out successfully");
+    }
+  };
 
   const navigation = [
     { name: "Home", href: "/" },
@@ -99,8 +123,34 @@ const Header = () => {
             })}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
+          {/* CTA Button & Auth */}
+          <div className="hidden md:flex items-center gap-3">
+            {user ? (
+              <>
+                <Link to="/admin">
+                  <Button variant="ghost" size="sm" className="gap-2">
+                    <User className="h-4 w-4" />
+                    Admin
+                  </Button>
+                </Link>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={handleLogout}
+                  className="gap-2"
+                >
+                  <LogOut className="h-4 w-4" />
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <Link to="/auth">
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <LogIn className="h-4 w-4" />
+                  Login
+                </Button>
+              </Link>
+            )}
             <Link to="/contact">
               <Button className="gradient-primary text-white border-0 hover:opacity-90">
                 Get Started ⚡
@@ -158,6 +208,32 @@ const Header = () => {
                   </Link>
                 );
               })}
+              {user ? (
+                <>
+                  <Link to="/admin">
+                    <Button variant="ghost" size="sm" className="gap-2 w-fit">
+                      <User className="h-4 w-4" />
+                      Admin
+                    </Button>
+                  </Link>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={handleLogout}
+                    className="gap-2 w-fit"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Link to="/auth">
+                  <Button variant="ghost" size="sm" className="gap-2 w-fit">
+                    <LogIn className="h-4 w-4" />
+                    Login
+                  </Button>
+                </Link>
+              )}
               <Link to="/contact">
                 <Button className="gradient-primary text-white border-0 hover:opacity-90 w-fit">
                   Get Started ⚡
