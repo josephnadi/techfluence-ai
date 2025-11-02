@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Calendar, Clock, ArrowLeft, Share2 } from "lucide-react";
 import { toast } from "sonner";
 import ReactMarkdown from "react-markdown";
+import rehypeSanitize from "rehype-sanitize";
+import rehypeExternalLinks from "rehype-external-links";
 
 interface BlogPost {
   id: string;
@@ -203,7 +205,17 @@ const BlogPost = () => {
 
           {/* Post Content */}
           <div className="prose prose-lg max-w-none">
-            <ReactMarkdown>{post.content}</ReactMarkdown>
+            <ReactMarkdown
+              rehypePlugins={[
+                rehypeSanitize,
+                [rehypeExternalLinks, { 
+                  target: '_blank',
+                  rel: ['noopener', 'noreferrer', 'nofollow']
+                }]
+              ]}
+            >
+              {post.content}
+            </ReactMarkdown>
           </div>
 
           {/* Keywords */}
