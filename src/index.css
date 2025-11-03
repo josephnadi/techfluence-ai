@@ -7,7 +7,7 @@
 @layer base {
   :root {
     /* Dark theme background */
-    --background: 240 10% 3.9%;
+    --background: 244 25% 12%;
     --foreground: 0 0% 98%;
 
     /* Techfluence brand colors */
@@ -73,7 +73,7 @@
 
   .dark {
     /* Dark theme (default for Techfluence) */
-    --background: 240 10% 3.9%;
+    --background: 244 25% 12%;
     --foreground: 0 0% 98%;
 
     --card: 240 10% 6%;

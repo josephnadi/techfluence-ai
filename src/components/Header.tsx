@@ -10,16 +10,49 @@ import { toast } from "sonner";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const activeSection = useActiveSection();
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        setTimeout(() => {
+          supabase
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", session.user.id)
+            .eq("role", "admin")
+            .single()
+            .then(({ data }) => {
+              setIsAdmin(!!data);
+            });
+        }, 0);
+      } else {
+        setIsAdmin(false);
+      }
     });
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
+      
+      if (session?.user) {
+        setTimeout(() => {
+          supabase
+            .from("user_roles")
+            .select("role")
+            .eq("user_id", session.user.id)
+            .eq("role", "admin")
+            .single()
+            .then(({ data }) => {
+              setIsAdmin(!!data);
+            });
+        }, 0);
+      } else {
+        setIsAdmin(false);
+      }
     });
 
     return () => subscription.unsubscribe();
@@ -127,12 +160,14 @@ const Header = () => {
           <div className="hidden md:flex items-center gap-3">
             {user ? (
               <>
-                <Link to="/admin">
-                  <Button variant="ghost" size="sm" className="gap-2">
-                    <User className="h-4 w-4" />
-                    Admin
-                  </Button>
-                </Link>
+                {isAdmin && (
+                  <Link to="/admin">
+                    <Button variant="ghost" size="sm" className="gap-2">
+                      <User className="h-4 w-4" />
+                      Admin
+                    </Button>
+                  </Link>
+                )}
                 <Button 
                   variant="ghost" 
                   size="sm" 
@@ -210,12 +245,14 @@ const Header = () => {
               })}
               {user ? (
                 <>
-                  <Link to="/admin">
-                    <Button variant="ghost" size="sm" className="gap-2 w-fit">
-                      <User className="h-4 w-4" />
-                      Admin
-                    </Button>
-                  </Link>
+                  {isAdmin && (
+                    <Link to="/admin">
+                      <Button variant="ghost" size="sm" className="gap-2 w-fit">
+                        <User className="h-4 w-4" />
+                        Admin
+                      </Button>
+                    </Link>
+                  )}
                   <Button 
                     variant="ghost" 
                     size="sm" 
