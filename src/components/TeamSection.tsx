@@ -9,13 +9,6 @@ const TeamSection = () => {
   
   const team = [
     {
-      name: "Nadi Joseph",
-      role: "CEO & Founder", 
-      description: "Visionary leader with 4+ years in enterprise IT solutions. Former Microsoft consultant specializing in digital transformation.",
-      skills: ["Strategic Planning", "Digital Transformation", "Enterprise Architecture"],
-      image: nadiJosephImg
-    },
-    {
       name: "Sarah Chen",
       role: "CTO",
       description: "Technical expert in cloud architecture and AI automation. AWS & Azure certified with expertise in scalable infrastructure design.",
@@ -29,6 +22,14 @@ const TeamSection = () => {
       skills: ["Growth Strategy", "B2B Marketing", "Brand Development"],
       image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
     },
+        {
+      name: "Nadi Joseph",
+      role: "CEO & Founder", 
+      description: "Visionary leader with 4+ years in enterprise IT solutions. Former Microsoft consultant specializing in digital transformation.",
+      skills: ["Strategic Planning", "Digital Transformation", "Enterprise Architecture"],
+      image: nadiJosephImg
+    },
+    
     {
       name: "Emily Davis",
       role: "Lead Solutions Architect", 
