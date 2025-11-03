@@ -72,7 +72,6 @@ const Header = () => {
     { name: "Services", href: "/#services" },
     { name: "About", href: "/#about" },
     { name: "Blog", href: "/blog" },
-    { name: "Community", href: "/community" },
     { name: "Contact", href: "/contact" }
   ];
 
@@ -104,8 +103,8 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
-      <nav className="container mx-auto px-6 py-4">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10">
+      <nav className="container mx-auto px-8 py-5 max-w-7xl">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
@@ -121,7 +120,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-2">
+          <div className="hidden md:flex items-center space-x-1">
             {navigation.map((item) => {
               let isActive = false;
               
@@ -144,10 +143,10 @@ const Header = () => {
                   key={item.name}
                   to={item.href}
                   onClick={(e) => handleNavClick(item.href, e)}
-                  className={`relative px-4 py-2 text-base font-bold rounded-lg transition-all duration-300 hover:scale-105 ${
+                  className={`relative px-3 py-2 text-sm font-semibold rounded-lg transition-all duration-300 hover:scale-105 ${
                     isActive
                       ? "text-primary nav-link-active" 
-                      : "text-muted-foreground hover:text-primary hover:bg-primary/5"
+                      : "text-foreground/80 hover:text-primary hover:bg-white/5"
                   }`}
                 >
                   {item.name}

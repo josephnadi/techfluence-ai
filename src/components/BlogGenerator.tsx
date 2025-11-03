@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -30,6 +30,23 @@ const BlogGenerator = ({ onSuccess }: BlogGeneratorProps = {}) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [topic, setTopic] = useState("");
   const [category, setCategory] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const { data } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", session.user.id)
+          .eq("role", "admin")
+          .single();
+        setIsAdmin(!!data);
+      }
+    };
+    checkAdminStatus();
+  }, []);
 
   const categories = [
     "AI Solutions",
@@ -80,6 +97,10 @@ const BlogGenerator = ({ onSuccess }: BlogGeneratorProps = {}) => {
       setIsGenerating(false);
     }
   };
+
+  if (!isAdmin) {
+    return null;
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

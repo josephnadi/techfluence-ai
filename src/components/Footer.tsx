@@ -15,7 +15,6 @@ const Footer = () => {
   const quickLinks = [
     { name: "Home", href: "/" },
     { name: "Blog", href: "/blog" },
-    { name: "Community", href: "/community" },
     { name: "Contact", href: "/contact" }
   ];
 
@@ -110,6 +109,13 @@ const Footer = () => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Copyright Section */}
+        <div className="mt-16 pt-8 border-t border-white/10 text-center">
+          <p className="text-gray-400 text-sm">
+            © {new Date().getFullYear()} Techfluence Connect. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

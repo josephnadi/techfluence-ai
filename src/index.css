@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    /* Dark theme background */
-    --background: 244 25% 12%;
-    --foreground: 0 0% 98%;
+    /* Modern welcoming background with vibrant gradient */
+    --background: 240 100% 98%;
+    --foreground: 222 47% 11%;
 
     /* Techfluence brand colors */
     --card: 240 10% 6%;
@@ -72,9 +72,9 @@
   }
 
   .dark {
-    /* Dark theme (default for Techfluence) */
-    --background: 244 25% 12%;
-    --foreground: 0 0% 98%;
+    /* Modern welcoming background with vibrant gradient */
+    --background: 240 100% 98%;
+    --foreground: 222 47% 11%;
 
     --card: 240 10% 6%;
     --card-foreground: 0 0% 98%;
@@ -117,10 +117,12 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     font-size: 17px; /* Increased base font size */
-  scroll-behavior: smooth;
-}
+    scroll-behavior: smooth;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+  }
 
 /* Navigation Link Active Glow Animation */
 .nav-link-active {
