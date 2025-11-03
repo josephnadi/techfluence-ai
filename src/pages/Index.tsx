@@ -8,10 +8,8 @@ import FloatingParticles from "@/components/FloatingParticles";
 import Footer from "@/components/Footer";
 import AIAssistant from "@/components/AIAssistant";
 import NewsletterPopup from "@/components/NewsletterPopup";
-
 const Index = () => {
-  return (
-    <div className="relative min-h-screen bg-background overflow-hidden">
+  return <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Place this as the first element in your <body> */}
       <div id="top"></div>
       
@@ -22,10 +20,10 @@ const Index = () => {
       <main className="relative z-10">
         <HeroSection />
         <div className="space-y-8">
-          <ServicesSection />
+          <ServicesSection className="mx-[20px] my-0 py-0" />
           <AboutSection />
           <TeamSection />
-          <TestimonialsCarousel />
+          <TestimonialsCarousel className="py-0" />
         </div>
       </main>
       
@@ -34,10 +32,10 @@ const Index = () => {
       <AIAssistant />
       <NewsletterPopup />
       
-      <button 
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-4 right-4 p-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition-all"
-      >
+      <button onClick={() => window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })} className="fixed bottom-4 right-4 p-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition-all">
         {/* Go to Top */}
       </button>
 
@@ -54,8 +52,6 @@ const Index = () => {
           });
         `}
       </script>
-    </div>
-  );
+    </div>;
 };
-
 export default Index;

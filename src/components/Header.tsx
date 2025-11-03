@@ -6,113 +6,117 @@ import techfluenceLogo from "@/assets/techfluence-logo.png";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
-
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
   const activeSection = useActiveSection();
-
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(({
+      data: {
+        session
+      }
+    }) => {
       setUser(session?.user ?? null);
-      
       if (session?.user) {
         setTimeout(() => {
-          supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", session.user.id)
-            .eq("role", "admin")
-            .single()
-            .then(({ data }) => {
-              setIsAdmin(!!data);
-            });
+          supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").single().then(({
+            data
+          }) => {
+            setIsAdmin(!!data);
+          });
         }, 0);
       } else {
         setIsAdmin(false);
       }
     });
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: {
+        subscription
+      }
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
-      
       if (session?.user) {
         setTimeout(() => {
-          supabase
-            .from("user_roles")
-            .select("role")
-            .eq("user_id", session.user.id)
-            .eq("role", "admin")
-            .single()
-            .then(({ data }) => {
-              setIsAdmin(!!data);
-            });
+          supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").single().then(({
+            data
+          }) => {
+            setIsAdmin(!!data);
+          });
         }, 0);
       } else {
         setIsAdmin(false);
       }
     });
-
     return () => subscription.unsubscribe();
   }, []);
-
   const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
+    const {
+      error
+    } = await supabase.auth.signOut();
     if (error) {
       toast.error("Failed to log out");
     } else {
       toast.success("Logged out successfully");
     }
   };
-
-  const navigation = [
-    { name: "Home", href: "/" },
-    { name: "Services", href: "/#services" },
-    { name: "About", href: "/#about" },
-    { name: "Blog", href: "/blog" },
-    { name: "Contact", href: "/contact" }
-  ];
-
+  const navigation = [{
+    name: "Home",
+    href: "/"
+  }, {
+    name: "Services",
+    href: "/#services"
+  }, {
+    name: "About",
+    href: "/#about"
+  }, {
+    name: "Blog",
+    href: "/blog"
+  }, {
+    name: "Contact",
+    href: "/contact"
+  }];
   const handleNavClick = (href: string, e: React.MouseEvent) => {
     setIsMenuOpen(false);
-    
     if (href === "/") {
       // Scroll to top for home
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     } else if (href.startsWith("/#")) {
       // Handle anchor links on home page
       e.preventDefault();
-      
+
       // If not on home page, navigate there first
       if (location.pathname !== "/") {
         window.location.href = href;
       } else {
         const element = document.getElementById(href.substring(2));
         if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
+          element.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
         }
       }
     } else {
       // For other routes, scroll to top after navigation
       setTimeout(() => {
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       }, 100);
     }
   };
-
-  return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10">
-      <nav className="container mx-auto px-8 py-5 max-w-7xl">
+  return <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10">
+      <nav className="container mx-auto px-8 py-5 max-w-7xl bg-slate-300">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img 
-              src={techfluenceLogo} 
-              alt="Techfluence Connect" 
-              className="w-10 h-10"
-            />
+            <img src={techfluenceLogo} alt="Techfluence Connect" className="w-10 h-10" />
             <div>
               <div className="text-xl font-bold text-foreground">Techfluence</div>
               <div className="text-xs text-muted-foreground -mt-1">IT Solutions & Consulting</div>
@@ -121,70 +125,46 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navigation.map((item) => {
-              let isActive = false;
-              
-              if (location.pathname !== "/") {
-                // For non-home pages, check exact path match
-                isActive = location.pathname === item.href;
-              } else {
-                // For home page, check active section
-                if (item.href === "/") {
-                  isActive = activeSection === "home";
-                } else if (item.href === "/#services") {
-                  isActive = activeSection === "services";
-                } else if (item.href === "/#about") {
-                  isActive = activeSection === "about";
-                }
+            {navigation.map(item => {
+            let isActive = false;
+            if (location.pathname !== "/") {
+              // For non-home pages, check exact path match
+              isActive = location.pathname === item.href;
+            } else {
+              // For home page, check active section
+              if (item.href === "/") {
+                isActive = activeSection === "home";
+              } else if (item.href === "/#services") {
+                isActive = activeSection === "services";
+              } else if (item.href === "/#about") {
+                isActive = activeSection === "about";
               }
-              
-              return (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  onClick={(e) => handleNavClick(item.href, e)}
-                  className={`relative px-3 py-2 text-sm font-semibold rounded-lg transition-all duration-300 hover:scale-105 ${
-                    isActive
-                      ? "text-primary nav-link-active" 
-                      : "text-foreground/80 hover:text-primary hover:bg-white/5"
-                  }`}
-                >
+            }
+            return <Link key={item.name} to={item.href} onClick={e => handleNavClick(item.href, e)} className={`relative px-3 py-2 text-sm font-semibold rounded-lg transition-all duration-300 hover:scale-105 ${isActive ? "text-primary nav-link-active" : "text-foreground/80 hover:text-primary hover:bg-white/5"}`}>
                   {item.name}
-                </Link>
-              );
-            })}
+                </Link>;
+          })}
           </div>
 
           {/* CTA Button & Auth */}
           <div className="hidden md:flex items-center gap-3">
-            {user ? (
-              <>
-                {isAdmin && (
-                  <Link to="/admin">
+            {user ? <>
+                {isAdmin && <Link to="/admin">
                     <Button variant="ghost" size="sm" className="gap-2">
                       <User className="h-4 w-4" />
                       Admin
                     </Button>
-                  </Link>
-                )}
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
-                  onClick={handleLogout}
-                  className="gap-2"
-                >
+                  </Link>}
+                <Button variant="ghost" size="sm" onClick={handleLogout} className="gap-2">
                   <LogOut className="h-4 w-4" />
                   Logout
                 </Button>
-              </>
-            ) : (
-              <Link to="/auth">
+              </> : <Link to="/auth">
                 <Button variant="ghost" size="sm" className="gap-2">
                   <LogIn className="h-4 w-4" />
                   Login
                 </Button>
-              </Link>
-            )}
+              </Link>}
             <Link to="/contact">
               <Button className="gradient-primary text-white border-0 hover:opacity-90">
                 Get Started ⚡
@@ -193,94 +173,58 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? (
-              <X className="w-6 h-6 text-foreground" />
-            ) : (
-              <Menu className="w-6 h-6 text-foreground" />
-            )}
+          <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+            {isMenuOpen ? <X className="w-6 h-6 text-foreground" /> : <Menu className="w-6 h-6 text-foreground" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden mt-4 py-4 border-t border-border/50">
+        {isMenuOpen && <div className="md:hidden mt-4 py-4 border-t border-border/50">
             <div className="flex flex-col space-y-2">
-              {navigation.map((item) => {
-                let isActive = false;
-                
-                if (location.pathname !== "/") {
-                  // For non-home pages, check exact path match
-                  isActive = location.pathname === item.href;
-                } else {
-                  // For home page, check active section
-                  if (item.href === "/") {
-                    isActive = activeSection === "home";
-                  } else if (item.href === "/#services") {
-                    isActive = activeSection === "services";
-                  } else if (item.href === "/#about") {
-                    isActive = activeSection === "about";
-                  }
-                }
-                
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    onClick={(e) => handleNavClick(item.href, e)}
-                    className={`relative px-4 py-2 text-base font-bold rounded-lg transition-all duration-300 ${
-                      isActive
-                        ? "text-primary nav-link-active" 
-                        : "text-muted-foreground hover:text-primary hover:bg-primary/5"
-                    }`}
-                  >
+              {navigation.map(item => {
+            let isActive = false;
+            if (location.pathname !== "/") {
+              // For non-home pages, check exact path match
+              isActive = location.pathname === item.href;
+            } else {
+              // For home page, check active section
+              if (item.href === "/") {
+                isActive = activeSection === "home";
+              } else if (item.href === "/#services") {
+                isActive = activeSection === "services";
+              } else if (item.href === "/#about") {
+                isActive = activeSection === "about";
+              }
+            }
+            return <Link key={item.name} to={item.href} onClick={e => handleNavClick(item.href, e)} className={`relative px-4 py-2 text-base font-bold rounded-lg transition-all duration-300 ${isActive ? "text-primary nav-link-active" : "text-muted-foreground hover:text-primary hover:bg-primary/5"}`}>
                     {item.name}
-                  </Link>
-                );
-              })}
-              {user ? (
-                <>
-                  {isAdmin && (
-                    <Link to="/admin">
+                  </Link>;
+          })}
+              {user ? <>
+                  {isAdmin && <Link to="/admin">
                       <Button variant="ghost" size="sm" className="gap-2 w-fit">
                         <User className="h-4 w-4" />
                         Admin
                       </Button>
-                    </Link>
-                  )}
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    onClick={handleLogout}
-                    className="gap-2 w-fit"
-                  >
+                    </Link>}
+                  <Button variant="ghost" size="sm" onClick={handleLogout} className="gap-2 w-fit">
                     <LogOut className="h-4 w-4" />
                     Logout
                   </Button>
-                </>
-              ) : (
-                <Link to="/auth">
+                </> : <Link to="/auth">
                   <Button variant="ghost" size="sm" className="gap-2 w-fit">
                     <LogIn className="h-4 w-4" />
                     Login
                   </Button>
-                </Link>
-              )}
+                </Link>}
               <Link to="/contact">
                 <Button className="gradient-primary text-white border-0 hover:opacity-90 w-fit">
                   Get Started ⚡
                 </Button>
               </Link>
             </div>
-          </div>
-        )}
+          </div>}
       </nav>
-    </header>
-  );
+    </header>;
 };
-
 export default Header;
