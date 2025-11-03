@@ -111,25 +111,25 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="bg-black border border-border/20 hover:border-primary/50 transition-all duration-500 group animate-fade-in hover:scale-105 overflow-hidden" 
+              className="bg-card backdrop-blur-sm border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-500 group animate-fade-in hover:scale-105 overflow-hidden" 
               style={{animationDelay: `${index * 100}ms`}}
             >
               <CardHeader className="pb-4">
                 <div className="mb-6">
                   <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center relative group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)] transition-all duration-500">
                     <div className="absolute inset-0 rounded-3xl bg-primary blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
-                    <div className="relative text-white">
+                    <div className="relative text-primary-foreground">
                       {service.icon}
                     </div>
                   </div>
                 </div>
-                <CardTitle className="text-2xl font-bold text-white mb-4">{service.title}</CardTitle>
-                <p className="text-gray-400 text-base leading-relaxed">{service.description}</p>
+                <CardTitle className="text-2xl font-bold text-card-foreground mb-4">{service.title}</CardTitle>
+                <p className="text-muted-foreground text-base leading-relaxed">{service.description}</p>
               </CardHeader>
               <CardContent className="pt-0">
                 <ul className="space-y-3">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start text-sm text-gray-400">
+                    <li key={idx} className="flex items-start text-sm text-muted-foreground">
                       <div className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0 mt-1.5" />
                       {feature}
                     </li>
