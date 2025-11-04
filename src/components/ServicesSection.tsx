@@ -96,7 +96,7 @@ const ServicesSection = () => {
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-4">
             🚀 Premium IT Solutions
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-vibrant">
             <span className="text-foreground">Comprehensive</span><br />
             <span className="text-primary">IT Solutions</span>
           </h2>
@@ -111,7 +111,7 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="bg-card backdrop-blur-sm border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-500 group animate-fade-in hover:scale-105 overflow-hidden" 
+              className="bg-card backdrop-blur-sm border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-500 group animate-fade-in hover:scale-105 overflow-hidden card-float bg-vibrant" 
               style={{animationDelay: `${index * 100}ms`}}
             >
               <CardHeader className="pb-4">
@@ -123,7 +123,7 @@ const ServicesSection = () => {
                     </div>
                   </div>
                 </div>
-                <CardTitle className="text-2xl font-bold text-card-foreground mb-4">{service.title}</CardTitle>
+                <CardTitle className="text-2xl font-bold text-card-foreground mb-4 text-vibrant">{service.title}</CardTitle>
                 <p className="text-muted-foreground text-base leading-relaxed">{service.description}</p>
               </CardHeader>
               <CardContent className="pt-0">

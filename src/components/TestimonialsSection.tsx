@@ -38,7 +38,7 @@ const TestimonialsSection = () => {
           <Badge variant="secondary" className="bg-accent/10 text-accent border-accent/20 mb-4">
             Client Success Stories
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-vibrant">
             <span className="text-foreground">Trusted by</span><br />
             <span className="gradient-text">Industry Leaders</span>
           </h2>
@@ -50,7 +50,11 @@ const TestimonialsSection = () => {
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="bg-card backdrop-blur-sm border border-border p-6 group hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+            <Card 
+              key={index} 
+              className="bg-card backdrop-blur-sm border border-border p-6 group hover:border-primary/50 hover:shadow-xl transition-all duration-300 card-float bg-vibrant"
+              style={{ animationDelay: `${index * 0.3}s` }}
+            >
               <Quote className="w-8 h-8 text-primary/50 mb-4" />
               <blockquote className="text-muted-foreground mb-6 leading-relaxed">
                 "{testimonial.quote}"
@@ -62,7 +66,7 @@ const TestimonialsSection = () => {
                   className="w-12 h-12 rounded-full object-cover"
                 />
                 <div>
-                  <div className="font-semibold">{testimonial.name}</div>
+                  <div className="font-semibold text-vibrant">{testimonial.name}</div>
                   <div className="text-sm text-muted-foreground">{testimonial.role}</div>
                 </div>
               </div>
