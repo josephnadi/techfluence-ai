@@ -17,7 +17,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 15%;
 
-    --primary: 262 83% 58%;
+    --primary: 241 100% 44%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 240 5% 96%;
@@ -26,7 +26,7 @@
     --muted: 240 5% 96%;
     --muted-foreground: 240 4% 46%;
 
-    --accent: 262 83% 58%;
+    --accent: 241 100% 44%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -34,7 +34,7 @@
 
     --border: 240 6% 90%;
     --input: 240 6% 90%;
-    --ring: 262 83% 58%;
+    --ring: 241 100% 44%;
 
     --radius: 0.75rem;
     
@@ -82,7 +82,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 15%;
 
-    --primary: 262 83% 58%;
+    --primary: 241 100% 44%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 240 5% 96%;
@@ -91,7 +91,7 @@
     --muted: 240 5% 96%;
     --muted-foreground: 240 4% 46%;
 
-    --accent: 262 83% 58%;
+    --accent: 241 100% 44%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84% 60%;
@@ -99,7 +99,7 @@
 
     --border: 240 6% 90%;
     --input: 240 6% 90%;
-    --ring: 262 83% 58%;
+    --ring: 241 100% 44%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 239 97% 33%;
@@ -120,7 +120,7 @@
     @apply text-foreground;
     font-size: 17px; /* Increased base font size */
     scroll-behavior: smooth;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #0400de 0%, #0066ff 100%);
     min-height: 100vh;
   }
 
