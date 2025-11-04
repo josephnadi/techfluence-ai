@@ -53,7 +53,7 @@ const TeamSection = () => {
           <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 mb-4">
             Meet Our Expert Team
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-vibrant">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-foreground">Industry</span><br />
             <span className="gradient-text">Experts</span>
           </h2>
@@ -66,11 +66,7 @@ const TeamSection = () => {
         {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
           {team.map((member, index) => (
-            <Card 
-              key={index} 
-              className="bg-card backdrop-blur-sm border border-border overflow-hidden group hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2 card-float" 
-              style={{animationDelay: `${index * 100}ms`}}
-            >
+            <Card key={index} className="bg-card backdrop-blur-sm border border-border overflow-hidden group hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2" style={{animationDelay: `${index * 100}ms`}}>
               <div className="flex justify-center pt-6 pb-3">
                 <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary/20 group-hover:border-primary/50 transition-all duration-500">
                   <img 
@@ -81,7 +77,7 @@ const TeamSection = () => {
                 </div>
               </div>
               <div className="p-5">
-                <h3 className="text-base font-semibold mb-1 text-vibrant">{member.name}</h3>
+                <h3 className="text-base font-semibold mb-1">{member.name}</h3>
                 <p className="text-primary font-medium text-sm mb-2">{member.role}</p>
                 <p className="text-xs text-muted-foreground mb-3">{member.description}</p>
                 <div className="flex flex-wrap gap-2">
@@ -99,12 +95,8 @@ const TeamSection = () => {
         {/* Team Stats */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           {teamStats.map((stat, index) => (
-            <div 
-              key={index} 
-              className="p-6 rounded-xl card-float"
-              style={{ animationDelay: `${index * 0.4}s` }}
-            >
-              <div className="text-4xl font-bold text-primary mb-2 text-vibrant">{stat.value}</div>
+            <div key={index}>
+              <div className="text-4xl font-bold text-primary mb-2">{stat.value}</div>
               <div className="text-muted-foreground font-medium">{stat.label}</div>
             </div>
           ))}

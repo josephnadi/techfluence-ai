@@ -20,12 +20,8 @@ const StatsSection = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
       {stats.map((stat, index) => (
-        <div 
-          key={index} 
-          className="text-center p-6 rounded-xl card-float"
-          style={{ animationDelay: `${index * 0.5}s` }}
-        >
-          <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2 text-vibrant`}>
+        <div key={index} className="text-center">
+          <div className={`text-4xl md:text-5xl font-bold ${stat.color} mb-2`}>
             {stat.number}
           </div>
           <p className="text-sm text-muted-foreground">

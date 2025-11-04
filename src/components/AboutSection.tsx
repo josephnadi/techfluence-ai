@@ -46,7 +46,7 @@ const AboutSection = () => {
           <Badge variant="secondary" className="bg-accent/10 text-accent border-accent/20 mb-4">
             Excellence in IT Solutions
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-vibrant">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
             <span className="text-foreground">Why Choose</span><br />
             <span className="text-primary">Techfluence?</span>
           </h2>
@@ -59,15 +59,11 @@ const AboutSection = () => {
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {features.map((feature, index) => (
-            <Card 
-              key={index} 
-              className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105 card-float" 
-              style={{animationDelay: `${index * 100}ms`}}
-            >
+            <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105" style={{animationDelay: `${index * 100}ms`}}>
               <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(124,58,237,0.7)] group-hover:animate-pulse">
                 {feature.icon}
               </div>
-              <h3 className="font-semibold mb-2 text-vibrant">{feature.title}</h3>
+              <h3 className="font-semibold mb-2">{feature.title}</h3>
               <p className="text-sm text-muted-foreground">{feature.description}</p>
             </Card>
           ))}
@@ -89,12 +85,8 @@ const AboutSection = () => {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-16">
           {stats.map((stat, index) => (
-            <div 
-              key={index} 
-              className="text-center p-6 rounded-xl card-float"
-              style={{ animationDelay: `${index * 0.3}s` }}
-            >
-              <div className="text-3xl md:text-4xl font-bold text-primary mb-2 text-vibrant">{stat.value}</div>
+            <div key={index} className="text-center">
+              <div className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</div>
               <div className="text-muted-foreground font-medium">{stat.label}</div>
             </div>
           ))}

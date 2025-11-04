@@ -18,7 +18,7 @@ const HeroSection = () => {
 
             {/* Main Heading */}
             <div className="space-y-4">
-              <h1 className="text-4xl lg:text-7xl font-bold leading-tight md:text-8xl text-vibrant">
+              <h1 className="text-4xl lg:text-7xl font-bold leading-tight md:text-8xl">
                 <span className="text-foreground">Transform</span><br />
                 <span className="text-foreground">Your</span><br />
                 <AnimatedText />
