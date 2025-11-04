@@ -68,7 +68,7 @@ const TeamSection = () => {
           {team.map((member, index) => (
             <Card 
               key={index} 
-              className="bg-card backdrop-blur-sm border border-border overflow-hidden group hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2 card-float bg-vibrant" 
+              className="bg-card backdrop-blur-sm border border-border overflow-hidden group hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2 card-float" 
               style={{animationDelay: `${index * 100}ms`}}
             >
               <div className="flex justify-center pt-6 pb-3">
@@ -101,7 +101,7 @@ const TeamSection = () => {
           {teamStats.map((stat, index) => (
             <div 
               key={index} 
-              className="p-6 rounded-xl bg-vibrant card-float"
+              className="p-6 rounded-xl card-float"
               style={{ animationDelay: `${index * 0.4}s` }}
             >
               <div className="text-4xl font-bold text-primary mb-2 text-vibrant">{stat.value}</div>

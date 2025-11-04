@@ -111,7 +111,7 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="bg-card backdrop-blur-sm border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-500 group animate-fade-in hover:scale-105 overflow-hidden card-float bg-vibrant" 
+              className="bg-card backdrop-blur-sm border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-500 group animate-fade-in hover:scale-105 overflow-hidden card-float" 
               style={{animationDelay: `${index * 100}ms`}}
             >
               <CardHeader className="pb-4">

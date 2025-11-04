@@ -120,8 +120,23 @@
     @apply text-foreground;
     font-size: 17px; /* Increased base font size */
     scroll-behavior: smooth;
-    background: linear-gradient(135deg, #0400de 0%, #0066ff 100%);
+    background: linear-gradient(45deg, rgba(4, 0, 222, 0.9), rgba(0, 102, 255, 0.9), rgba(4, 0, 222, 0.9));
+    background-size: 200% 200%;
+    animation: bgShimmer 8s ease infinite;
     min-height: 100vh;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 102, 255, 0.3), transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(4, 0, 222, 0.4), transparent 40%),
+                radial-gradient(circle at 20% 80%, rgba(0, 102, 255, 0.3), transparent 40%);
+    animation: bgShimmer 10s ease infinite;
+    pointer-events: none;
+    z-index: 0;
   }
 
 /* Navigation Link Active Glow Animation */
@@ -327,16 +342,6 @@
     }
   }
 
-  @keyframes vibrancePulse {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(4, 0, 222, 0.3), 0 0 40px rgba(4, 0, 222, 0.2);
-      background: hsl(var(--card));
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(4, 0, 222, 0.6), 0 0 80px rgba(0, 102, 255, 0.4), 0 0 100px rgba(4, 0, 222, 0.2);
-      background: linear-gradient(135deg, hsl(var(--card)) 0%, rgba(4, 0, 222, 0.05) 100%);
-    }
-  }
 
   @keyframes textGlow {
     0%, 100% {
@@ -360,17 +365,11 @@
   }
   
   .card-float {
-    animation: cardFloat 6s ease-in-out infinite, vibrancePulse 4s ease-in-out infinite;
+    animation: cardFloat 6s ease-in-out infinite;
   }
 
   .text-vibrant {
     animation: textGlow 3s ease-in-out infinite;
-  }
-
-  .bg-vibrant {
-    background: linear-gradient(45deg, rgba(4, 0, 222, 0.1), rgba(0, 102, 255, 0.1), rgba(4, 0, 222, 0.1));
-    background-size: 200% 200%;
-    animation: bgShimmer 5s ease infinite;
   }
   
   .hero-glow {

@@ -61,7 +61,7 @@ const AboutSection = () => {
           {features.map((feature, index) => (
             <Card 
               key={index} 
-              className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105 card-float bg-vibrant" 
+              className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105 card-float" 
               style={{animationDelay: `${index * 100}ms`}}
             >
               <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(124,58,237,0.7)] group-hover:animate-pulse">
@@ -91,7 +91,7 @@ const AboutSection = () => {
           {stats.map((stat, index) => (
             <div 
               key={index} 
-              className="text-center p-6 rounded-xl bg-vibrant card-float"
+              className="text-center p-6 rounded-xl card-float"
               style={{ animationDelay: `${index * 0.3}s` }}
             >
               <div className="text-3xl md:text-4xl font-bold text-primary mb-2 text-vibrant">{stat.value}</div>

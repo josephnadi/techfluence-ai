@@ -52,7 +52,7 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <Card 
               key={index} 
-              className="bg-card backdrop-blur-sm border border-border p-6 group hover:border-primary/50 hover:shadow-xl transition-all duration-300 card-float bg-vibrant"
+              className="bg-card backdrop-blur-sm border border-border p-6 group hover:border-primary/50 hover:shadow-xl transition-all duration-300 card-float"
               style={{ animationDelay: `${index * 0.3}s` }}
             >
               <Quote className="w-8 h-8 text-primary/50 mb-4" />
