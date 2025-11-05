@@ -120,8 +120,19 @@
     @apply text-foreground;
     font-size: 17px; /* Increased base font size */
     scroll-behavior: smooth;
-    background: linear-gradient(135deg, #0400de 0%, #0066ff 100%);
+    background: linear-gradient(135deg, rgba(2, 0, 110, 0.95) 0%, rgba(0, 40, 150, 0.9) 50%, rgba(1, 20, 80, 0.92) 100%);
     min-height: 100vh;
+    animation: gradientShift 15s ease infinite;
+    background-size: 200% 200%;
+  }
+
+  @keyframes gradientShift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
   }
 
 /* Navigation Link Active Glow Animation */

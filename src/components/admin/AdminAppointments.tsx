@@ -4,7 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
-import { Mail, Phone } from "lucide-react";
+import { Mail, Phone, Download } from "lucide-react";
 
 interface Consultation {
   id: string;
@@ -59,12 +59,49 @@ const AdminAppointments = () => {
     ));
   };
 
+  const exportToCSV = () => {
+    const headers = ["Name", "Email", "Phone", "Company", "Date", "Time", "Status", "Message", "Created At"];
+    const csvData = consultations.map(c => [
+      c.user_name,
+      c.user_email,
+      c.user_phone || "",
+      c.company || "",
+      new Date(c.consultation_date).toLocaleDateString(),
+      c.consultation_time,
+      c.status,
+      c.message || "",
+      new Date(c.created_at).toLocaleString()
+    ]);
+
+    const csvContent = [
+      headers.join(","),
+      ...csvData.map(row => row.map(cell => `"${cell}"`).join(","))
+    ].join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `consultations_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    toast.success("Consultations exported successfully");
+  };
+
   if (loading) {
     return <div className="text-center py-8">Loading appointments...</div>;
   }
 
   return (
     <div className="space-y-4">
+      <div className="flex justify-end mb-4">
+        <Button onClick={exportToCSV} variant="outline" className="gap-2">
+          <Download className="h-4 w-4" />
+          Export to CSV
+        </Button>
+      </div>
       <div className="border rounded-lg overflow-x-auto">
         <Table>
           <TableHeader>
