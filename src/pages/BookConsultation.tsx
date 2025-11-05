@@ -31,6 +31,7 @@ const BookConsultation = () => {
     phone: "",
     company: "",
     message: "",
+    website: "", // Honeypot field for bot detection
   });
 
   // Fetch booked slots for selected date
@@ -81,6 +82,7 @@ const BookConsultation = () => {
           consultation_date: format(selectedDate, "yyyy-MM-dd"),
           consultation_time: selectedTime,
           message: formData.message,
+          website: formData.website, // Include honeypot field
         },
       });
 
@@ -89,7 +91,7 @@ const BookConsultation = () => {
       toast.success("Consultation booked successfully! Check your email for confirmation.");
       
       // Reset form
-      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", company: "", message: "", website: "" });
       setSelectedDate(undefined);
       setSelectedTime("");
       
@@ -253,6 +255,18 @@ const BookConsultation = () => {
                       className="min-h-[100px]"
                     />
                   </div>
+
+                  {/* Honeypot field for bot detection - hidden from users */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                  />
 
                   <Button
                     type="submit"

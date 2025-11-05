@@ -29,7 +29,7 @@ function checkRateLimit(ip: string, maxRequests: number, windowMs: number): bool
   return true;
 }
 
-// Validation schema
+// Validation schema with honeypot field for bot detection
 const ContactSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
@@ -37,7 +37,8 @@ const ContactSchema = z.object({
   company: z.string().trim().max(100).optional(),
   inquiryType: z.enum(['general', 'cloud', 'support', 'ai', 'web', 'partnership', 'other']).optional(),
   priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
-  message: z.string().trim().min(10, "Message must be at least 10 characters").max(5000, "Message must be less than 5000 characters")
+  message: z.string().trim().min(10, "Message must be at least 10 characters").max(5000, "Message must be less than 5000 characters"),
+  website: z.string().optional() // Honeypot field - should be empty for humans
 });
 
 // Helper to escape HTML
@@ -83,7 +84,17 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
     
-    const { name, email, phone, company, inquiryType, priority, message } = validation.data;
+    const { name, email, phone, company, inquiryType, priority, message, website } = validation.data;
+
+    // Honeypot check - if website field is filled, it's likely a bot
+    if (website && website.trim().length > 0) {
+      console.log("Bot detected via honeypot field");
+      // Return success to avoid alerting the bot
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...corsHeaders }
+      });
+    }
 
     console.log("Processing contact form:", {
       email: maskEmail(email),

@@ -31,7 +31,7 @@ function checkRateLimit(ip: string, maxRequests: number, windowMs: number): bool
   return true;
 }
 
-// Validation schema
+// Validation schema with honeypot field for bot detection
 const BookingSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
@@ -39,7 +39,8 @@ const BookingSchema = z.object({
   company: z.string().trim().max(100, "Company name must be less than 100 characters").optional(),
   consultation_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
   consultation_time: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format"),
-  message: z.string().trim().max(1000, "Message must be less than 1000 characters").optional()
+  message: z.string().trim().max(1000, "Message must be less than 1000 characters").optional(),
+  website: z.string().optional() // Honeypot field - should be empty for humans
 });
 
 // Helper to mask sensitive data in logs
@@ -90,6 +91,16 @@ const handler = async (req: Request): Promise<Response> => {
     }
     
     const booking = validation.data;
+
+    // Honeypot check - if website field is filled, it's likely a bot
+    if (booking.website && booking.website.trim().length > 0) {
+      console.log("Bot detected via honeypot field");
+      // Return success to avoid alerting the bot
+      return new Response(JSON.stringify({ success: true }), {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...corsHeaders }
+      });
+    }
     
     // Log without PII
     console.log("Processing booking:", {

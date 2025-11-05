@@ -20,7 +20,8 @@ const Contact = () => {
     company: "",
     inquiryType: "",
     priority: "medium",
-    message: ""
+    message: "",
+    website: "" // Honeypot field for bot detection
   });
   const { toast } = useToast();
 
@@ -47,7 +48,8 @@ const Contact = () => {
         company: "",
         inquiryType: "",
         priority: "medium",
-        message: ""
+        message: "",
+        website: ""
       });
     } catch (error) {
       console.error("Error sending message:", error);
@@ -232,7 +234,19 @@ const Contact = () => {
                       />
                     </div>
 
-                    <Button 
+                    {/* Honeypot field for bot detection - hidden from users */}
+                    <input
+                      type="text"
+                      name="website"
+                      value={formData.website}
+                      onChange={(e) => setFormData({...formData, website: e.target.value})}
+                      style={{ display: 'none' }}
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                    />
+
+                    <Button
                       type="submit" 
                       size="lg" 
                       className="w-full gradient-primary text-white border-0 hover:opacity-90"
