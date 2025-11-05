@@ -111,12 +111,12 @@ const Header = () => {
       }, 100);
     }
   };
-  return <header className="fixed top-0 left-0 right-0 z-50 bg-transparent backdrop-blur-lg border-b border-white/10">
-      <nav className="container mx-auto px-8 py-5 max-w-7xl bg-slate-300">
+  return <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-b border-border shadow-lg">
+      <nav className="container mx-auto px-8 py-5 max-w-7xl">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img src={techfluenceLogo} alt="Techfluence Connect" className="w-10 h-10" />
+            <img src={techfluenceLogo} alt="Techfluence Connect" className="w-12 h-12 rounded-full ring-2 ring-primary/30" />
             <div>
               <div className="text-xl font-bold text-foreground">Techfluence</div>
               <div className="text-xs text-muted-foreground -mt-1">IT Solutions & Consulting</div>
