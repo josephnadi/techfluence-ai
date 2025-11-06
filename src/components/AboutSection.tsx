@@ -39,7 +39,7 @@ const AboutSection = () => {
     value: "99.9%",
     label: "Uptime Guarantee"
   }];
-  return <section id="about" className="py-16 relative" ref={ref}>
+  return <section id="about" ref={ref} className="relative py-0">
       <div className={`container mx-auto px-6 transition-all duration-1000 ${isVisible ? 'scroll-fade-in' : 'opacity-0'}`}>
         {/* Header */}
         <div className="text-center mb-16">
@@ -50,7 +50,7 @@ const AboutSection = () => {
             <span className="text-foreground">Why Choose</span><br />
             <span className="text-primary">Techfluence?</span>
           </h2>
-          <p className="text-lg max-w-3xl mx-auto text-neutral-50">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             With over a decade of experience in enterprise IT solutions, we've helped hundreds of 
             companies modernize their technology stack and accelerate digital transformation.
           </p>

@@ -12,14 +12,14 @@ const HeroSection = () => {
           {/* Left Column - Hero Content */}
           <div className="space-y-8">
             {/* Trust Badge */}
-            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 px-4 text-sm font-medium my-[21px] py-[2px]">
+            <Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20 px-4 text-sm font-medium py-[2px] my-[13px]">
               ✨ Trusted IT Solutions Partner ✨
             </Badge>
 
             {/* Main Heading */}
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-7xl font-bold leading-tight py-0 md:text-7xl">
-                <span className="text-foreground my-0 py-[6px]">Transform</span><br />
+                <span className="text-foreground">Transform</span><br />
                 <span className="text-foreground">Your</span><br />
                 <AnimatedText />
               </h1>

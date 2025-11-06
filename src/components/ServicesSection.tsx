@@ -47,7 +47,7 @@ const ServicesSection = () => {
     description: "Enhance your digital footprint and reputation with comprehensive visibility and online presence management.",
     features: ["Online Reputation", "Local SEO", "Review Management", "Citation Building"]
   }];
-  return <section id="services" ref={ref} className="relative my-0 py-0">
+  return <section id="services" ref={ref} className="relative py-[5px]">
       <div className={`container mx-auto px-6 transition-all duration-1000 ${isVisible ? 'scroll-fade-in' : 'opacity-0'}`}>
         {/* Header */}
         <div className="text-center mb-16">
@@ -58,7 +58,7 @@ const ServicesSection = () => {
             <span className="text-foreground">Comprehensive</span><br />
             <span className="text-primary">IT Solutions</span>
           </h2>
-          <p className="text-lg max-w-3xl mx-auto text-neutral-50">
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             From cloud infrastructure to AI automation, we provide end-to-end technology solutions
             that drive growth and efficiency for your business in the digital age.
           </p>
@@ -69,8 +69,19 @@ const ServicesSection = () => {
           {services.map((service, index) => <Card key={index} className="bg-card/60 backdrop-blur-sm border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 group animate-fade-in hover:scale-105 overflow-hidden" style={{
           animationDelay: `${index * 50}ms`
         }}>
-              
-              
+              <CardHeader className="pb-4">
+                
+                
+                
+              </CardHeader>
+              <CardContent className="pt-0 space-y-4">
+                <ul className="space-y-3">
+                  {service.features.map((feature, idx) => {})}
+                </ul>
+                <Button onClick={() => navigate('/book-consultation')} className="w-full">
+                  Book Now
+                </Button>
+              </CardContent>
             </Card>)}
         </div>
 
@@ -80,7 +91,7 @@ const ServicesSection = () => {
         {/* CTA */}
         <div className="text-center">
           <Link to="/contact">
-            <Button size="lg" className="bg-primary text-white border-0 hover:opacity-90 px-8 transition-all hover:scale-105 shadow-[0_0_30px_hsl(var(--primary)/0.5)] py-[29px] my-[10px]">
+            <Button size="lg" className="bg-primary text-white border-0 hover:opacity-90 px-8 transition-all hover:scale-105 shadow-[0_0_30px_hsl(var(--primary)/0.5)] my-[15px] py-[22px]">
               Schedule Your Free Consultation
             </Button>
           </Link>
