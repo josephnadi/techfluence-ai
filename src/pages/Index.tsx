@@ -20,10 +20,10 @@ const Index = () => {
       <Header />
       
       <main className="relative z-10">
-        <HeroSection />
+        <HeroSection className="py-0" />
         <div className="space-y-8">
           <ServicesSection />
-          <AboutSection />
+          <AboutSection className="my-0 py-0" />
           <TeamSection />
           <TestimonialsCarousel />
         </div>
