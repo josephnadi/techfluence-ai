@@ -53,10 +53,10 @@ const Blog = () => {
           <div className="container mx-auto max-w-7xl">
             <div className="text-center mb-12">
               <Badge className="mb-4" variant="secondary">Tech Insights</Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text my-[21px] text-red-700">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text my-[21px] text-blue-950">
                 Techfluence Blog
               </h1>
-              <p className="text-xl max-w-3xl mx-auto text-neutral-50">
+              <p className="text-xl max-w-3xl mx-auto text-slate-950">
                 Expert insights on AI solutions, digital transformation, and tech consulting for African businesses
               </p>
             </div>

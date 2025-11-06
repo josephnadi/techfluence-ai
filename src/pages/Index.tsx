@@ -23,7 +23,7 @@ const Index = () => {
         <HeroSection />
         <div className="space-y-8">
           <ServicesSection />
-          <AboutSection className="py-0" />
+          <AboutSection />
           <TeamSection />
           <TestimonialsCarousel />
         </div>
