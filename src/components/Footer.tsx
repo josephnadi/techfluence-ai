@@ -1,18 +1,25 @@
 import { Linkedin, Twitter, Phone, Mail } from "lucide-react";
 import techfluenceLogo from "@/assets/techfluence-logo.png";
+
 const Footer = () => {
-  const services = ["Cloud Migration", "IT Support & Consulting", "AI Agent Automation", "Website Development", "Digital Marketing", "Brand Design", "Visibility Services"];
-  const quickLinks = [{
-    name: "Home",
-    href: "/"
-  }, {
-    name: "Blog",
-    href: "/blog"
-  }, {
-    name: "Contact",
-    href: "/contact"
-  }];
-  return <footer id="contact" className="relative bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#2d1b4e] text-white overflow-hidden">
+  const services = [
+    "Cloud Migration",
+    "IT Support & Consulting", 
+    "AI Agent Automation",
+    "Website Development",
+    "Digital Marketing",
+    "Brand Design",
+    "Visibility Services"
+  ];
+
+  const quickLinks = [
+    { name: "Home", href: "/" },
+    { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" }
+  ];
+
+  return (
+    <footer id="contact" className="relative bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#2d1b4e] text-white overflow-hidden">
       {/* Subtle star pattern background */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-20 left-1/4 w-1 h-1 bg-white rounded-full"></div>
@@ -21,7 +28,7 @@ const Footer = () => {
         <div className="absolute top-60 right-1/4 w-1 h-1 bg-white rounded-full"></div>
       </div>
 
-      <div className="container mx-auto px-6 py-20 relative z-10 bg-black">
+      <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="grid lg:grid-cols-4 gap-12">
           {/* Brand Section */}
           <div className="space-y-6">
@@ -50,10 +57,12 @@ const Footer = () => {
           <div className="space-y-6">
             <h4 className="text-2xl font-bold text-white">Services</h4>
             <ul className="space-y-4">
-              {services.map((service, index) => <li key={index} className="flex items-center gap-3 text-gray-200 hover:text-white transition-colors cursor-pointer text-base">
+              {services.map((service, index) => (
+                <li key={index} className="flex items-center gap-3 text-gray-200 hover:text-white transition-colors cursor-pointer text-base">
                   <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span>
                   {service}
-                </li>)}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -61,12 +70,17 @@ const Footer = () => {
           <div className="space-y-6">
             <h4 className="text-2xl font-bold text-white">Quick Links</h4>
             <ul className="space-y-4">
-              {quickLinks.map((link, index) => <li key={index}>
-                  <a href={link.href} className="flex items-center gap-3 text-gray-200 hover:text-white transition-colors text-base">
+              {quickLinks.map((link, index) => (
+                <li key={index}>
+                  <a 
+                    href={link.href} 
+                    className="flex items-center gap-3 text-gray-200 hover:text-white transition-colors text-base"
+                  >
                     <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span>
                     {link.name}
                   </a>
-                </li>)}
+                </li>
+              ))}
             </ul>
           </div>
 
@@ -104,6 +118,8 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>;
+    </footer>
+  );
 };
+
 export default Footer;
