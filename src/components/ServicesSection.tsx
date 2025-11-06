@@ -2,12 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Cloud, HeadphonesIcon, Bot, Globe, TrendingUp, Palette, Eye } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import CaseStudies from "@/components/CaseStudies";
 
 const ServicesSection = () => {
   const { ref, isVisible } = useScrollAnimation();
+  const navigate = useNavigate();
   
   const services = [
     {
@@ -127,7 +128,7 @@ const ServicesSection = () => {
                 <CardTitle className="text-2xl font-bold text-card-foreground mb-4 group-hover:text-primary transition-colors duration-300">{service.title}</CardTitle>
                 <p className="text-muted-foreground text-base leading-relaxed">{service.description}</p>
               </CardHeader>
-              <CardContent className="pt-0">
+              <CardContent className="pt-0 space-y-4">
                 <ul className="space-y-3">
                   {service.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200">
@@ -136,6 +137,12 @@ const ServicesSection = () => {
                     </li>
                   ))}
                 </ul>
+                <Button 
+                  onClick={() => navigate('/book-consultation')}
+                  className="w-full"
+                >
+                  Book Now
+                </Button>
               </CardContent>
             </Card>
           ))}

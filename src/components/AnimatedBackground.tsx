@@ -39,11 +39,10 @@ const AnimatedBackground = () => {
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
-            opacity: index === currentIndex ? 0.15 : 0,
+            opacity: index === currentIndex ? 0.3 : 0,
           }}
         />
       ))}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/80" />
     </div>
   );
 };
