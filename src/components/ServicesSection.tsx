@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Cloud, HeadphonesIcon, Bot, Globe, TrendingUp, Palette, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import CaseStudies from "@/components/CaseStudies";
 
 const ServicesSection = () => {
   const { ref, isVisible } = useScrollAnimation();
@@ -111,26 +112,26 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <Card 
               key={index} 
-              className="bg-card backdrop-blur-sm border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-500 group animate-fade-in hover:scale-105 overflow-hidden" 
-              style={{animationDelay: `${index * 100}ms`}}
+              className="bg-card/60 backdrop-blur-sm border border-border hover:border-primary/50 hover:shadow-xl transition-all duration-300 group animate-fade-in hover:scale-105 overflow-hidden" 
+              style={{animationDelay: `${index * 50}ms`}}
             >
               <CardHeader className="pb-4">
-                <div className="mb-6">
-                  <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center relative group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)] transition-all duration-500">
-                    <div className="absolute inset-0 rounded-3xl bg-primary blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-500" />
-                    <div className="relative text-primary-foreground">
+                <div className="mb-6 animate-scale-in" style={{animationDelay: `${index * 50 + 100}ms`}}>
+                  <div className="w-20 h-20 rounded-3xl bg-primary flex items-center justify-center relative group-hover:shadow-[0_0_40px_hsl(var(--primary)/0.6)] transition-all duration-300">
+                    <div className="absolute inset-0 rounded-3xl bg-primary blur-xl opacity-50 group-hover:opacity-80 transition-opacity duration-300" />
+                    <div className="relative text-primary-foreground group-hover:scale-110 transition-transform duration-300">
                       {service.icon}
                     </div>
                   </div>
                 </div>
-                <CardTitle className="text-2xl font-bold text-card-foreground mb-4">{service.title}</CardTitle>
+                <CardTitle className="text-2xl font-bold text-card-foreground mb-4 group-hover:text-primary transition-colors duration-300">{service.title}</CardTitle>
                 <p className="text-muted-foreground text-base leading-relaxed">{service.description}</p>
               </CardHeader>
               <CardContent className="pt-0">
                 <ul className="space-y-3">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start text-sm text-muted-foreground">
-                      <div className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0 mt-1.5" />
+                    <li key={idx} className="flex items-start text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200">
+                      <div className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0 mt-1.5 group-hover:scale-150 transition-transform duration-300" />
                       {feature}
                     </li>
                   ))}
@@ -139,6 +140,9 @@ const ServicesSection = () => {
             </Card>
           ))}
         </div>
+
+        {/* Case Studies */}
+        <CaseStudies />
 
         {/* CTA */}
         <div className="text-center">

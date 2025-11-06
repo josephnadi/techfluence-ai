@@ -5,6 +5,8 @@ import AboutSection from "@/components/AboutSection";
 import TeamSection from "@/components/TeamSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import FloatingParticles from "@/components/FloatingParticles";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import TrustedOrganizations from "@/components/TrustedOrganizations";
 import Footer from "@/components/Footer";
 import NewsletterPopup from "@/components/NewsletterPopup";
 const Index = () => {
@@ -12,6 +14,7 @@ const Index = () => {
       {/* Place this as the first element in your <body> */}
       <div id="top"></div>
       
+      <AnimatedBackground />
       <FloatingParticles />
       
       <Header />
@@ -25,6 +28,8 @@ const Index = () => {
           <TestimonialsCarousel />
         </div>
       </main>
+      
+      <TrustedOrganizations />
       
       <Footer />
       
