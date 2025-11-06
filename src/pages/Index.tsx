@@ -23,13 +23,13 @@ const Index = () => {
         <HeroSection />
         <div className="space-y-8">
           <ServicesSection />
-          <AboutSection />
-          <TeamSection className="py-0" />
-          <TestimonialsCarousel className="py-0" />
+          <AboutSection className="py-0" />
+          <TeamSection />
+          <TestimonialsCarousel />
         </div>
       </main>
       
-      <TrustedOrganizations className="bg-neutral-950" />
+      <TrustedOrganizations />
       
       <Footer />
       
