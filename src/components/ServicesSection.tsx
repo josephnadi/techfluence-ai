@@ -58,7 +58,7 @@ const ServicesSection = () => {
             <span className="text-foreground">Comprehensive</span><br />
             <span className="text-primary">IT Solutions</span>
           </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-lg max-w-3xl mx-auto text-neutral-50">
             From cloud infrastructure to AI automation, we provide end-to-end technology solutions
             that drive growth and efficiency for your business in the digital age.
           </p>
@@ -81,11 +81,11 @@ const ServicesSection = () => {
                   </div>
                 </div>
                 <CardTitle className="text-2xl font-bold text-card-foreground mb-4 group-hover:text-primary transition-colors duration-300">{service.title}</CardTitle>
-                <p className="text-muted-foreground text-base leading-relaxed">{service.description}</p>
+                <p className="text-base leading-relaxed text-neutral-50">{service.description}</p>
               </CardHeader>
               <CardContent className="pt-0 space-y-4">
                 <ul className="space-y-3">
-                  {service.features.map((feature, idx) => <li key={idx} className="flex items-start text-sm text-muted-foreground group-hover:text-foreground transition-colors duration-200">
+                  {service.features.map((feature, idx) => <li key={idx} className="flex items-start text-sm transition-colors duration-200 text-neutral-50">
                       <div className="w-2 h-2 bg-primary rounded-full mr-3 flex-shrink-0 mt-1.5 group-hover:scale-150 transition-transform duration-300" />
                       {feature}
                     </li>)}
