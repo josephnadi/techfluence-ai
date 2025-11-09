@@ -73,7 +73,7 @@ const Contact = () => {
               <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 <span className="gradient-text">Contact Us</span>
               </h1>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-stone-50 text-2xl">
                 Get in touch with our IT experts. We're here to help transform your business.
               </p>
             </div>
