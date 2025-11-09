@@ -26,7 +26,7 @@ const HeroSection = () => {
               
               <p className="text-lg md:text-xl max-w-2xl leading-relaxed text-neutral-50">
                 Accelerate your business with expert{" "}
-                <span className="font-semibold text-[#3ffe00]">Software Development</span>, 
+                <span className="font-semibold text-[#fe0000]">Software project</span>, 
                 <span className="font-semibold text-[#f1fb00]"> AI automation</span>, and 
                 comprehensive IT solutions.
               </p>

@@ -118,7 +118,7 @@ const Header = () => {
           <Link to="/" className="flex items-center space-x-3">
             <img src={techfluenceLogo} alt="Techfluence Connect" className="w-12 h-12 rounded-full ring-2 ring-primary/30" />
             <div>
-              <div className="text-xl font-bold text-foreground">Techfluence</div>
+              <div className="text-xl font-bold text-foreground">TechFluenceAI</div>
               <div className="text-xs text-muted-foreground -mt-1">IT Solutions & Consulting</div>
             </div>
           </Link>
