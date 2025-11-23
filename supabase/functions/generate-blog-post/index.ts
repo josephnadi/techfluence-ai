@@ -11,7 +11,7 @@ serve(async (req) => {
 
   try {
     const { topic, category } = await req.json();
-    
+
     if (!topic || !category) {
       return new Response(
         JSON.stringify({ error: "Topic and category are required" }),
@@ -108,7 +108,7 @@ FORMAT YOUR RESPONSE AS JSON:
 
     const contentData = await contentResponse.json();
     const contentText = contentData.choices[0].message.content;
-    
+
     // Extract JSON from response (handle markdown code blocks)
     let blogData;
     try {
@@ -122,16 +122,18 @@ FORMAT YOUR RESPONSE AS JSON:
     console.log("Blog content generated, now generating image...");
 
     // Generate SEO-optimized featured image
-    const imagePrompt = `Create a professional, modern featured image for a blog post titled "${blogData.title}". 
+    const imagePrompt = `Create a premium, award-winning editorial illustration for a tech blog post titled "${blogData.title}".
+    
+    Context: ${blogData.meta_description}
 
-Style requirements:
-- Clean, professional design suitable for tech/business blog
-- Modern gradient background with blues and purples
-- Include relevant icons or illustrations representing ${category}
-- High contrast, eye-catching but professional
-- Minimalist design, not cluttered
-- Aspect ratio: 16:9 landscape format
-- NO TEXT in the image (text will be added separately)`;
+    Style requirements:
+    - High-end digital art style, photorealistic lighting, 8k resolution
+    - Modern, futuristic, and sophisticated aesthetic suitable for a tech consultancy
+    - Use a color palette of deep blues, purples, and vibrant accents (cyberpunk meets corporate)
+    - Composition: Cinematic, depth of field, balanced
+    - Subject: Abstract representation of ${category} and the specific topic
+    - NO TEXT in the image
+    - Aspect ratio: 16:9 landscape`;
 
     const imageResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -187,7 +189,7 @@ Style requirements:
     console.log("Blog post created successfully!");
 
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         message: "Blog post with AI-generated image created successfully!",
         title: blogData.title,
         slug: blogData.slug

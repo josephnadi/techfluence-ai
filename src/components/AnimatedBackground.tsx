@@ -9,7 +9,7 @@ import bgPurpleDesk from '@/assets/bg-purple-desk.jpg';
 
 const AnimatedBackground = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
+
   const backgrounds = [
     bgVr,
     bgMatrix,
@@ -33,13 +33,17 @@ const AnimatedBackground = () => {
       {backgrounds.map((bg, index) => (
         <div
           key={index}
-          className="absolute inset-0 transition-opacity duration-2000"
+          className={`absolute inset-0 transition-all ease-out`}
           style={{
             backgroundImage: `url(${bg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             opacity: index === currentIndex ? 0.3 : 0,
+            transform: index === currentIndex ? 'scale(1.0)' : 'scale(1.1)',
+            transitionDuration: index === currentIndex ? '20000ms' : '0ms', // Long duration for zoom when active, instant reset when inactive
+            transitionProperty: 'transform, opacity',
+            transitionTimingFunction: 'ease-out'
           }}
         />
       ))}

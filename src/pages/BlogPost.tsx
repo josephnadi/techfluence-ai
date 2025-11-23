@@ -159,6 +159,17 @@ const BlogPost = () => {
             </p>
           </header>
 
+          {/* Featured Image */}
+          {post.image_url && (
+            <div className="mb-12 rounded-xl overflow-hidden shadow-lg">
+              <img
+                src={post.image_url}
+                alt={post.title}
+                className="w-full h-auto object-cover max-h-[600px]"
+              />
+            </div>
+          )}
+
           {/* Share Buttons */}
           <div className="flex flex-wrap gap-2 mb-8 pb-8 border-b">
             <Button
@@ -208,7 +219,7 @@ const BlogPost = () => {
             <ReactMarkdown
               rehypePlugins={[
                 rehypeSanitize,
-                [rehypeExternalLinks, { 
+                [rehypeExternalLinks, {
                   target: '_blank',
                   rel: ['noopener', 'noreferrer', 'nofollow']
                 }]

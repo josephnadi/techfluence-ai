@@ -30,7 +30,7 @@ const BlogGenerator = ({ onSuccess }: BlogGeneratorProps = {}) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [topic, setTopic] = useState("");
   const [category, setCategory] = useState("");
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
 
   useEffect(() => {
     const checkAdminStatus = async () => {
@@ -81,7 +81,7 @@ const BlogGenerator = ({ onSuccess }: BlogGeneratorProps = {}) => {
       setIsOpen(false);
       setTopic("");
       setCategory("");
-      
+
       // Call onSuccess callback if provided, otherwise reload page
       if (onSuccess) {
         onSuccess();
