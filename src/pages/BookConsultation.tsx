@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar as CalendarIcon, Clock, User, Mail, Phone, Building } from "lucide-react";
 import { format } from "date-fns";
+import { useRecaptcha } from "@/hooks/useRecaptcha";
 
 // Available time slots (20-minute intervals, 10 slots per day)
 const TIME_SLOTS = [
@@ -33,6 +34,7 @@ const BookConsultation = () => {
     message: "",
     website: "", // Honeypot field for bot detection
   });
+  const { executeRecaptcha } = useRecaptcha();
 
   // Fetch booked slots for selected date
   useEffect(() => {
@@ -40,7 +42,7 @@ const BookConsultation = () => {
       if (!selectedDate) return;
 
       const { data, error } = await supabase
-        .from("consultation_availability")
+        .from("consultations")
         .select("consultation_time")
         .eq("consultation_date", format(selectedDate, "yyyy-MM-dd"))
         .eq("status", "scheduled");
@@ -73,6 +75,12 @@ const BookConsultation = () => {
     setIsSubmitting(true);
 
     try {
+      // Execute reCAPTCHA
+      const recaptchaToken = await executeRecaptcha("booking_form");
+      if (!recaptchaToken) {
+        throw new Error("reCAPTCHA verification failed");
+      }
+
       const { data, error } = await supabase.functions.invoke("book-consultation", {
         body: {
           name: formData.name,
@@ -82,7 +90,8 @@ const BookConsultation = () => {
           consultation_date: format(selectedDate, "yyyy-MM-dd"),
           consultation_time: selectedTime,
           message: formData.message,
-          website: formData.website, // Include honeypot field
+          website: formData.website,
+          recaptchaToken,
         },
       });
 
