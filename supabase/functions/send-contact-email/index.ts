@@ -3,6 +3,7 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const resendApiKey = Deno.env.get("RESEND_API_KEY");
+const recaptchaSecretKey = Deno.env.get("RECAPTCHA_SECRET_KEY");
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -38,8 +39,26 @@ const ContactSchema = z.object({
   inquiryType: z.enum(['general', 'cloud', 'support', 'ai', 'web', 'partnership', 'other']).optional(),
   priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
   message: z.string().trim().min(10, "Message must be at least 10 characters").max(5000, "Message must be less than 5000 characters"),
-  website: z.string().optional() // Honeypot field - should be empty for humans
+  website: z.string().optional(), // Honeypot field - should be empty for humans
+  recaptchaToken: z.string().min(1, "reCAPTCHA token is required")
 });
+
+// Verify reCAPTCHA token
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  try {
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `secret=${recaptchaSecretKey}&response=${token}`
+    });
+    
+    const data = await response.json();
+    return data.success && data.score >= 0.5; // Score threshold for v3
+  } catch (error) {
+    console.error("reCAPTCHA verification error:", error);
+    return false;
+  }
+}
 
 // Helper to escape HTML
 function escapeHtml(text: string): string {
@@ -84,7 +103,17 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
     
-    const { name, email, phone, company, inquiryType, priority, message, website } = validation.data;
+    const { name, email, phone, company, inquiryType, priority, message, website, recaptchaToken } = validation.data;
+
+    // Verify reCAPTCHA
+    const isHuman = await verifyRecaptcha(recaptchaToken);
+    if (!isHuman) {
+      console.log("reCAPTCHA verification failed");
+      return new Response(
+        JSON.stringify({ error: "reCAPTCHA verification failed" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
     // Honeypot check - if website field is filled, it's likely a bot
     if (website && website.trim().length > 0) {

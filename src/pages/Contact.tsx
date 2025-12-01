@@ -10,6 +10,7 @@ import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useRecaptcha } from "@/hooks/useRecaptcha";
 const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -22,17 +23,21 @@ const Contact = () => {
     message: "",
     website: "" // Honeypot field for bot detection
   });
-  const {
-    toast
-  } = useToast();
+  const { toast } = useToast();
+  const { executeRecaptcha } = useRecaptcha();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
     try {
-      const {
-        error
-      } = await supabase.functions.invoke("send-contact-email", {
-        body: formData
+      // Execute reCAPTCHA
+      const recaptchaToken = await executeRecaptcha("contact_form");
+      if (!recaptchaToken) {
+        throw new Error("reCAPTCHA verification failed");
+      }
+
+      const { error } = await supabase.functions.invoke("send-contact-email", {
+        body: { ...formData, recaptchaToken }
       });
       if (error) throw error;
       toast({
