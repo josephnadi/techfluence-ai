@@ -22,7 +22,7 @@ const TeamSection = () => {
     image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
   }, {
     name: "Nadi Joseph",
-    role: "CEO & Founder",
+    role: "CEO & Co Founder",
     description: "Visionary leader with 4+ years in enterprise IT solutions. Former Microsoft consultant specializing in digital transformation.",
     skills: ["Strategic Planning", "Digital Transformation", "Enterprise Architecture"],
     image: nadiJosephImg
@@ -35,7 +35,7 @@ const TeamSection = () => {
   }];
   const teamStats = [{
     value: "25+",
-    label: "Combined Certifications"
+    label: "Combined Certifications."
   }, {
     value: "15+",
     label: "Years Combined Experience"
