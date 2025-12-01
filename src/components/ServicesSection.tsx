@@ -11,22 +11,17 @@ const ServicesSection = () => {
     isVisible
   } = useScrollAnimation();
   const navigate = useNavigate();
-  const services = [{
-    icon: <Cloud className="w-8 h-8" />,
-    title: "Cloud Migration",
-    description: "Seamlessly migrate your infrastructure to the cloud with zero downtime. AWS, Azure, and GCP certified experts.",
-    features: ["Infrastructure Assessment", "Migration Strategy", "Security Implementation", "Performance Optimization"]
-  }, {
-    icon: <HeadphonesIcon className="w-8 h-8" />,
-    title: "IT Support & Consulting",
-    description: "24/7 comprehensive IT support and strategic consulting to keep your business running smoothly.",
-    features: ["Help Desk Support", "Network Management", "Security Audits", "Strategic Planning"]
-  }, {
+  const services = [ {
     icon: <Bot className="w-8 h-8" />,
     title: "AI Agent Automation",
     description: "Transform your workflows with intelligent automation using n8n and cutting-edge AI technologies.",
     features: ["Workflow Automation", "AI Integration", "Process Optimization", "Custom Agents"]
-  }, {
+  },{
+    icon: <HeadphonesIcon className="w-8 h-8" />,
+    title: "IT Support & Consulting",
+    description: "24/7 comprehensive IT support and strategic consulting to keep your business running smoothly.",
+    features: ["Help Desk Support", "Network Management", "Security Audits", "Strategic Planning"]
+  },  {
     icon: <Globe className="w-8 h-8" />,
     title: "Website Development",
     description: "Create stunning, high-performance websites that convert visitors into customers.",
@@ -46,6 +41,18 @@ const ServicesSection = () => {
     title: "Visibility Services",
     description: "Enhance your digital footprint and reputation with comprehensive visibility and online presence management.",
     features: ["Online Reputation", "Local SEO", "Review Management", "Citation Building"]
+  },
+                    {
+    icon: <Eye className="w-8 h-8" />,
+    title: "Business Visibility Services",
+    description: "Enhance your digital footprint and reputation with comprehensive visibility and online presence management.",
+    features: ["Online Reputation", "Local SEO", "Review Management", "Citation Building"]
+  },
+    {
+    icon: <Cloud className="w-8 h-8" />,
+    title: "Cloud Migration",
+    description: "Seamlessly migrate your infrastructure to the cloud with zero downtime. AWS, Azure, and GCP certified experts.",
+    features: ["Infrastructure Assessment", "Migration Strategy", "Security Implementation", "Performance Optimization"]
   }];
   return <section id="services" className="py-16 relative" ref={ref}>
       <div className={`container mx-auto px-6 transition-all duration-1000 ${isVisible ? 'scroll-fade-in' : 'opacity-0'}`}>
