@@ -4,17 +4,18 @@ import Header from "@/components/Header";
 import SEO from "@/components/SEO";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, FileText, Users, Calendar, MessageSquare } from "lucide-react";
+import { Shield, FileText, Users, Calendar, MessageSquare, BarChart3 } from "lucide-react";
 import AdminBlogManager from "@/components/admin/AdminBlogManager";
 import AdminUserManager from "@/components/admin/AdminUserManager";
 import AdminAppointments from "@/components/admin/AdminAppointments";
 import AdminCommunity from "@/components/admin/AdminCommunity";
+import AdminAnalytics from "@/components/admin/AdminAnalytics";
 
 const Admin = () => {
   const { isAdmin, loading } = useAdminAuth();
-  const [activeTab, setActiveTab] = useState("blog");
+  const [activeTab, setActiveTab] = useState("analytics");
 
-  if (loading) {
+  if (loading || !isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <div className="text-center">
@@ -23,10 +24,6 @@ const Admin = () => {
         </div>
       </div>
     );
-  }
-
-  if (!isAdmin) {
-    return null;
   }
 
   return (
@@ -49,7 +46,11 @@ const Admin = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:inline-grid">
+          <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:inline-grid">
+            <TabsTrigger value="analytics" className="gap-2">
+              <BarChart3 className="h-4 w-4" />
+              <span className="hidden sm:inline">Analytics</span>
+            </TabsTrigger>
             <TabsTrigger value="blog" className="gap-2">
               <FileText className="h-4 w-4" />
               <span className="hidden sm:inline">Blog Posts</span>
@@ -67,6 +68,18 @@ const Admin = () => {
               <span className="hidden sm:inline">Community</span>
             </TabsTrigger>
           </TabsList>
+
+          <TabsContent value="analytics" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Dashboard Analytics</CardTitle>
+                <CardDescription>Comprehensive overview of your platform performance</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <AdminAnalytics />
+              </CardContent>
+            </Card>
+          </TabsContent>
 
           <TabsContent value="blog" className="space-y-4">
             <Card>
