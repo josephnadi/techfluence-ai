@@ -4,12 +4,13 @@ import Header from "@/components/Header";
 import SEO from "@/components/SEO";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, FileText, Users, Calendar, MessageSquare, BarChart3 } from "lucide-react";
+import { Shield, FileText, Users, Calendar, MessageSquare, BarChart3, Settings } from "lucide-react";
 import AdminBlogManager from "@/components/admin/AdminBlogManager";
 import AdminUserManager from "@/components/admin/AdminUserManager";
 import AdminAppointments from "@/components/admin/AdminAppointments";
 import AdminCommunity from "@/components/admin/AdminCommunity";
 import AdminAnalytics from "@/components/admin/AdminAnalytics";
+import NotificationPreferences from "@/components/admin/NotificationPreferences";
 
 const Admin = () => {
   const { isAdmin, loading } = useAdminAuth();
@@ -46,7 +47,7 @@ const Admin = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:inline-grid">
+          <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:inline-grid">
             <TabsTrigger value="analytics" className="gap-2">
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">Analytics</span>
@@ -67,6 +68,10 @@ const Admin = () => {
               <MessageSquare className="h-4 w-4" />
               <span className="hidden sm:inline">Community</span>
             </TabsTrigger>
+            <TabsTrigger value="settings" className="gap-2">
+              <Settings className="h-4 w-4" />
+              <span className="hidden sm:inline">Settings</span>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="analytics" className="space-y-4">
@@ -85,7 +90,7 @@ const Admin = () => {
             <Card>
               <CardHeader>
                 <CardTitle>Blog Management</CardTitle>
-                <CardDescription>Generate and manage blog posts with AI</CardDescription>
+                <CardDescription>Create, edit, and manage blog posts with live preview and SEO tools</CardDescription>
               </CardHeader>
               <CardContent>
                 <AdminBlogManager />
@@ -125,6 +130,18 @@ const Admin = () => {
               </CardHeader>
               <CardContent>
                 <AdminCommunity />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="settings" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle>Notification Settings</CardTitle>
+                <CardDescription>Configure email notifications and digest summaries</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <NotificationPreferences />
               </CardContent>
             </Card>
           </TabsContent>
