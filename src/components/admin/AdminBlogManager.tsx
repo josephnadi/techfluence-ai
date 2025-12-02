@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
-import { Pencil, Trash2, Eye, EyeOff } from "lucide-react";
+import { Pencil, Trash2, Eye, EyeOff, Plus, Sparkles } from "lucide-react";
 import BlogGenerator from "@/components/BlogGenerator";
+import BlogPostEditor from "@/components/admin/BlogPostEditor";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -21,21 +22,27 @@ interface BlogPost {
   id: string;
   title: string;
   slug: string;
+  excerpt: string;
+  content: string;
   category: string;
+  keywords: string[] | null;
   published: boolean;
   created_at: string;
   read_time: string;
+  image_url: string | null;
 }
 
 const AdminBlogManager = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [editorOpen, setEditorOpen] = useState(false);
+  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
 
   const fetchPosts = async () => {
     const { data, error } = await supabase
       .from("blog_posts")
-      .select("id, title, slug, category, published, created_at, read_time")
+      .select("*")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -84,13 +91,27 @@ const AdminBlogManager = () => {
     fetchPosts();
   };
 
+  const openEditor = (post?: BlogPost) => {
+    setEditingPost(post || null);
+    setEditorOpen(true);
+  };
+
+  const closeEditor = () => {
+    setEditorOpen(false);
+    setEditingPost(null);
+  };
+
   if (loading) {
     return <div className="text-center py-8">Loading...</div>;
   }
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-2">
+        <Button variant="outline" onClick={() => openEditor()}>
+          <Plus className="h-4 w-4 mr-2" />
+          New Post
+        </Button>
         <BlogGenerator onSuccess={fetchPosts} />
       </div>
 
@@ -110,13 +131,13 @@ const AdminBlogManager = () => {
             {posts.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={6} className="text-center text-muted-foreground">
-                  No blog posts yet. Generate your first one!
+                  No blog posts yet. Create your first one!
                 </TableCell>
               </TableRow>
             ) : (
               posts.map((post) => (
                 <TableRow key={post.id}>
-                  <TableCell className="font-medium">{post.title}</TableCell>
+                  <TableCell className="font-medium max-w-xs truncate">{post.title}</TableCell>
                   <TableCell>
                     <Badge variant="outline">{post.category}</Badge>
                   </TableCell>
@@ -130,6 +151,13 @@ const AdminBlogManager = () => {
                     {new Date(post.created_at).toLocaleDateString()}
                   </TableCell>
                   <TableCell className="text-right space-x-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => openEditor(post)}
+                    >
+                      <Pencil className="h-4 w-4" />
+                    </Button>
                     <Button
                       variant="ghost"
                       size="sm"
@@ -151,6 +179,13 @@ const AdminBlogManager = () => {
           </TableBody>
         </Table>
       </div>
+
+      <BlogPostEditor
+        post={editingPost}
+        isOpen={editorOpen}
+        onClose={closeEditor}
+        onSuccess={fetchPosts}
+      />
 
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>

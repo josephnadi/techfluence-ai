@@ -101,6 +101,45 @@ export type Database = {
         }
         Relationships: []
       }
+      notification_preferences: {
+        Row: {
+          created_at: string
+          digest_day_of_week: number | null
+          digest_hour: number | null
+          email_digest_enabled: boolean
+          email_digest_frequency: string
+          email_new_consultation: boolean
+          email_new_contact: boolean
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          digest_day_of_week?: number | null
+          digest_hour?: number | null
+          email_digest_enabled?: boolean
+          email_digest_frequency?: string
+          email_new_consultation?: boolean
+          email_new_contact?: boolean
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          digest_day_of_week?: number | null
+          digest_hour?: number | null
+          email_digest_enabled?: boolean
+          email_digest_frequency?: string
+          email_new_consultation?: boolean
+          email_new_contact?: boolean
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string | null
