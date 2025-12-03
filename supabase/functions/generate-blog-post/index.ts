@@ -70,20 +70,21 @@ serve(async (req) => {
 REQUIREMENTS:
 - Length: 600-800 words (3-5 minute read)
 - Include compelling title with primary keyword
-- Write engaging meta description (150-160 characters)
+- Write engaging excerpt (2-3 sentences summary)
 - Use H2 and H3 headings with relevant keywords
 - Include practical examples and actionable insights
 - Optimize for Ghana and African tech market context
 - End with clear call-to-action
 - Use conversational yet professional tone
+- Include 3-5 relevant SEO keywords
 
-FORMAT YOUR RESPONSE AS JSON:
+FORMAT YOUR RESPONSE AS VALID JSON ONLY (no markdown code blocks):
 {
   "title": "SEO-optimized title",
-  "meta_description": "compelling meta description",
-  "content": "full markdown blog post content",
-  "excerpt": "2-3 sentence summary",
-  "slug": "url-friendly-slug"
+  "content": "full markdown blog post content with proper headings",
+  "excerpt": "2-3 sentence summary for preview cards",
+  "slug": "url-friendly-slug-lowercase-with-hyphens",
+  "keywords": ["keyword1", "keyword2", "keyword3"]
 }`;
 
     const contentResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -95,6 +96,7 @@ FORMAT YOUR RESPONSE AS JSON:
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
         messages: [
+          { role: "system", content: "You are a professional tech blog writer. Always respond with valid JSON only, no markdown formatting." },
           { role: "user", content: contentPrompt }
         ],
       }),
@@ -109,31 +111,49 @@ FORMAT YOUR RESPONSE AS JSON:
     const contentData = await contentResponse.json();
     const contentText = contentData.choices[0].message.content;
 
+    console.log("Raw content response:", contentText.substring(0, 500));
+
     // Extract JSON from response (handle markdown code blocks)
     let blogData;
     try {
-      const jsonMatch = contentText.match(/```json\n([\s\S]*?)\n```/) || contentText.match(/{[\s\S]*}/);
-      blogData = JSON.parse(jsonMatch ? jsonMatch[1] || jsonMatch[0] : contentText);
+      // Try to find JSON in code blocks first
+      const jsonMatch = contentText.match(/```(?:json)?\s*([\s\S]*?)```/);
+      if (jsonMatch) {
+        blogData = JSON.parse(jsonMatch[1].trim());
+      } else {
+        // Try to parse directly
+        const cleanedText = contentText.trim();
+        blogData = JSON.parse(cleanedText);
+      }
     } catch (e) {
-      console.error("Failed to parse blog data:", e);
+      console.error("Failed to parse blog data:", e, "Content:", contentText);
       throw new Error("Failed to parse generated content");
     }
 
-    console.log("Blog content generated, now generating image...");
+    // Validate required fields
+    if (!blogData.title || !blogData.content || !blogData.excerpt || !blogData.slug) {
+      console.error("Missing required fields:", blogData);
+      throw new Error("Generated content missing required fields");
+    }
+
+    console.log("Blog content generated:", blogData.title);
+    console.log("Now generating featured image...");
 
     // Generate SEO-optimized featured image
-    const imagePrompt = `Create a premium, award-winning editorial illustration for a tech blog post titled "${blogData.title}".
-    
-    Context: ${blogData.meta_description}
+    const imagePrompt = `Create a premium editorial illustration for a tech blog post.
 
-    Style requirements:
-    - High-end digital art style, photorealistic lighting, 8k resolution
-    - Modern, futuristic, and sophisticated aesthetic suitable for a tech consultancy
-    - Use a color palette of deep blues, purples, and vibrant accents (cyberpunk meets corporate)
-    - Composition: Cinematic, depth of field, balanced
-    - Subject: Abstract representation of ${category} and the specific topic
-    - NO TEXT in the image
-    - Aspect ratio: 16:9 landscape`;
+Title: "${blogData.title}"
+Topic: ${topic}
+Category: ${category}
+
+Style requirements:
+- Modern, professional tech blog header image
+- Aspect ratio: 16:9 landscape orientation
+- Color palette: Deep blues, teals, and accent colors
+- Abstract representation of ${category} concepts
+- Clean, minimalist design with subtle tech elements
+- High quality, suitable for professional website
+- NO TEXT OR WORDS in the image`;
 
     const imageResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -150,23 +170,26 @@ FORMAT YOUR RESPONSE AS JSON:
       }),
     });
 
-    if (!imageResponse.ok) {
+    let imageUrl = null;
+
+    if (imageResponse.ok) {
+      const imageData = await imageResponse.json();
+      imageUrl = imageData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+      
+      if (imageUrl) {
+        console.log("Image generated successfully");
+      } else {
+        console.warn("No image URL in response, proceeding without image");
+      }
+    } else {
       const errorText = await imageResponse.text();
-      console.error("Image generation error:", errorText);
-      throw new Error("Failed to generate image");
+      console.warn("Image generation failed, proceeding without image:", errorText);
     }
 
-    const imageData = await imageResponse.json();
-    const imageUrl = imageData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+    console.log("Storing blog post in database...");
 
-    if (!imageUrl) {
-      throw new Error("No image URL in response");
-    }
-
-    console.log("Image generated successfully, storing blog post...");
-
-    // Insert blog post with image
-    const { error: insertError } = await supabase
+    // Insert blog post - use correct column names matching the schema
+    const { data: insertedPost, error: insertError } = await supabase
       .from("blog_posts")
       .insert({
         title: blogData.title,
@@ -174,25 +197,27 @@ FORMAT YOUR RESPONSE AS JSON:
         excerpt: blogData.excerpt,
         content: blogData.content,
         category: category,
-        author: "Techfluence AI",
-        featured_image: imageUrl,
-        meta_description: blogData.meta_description,
-        published: true,
-        reading_time: "3-5 min read"
-      });
+        keywords: blogData.keywords || [],
+        image_url: imageUrl,
+        read_time: "3-5 min read",
+        published: false // Start as draft so admin can review
+      })
+      .select()
+      .single();
 
     if (insertError) {
       console.error("Database insert error:", insertError);
-      throw insertError;
+      throw new Error(`Database error: ${insertError.message}`);
     }
 
-    console.log("Blog post created successfully!");
+    console.log("Blog post created successfully:", insertedPost?.id);
 
     return new Response(
       JSON.stringify({
-        message: "Blog post with AI-generated image created successfully!",
+        message: `Blog post "${blogData.title}" created as draft!`,
         title: blogData.title,
-        slug: blogData.slug
+        slug: blogData.slug,
+        hasImage: !!imageUrl
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
