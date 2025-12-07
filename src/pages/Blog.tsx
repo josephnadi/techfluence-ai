@@ -47,9 +47,38 @@ const Blog = () => {
     fetchBlogPosts();
   }, []);
 
+  const blogStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    "name": "Techfluence AI Blog",
+    "description": "Expert insights on AI solutions, digital transformation, and tech consulting in Africa",
+    "url": "https://techfluence-ai.lovable.app/blog",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Techfluence AI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://storage.googleapis.com/gpt-engineer-file-uploads/nmD0J8GO0zP5DhgY8XqBm37nJd02/uploads/1759102522935-ChatGPT Image Sep 18, 2025, 12_46_06 PM.png"
+      }
+    },
+    "blogPost": blogPosts.map(post => ({
+      "@type": "BlogPosting",
+      "headline": post.title,
+      "description": post.excerpt,
+      "url": `https://techfluence-ai.lovable.app/blog/${post.slug}`,
+      "datePublished": post.created_at
+    }))
+  };
+
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Tech Insights & AI Solutions Blog | Techfluence" description="Expert insights on AI solutions, digital transformation, and tech consulting in Africa. Stay updated with the latest trends in generative AI and IT strategy." canonical="https://techfluence-ai.lovable.app/blog" keywords="AI blog, tech insights, digital transformation Africa, generative AI, IT consulting, Ghana tech blog, software development trends" />
+      <SEO 
+        title="Tech Insights & AI Solutions Blog | Techfluence Ghana" 
+        description="Expert insights on AI solutions, digital transformation, and tech consulting in Africa. Stay updated with the latest trends in generative AI and IT strategy." 
+        canonical="https://techfluence-ai.lovable.app/blog" 
+        keywords="AI blog Ghana, tech insights Africa, digital transformation, generative AI, IT consulting, software development trends, machine learning"
+        structuredData={blogStructuredData}
+      />
 
       <Header />
 
