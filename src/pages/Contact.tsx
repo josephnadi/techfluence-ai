@@ -65,8 +65,32 @@ const Contact = () => {
       setIsSubmitting(false);
     }
   };
+  const contactStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Contact Techfluence AI",
+    "description": "Get in touch with Ghana's leading AI solutions provider",
+    "url": "https://techfluence-ai.lovable.app/contact",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "Techfluence AI",
+      "telephone": "+233595521498",
+      "email": "techfluence.ai@outlook.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "GH"
+      }
+    }
+  };
+
   return <div className="relative min-h-screen bg-background overflow-hidden">
-      <SEO title="Contact Us - AI Solutions & Tech Consulting Ghana" description="Get in touch with Ghana's leading AI solutions provider. Free consultation for generative AI, digital transformation, and IT strategy projects." canonical="https://techfluence-ai.lovable.app/contact" keywords="contact AI consultant Ghana, tech consulting inquiry, IT solutions support, AI consultation booking" />
+      <SEO 
+        title="Contact Us - AI Solutions & Tech Consulting Ghana | Techfluence" 
+        description="Get in touch with Ghana's leading AI solutions provider. Free consultation for generative AI, digital transformation, and IT strategy projects. 24/7 support available." 
+        canonical="https://techfluence-ai.lovable.app/contact" 
+        keywords="contact AI consultant Ghana, tech consulting inquiry, IT solutions support, AI consultation booking, free tech consultation"
+        structuredData={contactStructuredData}
+      />
       {/* Place this as the first element in your <body> */}
       <div id="top"></div>
       <Header />

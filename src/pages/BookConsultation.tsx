@@ -115,13 +115,35 @@ const BookConsultation = () => {
 
   const availableSlots = TIME_SLOTS.filter((slot) => !bookedSlots.includes(slot));
 
+  const bookingStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Free AI Consultation",
+    "description": "20-minute free consultation with AI and technology experts",
+    "provider": {
+      "@type": "Organization",
+      "name": "Techfluence AI"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Ghana"
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "GHS",
+      "availability": "https://schema.org/InStock"
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <SEO 
-        title="Book Free AI Consultation | Generative AI Expert Ghana"
-        description="Schedule a free consultation with Ghana's leading AI experts. Discuss generative AI, custom software, and digital transformation strategies."
+        title="Book Free AI Consultation | Generative AI Expert Ghana | Techfluence"
+        description="Schedule a free 20-minute consultation with Ghana's leading AI experts. Discuss generative AI, custom software, digital transformation strategies, and IT solutions."
         canonical="https://techfluence-ai.lovable.app/book-consultation"
-        keywords="AI consultation Ghana, free tech consultation, generative AI expert, IT strategy meeting"
+        keywords="AI consultation Ghana, free tech consultation, generative AI expert, IT strategy meeting, book AI expert, digital transformation consultation"
+        structuredData={bookingStructuredData}
       />
       <Header />
       

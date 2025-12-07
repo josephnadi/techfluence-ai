@@ -115,13 +115,43 @@ const BlogPost = () => {
     );
   }
 
+  const articleStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.image_url || "https://storage.googleapis.com/gpt-engineer-file-uploads/nmD0J8GO0zP5DhgY8XqBm37nJd02/social-images/social-1759102531297-ChatGPT Image Sep 18, 2025, 12_46_06 PM.png",
+    "datePublished": post.created_at,
+    "dateModified": post.created_at,
+    "author": {
+      "@type": "Organization",
+      "name": "Techfluence AI"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Techfluence AI",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://storage.googleapis.com/gpt-engineer-file-uploads/nmD0J8GO0zP5DhgY8XqBm37nJd02/uploads/1759102522935-ChatGPT Image Sep 18, 2025, 12_46_06 PM.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://techfluence-ai.lovable.app/blog/${post.slug}`
+    },
+    "keywords": post.keywords?.join(", ") || ""
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title={`${post.title} | Techfluence Blog`}
+        title={`${post.title} | Techfluence AI Blog`}
         description={post.excerpt}
         canonical={`https://techfluence-ai.lovable.app/blog/${post.slug}`}
-        keywords={post.keywords.join(", ")}
+        keywords={post.keywords?.join(", ") || ""}
+        ogType="article"
+        ogImage={post.image_url || undefined}
+        structuredData={articleStructuredData}
       />
 
       <Header />
