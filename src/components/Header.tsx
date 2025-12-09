@@ -111,7 +111,7 @@ const Header = () => {
       }, 100);
     }
   };
-  return <header className="fixed top-0 left-0 right-0 z-50 bg-card/95 backdrop-blur-lg border-b border-border shadow-lg">
+  return <header className="fixed top-0 left-0 right-0 z-50 bg-card/60 backdrop-blur-2xl border-b border-border/40 shadow-xl">
       <nav className="container mx-auto px-8 py-5 max-w-7xl">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -179,7 +179,7 @@ const Header = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && <div className="md:hidden mt-4 py-4 border-t border-border/50">
+        {isMenuOpen && <div className="md:hidden mt-4 py-4 border-t border-border/30 bg-card/50 backdrop-blur-xl rounded-lg mx-2 px-2">
             <div className="flex flex-col space-y-2">
               {navigation.map(item => {
             let isActive = false;

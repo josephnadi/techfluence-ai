@@ -16,6 +16,7 @@ import Admin from "./pages/Admin";
 import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import AIAssistant from "@/components/AIAssistant";
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => {
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <AnalyticsTracker measurementId={import.meta.env.VITE_GA_MEASUREMENT_ID} />
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />

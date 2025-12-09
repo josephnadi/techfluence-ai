@@ -8,13 +8,14 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { 
   Shield, FileText, Users, Calendar, MessageSquare, BarChart3, Settings, 
-  Plus, ExternalLink, RefreshCw
+  Plus, ExternalLink, RefreshCw, Search
 } from "lucide-react";
 import AdminBlogManager from "@/components/admin/AdminBlogManager";
 import AdminUserManager from "@/components/admin/AdminUserManager";
 import AdminAppointments from "@/components/admin/AdminAppointments";
 import AdminCommunity from "@/components/admin/AdminCommunity";
 import AdminAnalytics from "@/components/admin/AdminAnalytics";
+import AdminSEOReports from "@/components/admin/AdminSEOReports";
 import NotificationPreferences from "@/components/admin/NotificationPreferences";
 
 const Admin = () => {
@@ -77,10 +78,14 @@ const Admin = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 lg:w-auto lg:inline-grid gap-1 h-auto p-1">
+          <TabsList className="grid w-full grid-cols-4 md:grid-cols-7 lg:w-auto lg:inline-grid gap-1 h-auto p-1 bg-card/50 backdrop-blur-xl border border-border/40">
             <TabsTrigger value="analytics" className="gap-2 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">Analytics</span>
+            </TabsTrigger>
+            <TabsTrigger value="seo" className="gap-2 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+              <Search className="h-4 w-4" />
+              <span className="hidden sm:inline">SEO</span>
             </TabsTrigger>
             <TabsTrigger value="blog" className="gap-2 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <FileText className="h-4 w-4" />
@@ -106,6 +111,10 @@ const Admin = () => {
 
           <TabsContent value="analytics" className="space-y-4 mt-6">
             <AdminAnalytics />
+          </TabsContent>
+
+          <TabsContent value="seo" className="space-y-4 mt-6">
+            <AdminSEOReports />
           </TabsContent>
 
           <TabsContent value="blog" className="space-y-4 mt-6">
