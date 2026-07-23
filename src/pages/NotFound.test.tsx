@@ -1,0 +1,17 @@
+import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import { describe, expect, it } from "vitest";
+import NotFound from "./NotFound";
+
+describe("NotFound", () => {
+  it("renders a 404 message with a link back home", () => {
+    render(
+      <MemoryRouter initialEntries={["/does-not-exist"]}>
+        <NotFound />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText("404")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /return to home/i })).toHaveAttribute("href", "/");
+  });
+});

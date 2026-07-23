@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import { 
   Calendar, Users, FileText, TrendingUp, Clock, CheckCircle, XCircle, 
   ArrowUpRight, ArrowDownRight, BarChart3, PieChart as PieChartIcon, 
@@ -126,7 +127,7 @@ const AdminAnalytics = () => {
       });
 
       // Group blog posts by category
-      const blogPostsByCategory = blogPosts?.reduce((acc: any[], item) => {
+      const blogPostsByCategory = blogPosts?.reduce((acc: Array<{ category: string; count: number }>, item) => {
         const existing = acc.find(a => a.category === item.category);
         if (existing) {
           existing.count++;
@@ -174,6 +175,7 @@ const AdminAnalytics = () => {
       });
     } catch (error) {
       console.error("Error fetching analytics:", error);
+      toast.error("Failed to load analytics data");
     } finally {
       setLoading(false);
       setRefreshing(false);

@@ -52,6 +52,7 @@ const NotificationPreferences = () => {
 
       if (error && error.code !== "PGRST116") {
         console.error("Error fetching preferences:", error);
+        toast.error("Failed to load notification preferences");
         return;
       }
 
@@ -67,6 +68,7 @@ const NotificationPreferences = () => {
       }
     } catch (error) {
       console.error("Error:", error);
+      toast.error("Failed to load notification preferences");
     } finally {
       setLoading(false);
     }

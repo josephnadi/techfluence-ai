@@ -1,3 +1,4 @@
+import { ArrowUp } from "lucide-react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import ServicesSection from "@/components/ServicesSection";
@@ -35,26 +36,13 @@ const Index = () => {
       
       <NewsletterPopup />
       
-      <button onClick={() => window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })} className="fixed bottom-4 right-4 p-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition-all">
-        {/* Go to Top */}
+      <button
+        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        aria-label="Go to top"
+        className="fixed bottom-4 right-4 p-3 bg-blue-600 text-white rounded-full shadow-md hover:bg-blue-700 transition-all"
+      >
+        <ArrowUp className="h-5 w-5" />
       </button>
-
-      <script>
-        {`
-          document.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', function(e) {
-              // Only scroll to top for internal navigation
-              if (this.getAttribute('href') === '#' || this.getAttribute('href') === '#top') {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }
-            });
-          });
-        `}
-      </script>
     </div>;
 };
 export default Index;

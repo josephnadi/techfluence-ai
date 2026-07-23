@@ -240,7 +240,7 @@ END:VCALENDAR`;
         Authorization: `Bearer ${resendApiKey}`,
       },
       body: JSON.stringify({
-        from: "TechFluence <onboarding@resend.dev>",
+        from: "TechFluence <bookings@techfluence.ai>",
         to: [booking.email],
         subject: "Consultation Confirmed - TechFluence",
         html: `
@@ -339,7 +339,7 @@ END:VCALENDAR`;
         Authorization: `Bearer ${resendApiKey}`,
       },
       body: JSON.stringify({
-        from: "TechFluence Bookings <onboarding@resend.dev>",
+        from: "TechFluence Bookings <bookings@techfluence.ai>",
         to: ["techfluence.ai@outlook.com"],
         subject: `New Consultation Booked - ${escapeHtml(booking.name)}`,
         html: `

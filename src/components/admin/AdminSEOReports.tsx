@@ -4,12 +4,18 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { 
-  TrendingUp, TrendingDown, Search, Globe, FileText, 
-  AlertTriangle, CheckCircle, RefreshCw, ExternalLink,
-  Zap, Target, BarChart3, Clock
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import {
+  TrendingUp, TrendingDown, Search, Globe, FileText,
+  AlertTriangle, CheckCircle, ExternalLink,
+  Zap, Target, BarChart3, Clock, Info
 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+
+// NOTE: This dashboard currently displays illustrative sample data, not live metrics.
+// Real keyword rankings require a Search Console/SEMrush-style API integration, and
+// real page performance requires the GA4 Data API — neither is wired up yet. Until
+// then, all numbers below are static placeholders so the UI can be designed against
+// realistic shapes; do not use them to make real SEO decisions.
 
 interface KeywordRanking {
   keyword: string;
@@ -35,7 +41,6 @@ interface ContentSuggestion {
 }
 
 const AdminSEOReports = () => {
-  const [loading, setLoading] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [overallScore, setOverallScore] = useState(78);
   
@@ -65,16 +70,8 @@ const AdminSEOReports = () => {
     { type: "info", title: "Schema Markup", description: "Consider adding FAQ schema to service pages" },
   ]);
 
-  const refreshData = async () => {
-    setLoading(true);
-    // Simulate API call to fetch fresh SEO data
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setLastUpdated(new Date());
-    setLoading(false);
-  };
-
   useEffect(() => {
-    refreshData();
+    setLastUpdated(new Date());
   }, []);
 
   const getDifficultyColor = (difficulty: string) => {
@@ -103,18 +100,24 @@ const AdminSEOReports = () => {
 
   return (
     <div className="space-y-6">
+      <Alert>
+        <Info className="h-4 w-4" />
+        <AlertTitle>Sample data</AlertTitle>
+        <AlertDescription>
+          The numbers below are illustrative placeholders, not live metrics. Connect a
+          Search Console (keyword rankings) and GA4 Data API (page performance) integration
+          to replace them with real data.
+        </AlertDescription>
+      </Alert>
+
       {/* Header Stats */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h2 className="text-2xl font-bold">SEO Reports</h2>
           <p className="text-muted-foreground">
-            {lastUpdated ? `Last updated: ${lastUpdated.toLocaleString()}` : "Loading..."}
+            {lastUpdated ? `Sample generated: ${lastUpdated.toLocaleString()}` : "Loading..."}
           </p>
         </div>
-        <Button onClick={refreshData} disabled={loading} variant="outline" className="gap-2">
-          <RefreshCw className={`h-4 w-4 ${loading ? "animate-spin" : ""}`} />
-          Refresh Data
-        </Button>
       </div>
 
       {/* Overview Cards */}

@@ -8,10 +8,20 @@ const corsHeaders = {
 };
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+const cronSecret = Deno.env.get("CRON_SECRET");
 
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  // This function sends email on behalf of the project and reads consultation PII,
+  // so it must only be callable by the scheduled cron job, not the public internet.
+  if (!cronSecret || req.headers.get("x-cron-secret") !== cronSecret) {
+    return new Response(
+      JSON.stringify({ error: "Unauthorized" }),
+      { status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
   }
 
   try {
@@ -48,7 +58,7 @@ serve(async (req) => {
     for (const consultation of upcomingConsultations || []) {
       try {
         const { error: emailError } = await resend.emails.send({
-          from: "Techfluence <notifications@resend.dev>",
+          from: "Techfluence <notifications@techfluence.ai>",
           to: [consultation.user_email],
           subject: "Reminder: Your Consultation is Tomorrow",
           html: `
@@ -74,14 +84,14 @@ serve(async (req) => {
 
         if (emailError) {
           console.error("Failed to send reminder to:", consultation.user_email, emailError);
-          reminderResults.push({ email: consultation.user_email, status: "failed", error: emailError });
+          reminderResults.push({ id: consultation.id, status: "failed" });
         } else {
           console.log("Reminder sent to:", consultation.user_email);
-          reminderResults.push({ email: consultation.user_email, status: "sent" });
+          reminderResults.push({ id: consultation.id, status: "sent" });
         }
       } catch (e) {
         console.error("Error sending reminder:", e);
-        reminderResults.push({ email: consultation.user_email, status: "error", error: e });
+        reminderResults.push({ id: consultation.id, status: "error" });
       }
     }
 
@@ -103,7 +113,7 @@ serve(async (req) => {
     for (const consultation of completedConsultations || []) {
       try {
         const { error: emailError } = await resend.emails.send({
-          from: "Techfluence <notifications@resend.dev>",
+          from: "Techfluence <notifications@techfluence.ai>",
           to: [consultation.user_email],
           subject: "Thank You for Your Consultation",
           html: `
@@ -137,14 +147,14 @@ serve(async (req) => {
 
         if (emailError) {
           console.error("Failed to send thank you to:", consultation.user_email, emailError);
-          thankYouResults.push({ email: consultation.user_email, status: "failed", error: emailError });
+          thankYouResults.push({ id: consultation.id, status: "failed" });
         } else {
           console.log("Thank you sent to:", consultation.user_email);
-          thankYouResults.push({ email: consultation.user_email, status: "sent" });
+          thankYouResults.push({ id: consultation.id, status: "sent" });
         }
       } catch (e) {
         console.error("Error sending thank you:", e);
-        thankYouResults.push({ email: consultation.user_email, status: "error", error: e });
+        thankYouResults.push({ id: consultation.id, status: "error" });
       }
     }
 

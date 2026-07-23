@@ -138,7 +138,7 @@ const handler = async (req: Request): Promise<Response> => {
         Authorization: `Bearer ${resendApiKey}`,
       },
       body: JSON.stringify({
-        from: "Techfluence <onboarding@resend.dev>",
+        from: "Techfluence <contact@techfluence.ai>",
         to: ["techfluence.ai@outlook.com"],
         subject: `New Contact Form Submission from ${escapeHtml(name)}`,
         html: `

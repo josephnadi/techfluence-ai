@@ -57,9 +57,9 @@ serve(async (req) => {
       );
     }
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) {
+      throw new Error("GEMINI_API_KEY is not configured");
     }
 
     console.log("Generating blog post for topic:", topic);
@@ -87,20 +87,20 @@ FORMAT YOUR RESPONSE AS VALID JSON ONLY (no markdown code blocks):
   "keywords": ["keyword1", "keyword2", "keyword3"]
 }`;
 
-    const contentResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          { role: "system", content: "You are a professional tech blog writer. Always respond with valid JSON only, no markdown formatting." },
-          { role: "user", content: contentPrompt }
-        ],
-      }),
-    });
+    const contentResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          systemInstruction: {
+            parts: [{ text: "You are a professional tech blog writer. Always respond with valid JSON only, no markdown formatting." }],
+          },
+          contents: [{ role: "user", parts: [{ text: contentPrompt }] }],
+          generationConfig: { responseMimeType: "application/json" },
+        }),
+      }
+    );
 
     if (!contentResponse.ok) {
       const errorText = await contentResponse.text();
@@ -109,7 +109,10 @@ FORMAT YOUR RESPONSE AS VALID JSON ONLY (no markdown code blocks):
     }
 
     const contentData = await contentResponse.json();
-    const contentText = contentData.choices[0].message.content;
+    const contentText = contentData.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!contentText) {
+      throw new Error("Empty response from Gemini");
+    }
 
     console.log("Raw content response:", contentText.substring(0, 500));
 
@@ -155,31 +158,45 @@ Style requirements:
 - High quality, suitable for professional website
 - NO TEXT OR WORDS in the image`;
 
-    const imageResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
-        messages: [
-          { role: "user", content: imagePrompt }
-        ],
-        modalities: ["image", "text"]
-      }),
-    });
+    const imageResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ role: "user", parts: [{ text: imagePrompt }] }],
+          generationConfig: { responseModalities: ["IMAGE", "TEXT"] },
+        }),
+      }
+    );
 
-    let imageUrl = null;
+    let imageUrl: string | null = null;
 
     if (imageResponse.ok) {
       const imageData = await imageResponse.json();
-      imageUrl = imageData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-      
-      if (imageUrl) {
-        console.log("Image generated successfully");
+      const imagePart = imageData.candidates?.[0]?.content?.parts?.find(
+        (p: { inlineData?: { data?: string } }) => p.inlineData?.data
+      );
+
+      if (imagePart) {
+        const mimeType = imagePart.inlineData.mimeType || "image/png";
+        const ext = mimeType.split("/")[1] || "png";
+        const bytes = Uint8Array.from(atob(imagePart.inlineData.data), (c) => c.charCodeAt(0));
+        const fileName = `${crypto.randomUUID()}.${ext}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from("blog-images")
+          .upload(fileName, bytes, { contentType: mimeType });
+
+        if (uploadError) {
+          console.warn("Failed to upload generated image, proceeding without image:", uploadError);
+        } else {
+          const { data: { publicUrl } } = supabase.storage.from("blog-images").getPublicUrl(fileName);
+          imageUrl = publicUrl;
+          console.log("Image generated and uploaded successfully");
+        }
       } else {
-        console.warn("No image URL in response, proceeding without image");
+        console.warn("No image data in response, proceeding without image");
       }
     } else {
       const errorText = await imageResponse.text();

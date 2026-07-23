@@ -65,8 +65,8 @@ const Auth = () => {
         toast.success("Welcome back!");
         navigate("/");
       }
-    } catch (error: any) {
-      toast.error(error.message || "Authentication failed");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Authentication failed");
     } finally {
       setLoading(false);
     }
