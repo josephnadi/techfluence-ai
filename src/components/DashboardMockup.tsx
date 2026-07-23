@@ -27,14 +27,14 @@ const DashboardMockup = () => {
   return (
     <div className="relative">
       {/* Main Dashboard Card */}
-      <Card className="bg-card/50 backdrop-blur-md border border-border/50 p-6 rounded-2xl hero-glow">
+      <Card className="bg-card/50 backdrop-blur-md border border-border/50 p-4 sm:p-6 rounded-2xl hero-glow">
         <div className="space-y-4">
           {/* Live System Status */}
-          <div className="flex items-center justify-between">
-            <Badge variant="secondary" className="bg-green-500/20 text-green-400 border-green-500/30">
+          <div className="flex items-center justify-between gap-2">
+            <Badge variant="secondary" className="bg-green-500/20 text-green-400 border-green-500/30 whitespace-nowrap">
               ⚡ Live System
             </Badge>
-            <span className="text-sm font-medium text-green-400">99.9% Uptime</span>
+            <span className="text-xs sm:text-sm font-medium text-green-400 whitespace-nowrap">99.9% Uptime</span>
           </div>
 
           {/* Dashboard Gallery */}
@@ -53,22 +53,22 @@ const DashboardMockup = () => {
 
           {/* Status Indicators */}
           <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-primary/10 rounded-lg border border-primary/20">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span className="text-sm font-medium">Cloud Migration</span>
+            <div className="flex items-center justify-between gap-2 p-3 bg-primary/10 rounded-lg border border-primary/20">
+              <div className="flex items-center space-x-2 min-w-0">
+                <div className="w-2 h-2 shrink-0 bg-primary rounded-full"></div>
+                <span className="text-sm font-medium truncate">Cloud Migration</span>
               </div>
-              <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30">
+              <Badge variant="secondary" className="bg-primary/20 text-primary border-primary/30 shrink-0">
                 Active Project
               </Badge>
             </div>
-            
-            <div className="flex items-center justify-between p-3 bg-accent/10 rounded-lg border border-accent/20">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-accent rounded-full"></div>
-                <span className="text-sm font-medium">AI Automation</span>
+
+            <div className="flex items-center justify-between gap-2 p-3 bg-accent/10 rounded-lg border border-accent/20">
+              <div className="flex items-center space-x-2 min-w-0">
+                <div className="w-2 h-2 shrink-0 bg-accent rounded-full"></div>
+                <span className="text-sm font-medium truncate">AI Automation</span>
               </div>
-              <Badge variant="secondary" className="bg-accent/20 text-accent border-accent/30">
+              <Badge variant="secondary" className="bg-accent/20 text-accent border-accent/30 shrink-0">
                 In Progress
               </Badge>
             </div>
@@ -77,11 +77,11 @@ const DashboardMockup = () => {
       </Card>
 
       {/* Floating Action Indicators */}
-      <div className="absolute -top-4 -right-4 w-8 h-8 bg-accent rounded-full flex items-center justify-center animate-pulse">
+      <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-7 h-7 sm:w-8 sm:h-8 bg-accent rounded-full flex items-center justify-center animate-pulse text-sm">
         ⚡
       </div>
-      
-      <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-primary rounded-full flex items-center justify-center animate-bounce">
+
+      <div className="absolute -bottom-2 -left-2 w-5 h-5 sm:w-6 sm:h-6 bg-primary rounded-full flex items-center justify-center animate-bounce text-xs">
         🚀
       </div>
     </div>

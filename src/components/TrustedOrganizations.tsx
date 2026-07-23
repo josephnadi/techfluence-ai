@@ -1,19 +1,26 @@
 import { useEffect, useState } from 'react';
 import { Card } from './ui/card';
+import { SiGooglecloud, SiSap, SiCisco, SiDell } from 'react-icons/si';
+import type { IconType } from 'react-icons';
+
+// Only some of these certifications have a real logo available from our icon
+// library (Simple Icons doesn't include Microsoft/AWS/Salesforce/IBM/Oracle at
+// all). The rest render as a text badge until official partner/certification
+// badge assets are supplied.
+const certifications: { name: string; icon?: IconType; category: string }[] = [
+  { name: "Microsoft Azure", category: "Cloud Platform" },
+  { name: "Amazon Web Services", category: "Cloud Services" },
+  { name: "Google Cloud", icon: SiGooglecloud, category: "Cloud Platform" },
+  { name: "Salesforce", category: "CRM Solutions" },
+  { name: "IBM", category: "Enterprise Tech" },
+  { name: "Oracle", category: "Database Solutions" },
+  { name: "SAP", icon: SiSap, category: "Business Software" },
+  { name: "Cisco", icon: SiCisco, category: "Networking" },
+  { name: "Dell Technologies", icon: SiDell, category: "IT Hardware" }
+];
 
 const TrustedOrganizations = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const organizations = [
-    { name: "Microsoft", logo: "🏢", industry: "Technology" },
-    { name: "Amazon Web Services", logo: "☁️", industry: "Cloud Services" },
-    { name: "Salesforce", logo: "⚡", industry: "CRM Solutions" },
-    { name: "IBM", logo: "🔷", industry: "Enterprise Tech" },
-    { name: "Oracle", logo: "🔴", industry: "Database Solutions" },
-    { name: "SAP", logo: "🟦", industry: "Business Software" },
-    { name: "Cisco", logo: "🔵", industry: "Networking" },
-    { name: "Dell Technologies", logo: "💻", industry: "IT Hardware" }
-  ];
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval> | null = null;
@@ -21,7 +28,7 @@ const TrustedOrganizations = () => {
     const start = () => {
       if (interval) return;
       interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % organizations.length);
+        setCurrentIndex((prev) => (prev + 1) % certifications.length);
       }, 3000);
     };
     const stop = () => {
@@ -39,12 +46,12 @@ const TrustedOrganizations = () => {
       stop();
       document.removeEventListener("visibilitychange", handleVisibility);
     };
-  }, [organizations.length]);
+  }, []);
 
-  const getVisibleOrgs = () => {
+  const getVisibleCertifications = () => {
     const visible = [];
     for (let i = 0; i < 4; i++) {
-      visible.push(organizations[(currentIndex + i) % organizations.length]);
+      visible.push(certifications[(currentIndex + i) % certifications.length]);
     }
     return visible;
   };
@@ -54,32 +61,37 @@ const TrustedOrganizations = () => {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            Trusted by Industry Leaders
+            Our Certified Expertise
           </h2>
           <p className="text-muted-foreground text-lg">
-            Partnering with global organizations to deliver excellence
+            Certified across the platforms that power modern business
           </p>
         </div>
 
         <div className="relative overflow-hidden">
           <div className="flex gap-6">
-            {getVisibleOrgs().map((org, index) => (
-              <Card 
-                key={`${org.name}-${index}`}
-                className="flex-shrink-0 w-64 p-6 bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
-              >
-                <div className="text-center">
-                  <div className="text-6xl mb-4 animate-scale-in">{org.logo}</div>
-                  <h3 className="font-bold text-lg mb-2">{org.name}</h3>
-                  <p className="text-sm text-muted-foreground">{org.industry}</p>
-                </div>
-              </Card>
-            ))}
+            {getVisibleCertifications().map((cert, index) => {
+              const Icon = cert.icon;
+              return (
+                <Card
+                  key={`${cert.name}-${index}`}
+                  className="flex-shrink-0 w-64 p-6 bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                >
+                  <div className="text-center">
+                    <div className="h-16 flex items-center justify-center mb-4 animate-scale-in">
+                      {Icon && <Icon className="w-12 h-12 text-foreground" aria-hidden="true" />}
+                    </div>
+                    <h3 className="font-bold text-lg mb-2">{cert.name}</h3>
+                    <p className="text-sm text-muted-foreground">{cert.category}</p>
+                  </div>
+                </Card>
+              );
+            })}
           </div>
         </div>
 
         <div className="flex justify-center gap-2 mt-8">
-          {organizations.map((_, index) => (
+          {certifications.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
