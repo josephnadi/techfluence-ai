@@ -64,7 +64,7 @@ const TestimonialsCarousel = () => {
           <CarouselContent>
             {testimonials.map((testimonial, index) => (
               <CarouselItem key={index} className="md:basis-1/2">
-                <Card className="bg-card/30 backdrop-blur-md border border-border/50 p-6 group hover:border-primary/30 transition-all duration-300 h-full">
+                <Card className="bg-card border border-border p-6 group hover:border-primary/30 transition-all duration-300 h-full">
                   <Quote className="w-8 h-8 text-primary/50 mb-4" />
                   <blockquote className="text-muted-foreground mb-6 leading-relaxed">
                     "{testimonial.quote}"

@@ -85,7 +85,7 @@ const CaseStudies = () => {
       </div>
 
       <div className="grid md:grid-cols-3 gap-6">
-        {caseStudies.map((study, index) => <Card key={index} className="group hover:scale-105 transition-all duration-300 cursor-pointer bg-card/60 backdrop-blur-sm border-primary/20 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 animate-fade-in" style={{
+        {caseStudies.map((study, index) => <Card key={index} className="group hover:scale-105 transition-all duration-300 cursor-pointer bg-card border-primary/20 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/20 animate-fade-in" style={{
         animationDelay: `${index * 150}ms`
       }} onClick={() => setSelectedStudy(selectedStudy === index ? null : index)}>
             <CardHeader>
@@ -97,7 +97,7 @@ const CaseStudies = () => {
                   {study.industry}
                 </Badge>
               </div>
-              <CardDescription className="text-base text-zinc-50 font-thin">
+              <CardDescription className="text-base text-muted-foreground font-thin">
                 {study.challenge}
               </CardDescription>
             </CardHeader>

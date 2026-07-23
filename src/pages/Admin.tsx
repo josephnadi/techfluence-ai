@@ -78,7 +78,7 @@ const Admin = () => {
         </div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 md:grid-cols-7 lg:w-auto lg:inline-grid gap-1 h-auto p-1 bg-card/50 backdrop-blur-xl border border-border/40">
+          <TabsList className="grid w-full grid-cols-4 md:grid-cols-7 lg:w-auto lg:inline-grid gap-1 h-auto p-1 bg-card border border-border/40">
             <TabsTrigger value="analytics" className="gap-2 py-2.5 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">Analytics</span>

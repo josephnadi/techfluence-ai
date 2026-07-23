@@ -111,7 +111,7 @@ const Blog = () => {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-purple-600 bg-clip-text my-[21px] text-red-600">
                 Techfluence Blog
               </h1>
-              <p className="text-xl max-w-3xl mx-auto text-neutral-50">
+              <p className="text-xl max-w-3xl mx-auto text-muted-foreground">
                 Expert insights on AI solutions, digital transformation, and tech consulting for African businesses
               </p>
             </div>

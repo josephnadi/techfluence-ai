@@ -27,21 +27,21 @@ const DashboardMockup = () => {
   return (
     <div className="relative">
       {/* Main Dashboard Card */}
-      <Card className="bg-card/50 backdrop-blur-md border border-border/50 p-4 sm:p-6 rounded-2xl hero-glow">
-        <div className="space-y-4">
+      <Card className="bg-card border border-border p-5 sm:p-6 lg:p-8 rounded-2xl hero-glow">
+        <div className="space-y-4 sm:space-y-5">
           {/* Live System Status */}
           <div className="flex items-center justify-between gap-2">
             <Badge variant="secondary" className="bg-green-500/20 text-green-400 border-green-500/30 whitespace-nowrap">
               ⚡ Live System
             </Badge>
-            <span className="text-xs sm:text-sm font-medium text-green-400 whitespace-nowrap">99.9% Uptime</span>
+            <span className="text-sm sm:text-base font-medium text-green-400 whitespace-nowrap">99.9% Uptime</span>
           </div>
 
           {/* Dashboard Gallery */}
-          <div className="rounded-xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 p-2">
+          <div className="rounded-xl overflow-hidden bg-gradient-to-br from-primary/20 to-accent/20 p-2 sm:p-3">
             <div className="aspect-video rounded-lg overflow-hidden relative">
-              <img 
-                src={dashboards[currentIndex].image} 
+              <img
+                src={dashboards[currentIndex].image}
                 alt={`${dashboards[currentIndex].title} Dashboard Interface`}
                 className="w-full h-full object-cover transition-all duration-500"
               />
@@ -52,7 +52,7 @@ const DashboardMockup = () => {
           </div>
 
           {/* Status Indicators */}
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="flex items-center justify-between gap-2 p-3 bg-primary/10 rounded-lg border border-primary/20">
               <div className="flex items-center space-x-2 min-w-0">
                 <div className="w-2 h-2 shrink-0 bg-primary rounded-full"></div>
@@ -77,11 +77,11 @@ const DashboardMockup = () => {
       </Card>
 
       {/* Floating Action Indicators */}
-      <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-7 h-7 sm:w-8 sm:h-8 bg-accent rounded-full flex items-center justify-center animate-pulse text-sm">
+      <div className="absolute -top-3 -right-3 sm:-top-4 sm:-right-4 w-8 h-8 sm:w-9 sm:h-9 bg-accent rounded-full flex items-center justify-center animate-pulse text-sm">
         ⚡
       </div>
 
-      <div className="absolute -bottom-2 -left-2 w-5 h-5 sm:w-6 sm:h-6 bg-primary rounded-full flex items-center justify-center animate-bounce text-xs">
+      <div className="absolute -bottom-3 -left-3 w-6 h-6 sm:w-7 sm:h-7 bg-primary rounded-full flex items-center justify-center animate-bounce text-xs">
         🚀
       </div>
     </div>

@@ -75,7 +75,7 @@ const TrustedOrganizations = () => {
               return (
                 <Card
                   key={`${cert.name}-${index}`}
-                  className="flex-shrink-0 w-64 p-6 bg-card/50 backdrop-blur-sm border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+                  className="flex-shrink-0 w-64 p-6 bg-card border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
                 >
                   <div className="text-center">
                     <div className="h-16 flex items-center justify-center mb-4 animate-scale-in">

@@ -7,6 +7,7 @@ import techfluenceLogo from "@/assets/techfluence-logo.png";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import ThemeToggle from "@/components/ThemeToggle";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -114,8 +115,8 @@ const Header = () => {
       }, 100);
     }
   };
-  return <header className="fixed top-0 left-0 right-0 z-50 bg-card/60 backdrop-blur-2xl border-b border-border/40 shadow-xl">
-      <nav className="container mx-auto px-8 py-5 max-w-7xl">
+  return <header className="fixed top-0 left-0 right-0 z-50 bg-card border-b border-border/40 shadow-xl">
+      <nav className="container mx-auto px-8 py-3 max-w-7xl">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
@@ -143,7 +144,7 @@ const Header = () => {
                 isActive = activeSection === "about";
               }
             }
-            return <Link key={item.name} to={item.href} onClick={e => handleNavClick(item.href, e)} className={`relative px-3 py-2 text-sm font-semibold rounded-lg transition-all duration-300 hover:scale-105 ${isActive ? "text-primary nav-link-active" : "text-foreground/80 hover:text-primary hover:bg-white/5"}`}>
+            return <Link key={item.name} to={item.href} onClick={e => handleNavClick(item.href, e)} className={`relative px-3 py-2 text-sm font-semibold rounded-lg transition-all duration-300 hover:scale-105 ${isActive ? "text-primary nav-link-active" : "text-foreground/80 hover:text-primary hover:bg-primary/5"}`}>
                   {item.name}
                 </Link>;
           })}
@@ -151,6 +152,7 @@ const Header = () => {
 
           {/* CTA Button & Auth */}
           <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             {user ? <>
                 {isAdmin && <Link to="/admin">
                     <Button variant="ghost" size="sm" className="gap-2">
@@ -194,7 +196,7 @@ const Header = () => {
             isMenuOpen ? "max-h-[32rem] opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"
           }`}
         >
-          <div className="py-4 border-t border-border/30 bg-card/50 backdrop-blur-xl rounded-lg mx-2 px-2">
+          <div className="py-4 border-t border-border/30 bg-card rounded-lg mx-2 px-2">
             <div className="flex flex-col space-y-2">
               {navigation.map(item => {
             let isActive = false;
@@ -215,6 +217,10 @@ const Header = () => {
                     {item.name}
                   </Link>;
           })}
+              <div className="flex items-center justify-between px-4 py-2">
+                <span className="text-sm font-medium text-muted-foreground">Theme</span>
+                <ThemeToggle />
+              </div>
               {user ? <>
                   {isAdmin && <Link to="/admin">
                       <Button variant="ghost" size="sm" className="gap-2 w-fit">

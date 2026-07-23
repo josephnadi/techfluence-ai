@@ -50,7 +50,7 @@ const AboutSection = () => {
             <span className="text-foreground">Why Choose</span><br />
             <span className="text-primary">Techfluence?</span>
           </h2>
-          <p className="text-lg max-w-3xl mx-auto text-stone-50">
+          <p className="text-lg max-w-3xl mx-auto text-muted-foreground">
             With over a decade of experience in enterprise IT solutions, we've helped hundreds of 
             companies modernize their technology stack and accelerate digital transformation.
           </p>
@@ -58,14 +58,14 @@ const AboutSection = () => {
 
         {/* Features Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {features.map((feature, index) => <Card key={index} className="bg-card/30 backdrop-blur-md border border-border/50 p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105" style={{
+          {features.map((feature, index) => <Card key={index} className="bg-card border border-border p-6 text-center group hover:border-primary/30 transition-all duration-500 animate-fade-in hover:scale-105" style={{
           animationDelay: `${index * 100}ms`
         }}>
               <div className="mx-auto mb-4 p-3 bg-primary/10 rounded-full w-fit text-primary group-hover:bg-primary/20 transition-all duration-300 group-hover:scale-110 group-hover:drop-shadow-[0_0_20px_rgba(124,58,237,0.7)] group-hover:animate-pulse">
                 {feature.icon}
               </div>
               <h3 className="font-semibold mb-2">{feature.title}</h3>
-              <p className="text-sm text-slate-50">{feature.description}</p>
+              <p className="text-sm text-muted-foreground">{feature.description}</p>
             </Card>)}
         </div>
 

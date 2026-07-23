@@ -50,7 +50,7 @@ const TestimonialsSection = () => {
         {/* Testimonials Grid */}
         <div className="grid md:grid-cols-2 gap-8">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="bg-card backdrop-blur-sm border border-border p-6 group hover:border-primary/50 hover:shadow-xl transition-all duration-300">
+            <Card key={index} className="bg-card border border-border p-6 group hover:border-primary/50 hover:shadow-xl transition-all duration-300">
               <Quote className="w-8 h-8 text-primary/50 mb-4" />
               <blockquote className="text-muted-foreground mb-6 leading-relaxed">
                 "{testimonial.quote}"

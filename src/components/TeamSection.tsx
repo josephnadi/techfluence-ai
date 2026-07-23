@@ -54,7 +54,7 @@ const TeamSection = () => {
             <span className="text-foreground">Industry</span><br />
             <span className="gradient-text">Experts</span>
           </h2>
-          <p className="text-lg max-w-3xl mx-auto text-stone-50">
+          <p className="text-lg max-w-3xl mx-auto text-muted-foreground">
             Our team of certified professionals brings decades of combined experience in 
             enterprise IT solutions, cloud architecture, and digital transformation.
           </p>
@@ -62,7 +62,7 @@ const TeamSection = () => {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {team.map((member, index) => <Card key={index} className="bg-card/30 backdrop-blur-sm border border-border overflow-hidden group hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2" style={{
+          {team.map((member, index) => <Card key={index} className="bg-card border border-border overflow-hidden group hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2" style={{
           animationDelay: `${index * 100}ms`
         }}>
               <div className="flex justify-center pt-6 pb-3">
@@ -73,7 +73,7 @@ const TeamSection = () => {
               <div className="p-5">
                 <h3 className="text-base font-semibold mb-1">{member.name}</h3>
                 <p className="text-primary font-medium text-sm mb-2">{member.role}</p>
-                <p className="text-xs mb-3 text-zinc-50">{member.description}</p>
+                <p className="text-xs mb-3 text-muted-foreground">{member.description}</p>
                 <div className="flex flex-wrap gap-2">
                   {member.skills.map((skill, idx) => <Badge key={idx} variant="secondary" className="text-xs">
                       {skill}

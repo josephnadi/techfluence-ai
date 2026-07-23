@@ -3,11 +3,11 @@ import { useLocation } from "react-router-dom";
 import { ArrowUp } from "lucide-react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import DashboardShowcaseSection from "@/components/DashboardShowcaseSection";
 import ServicesSection from "@/components/ServicesSection";
 import AboutSection from "@/components/AboutSection";
 import TeamSection from "@/components/TeamSection";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
-import FloatingParticles from "@/components/FloatingParticles";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import TrustedOrganizations from "@/components/TrustedOrganizations";
 import Footer from "@/components/Footer";
@@ -29,13 +29,13 @@ const Index = () => {
       <div id="top"></div>
       
       <AnimatedBackground />
-      <FloatingParticles />
-      
+
       <Header />
       
       <main className="relative z-10">
         <HeroSection />
         <div className="space-y-8">
+          <DashboardShowcaseSection />
           <ServicesSection />
           <AboutSection />
           <TeamSection />
