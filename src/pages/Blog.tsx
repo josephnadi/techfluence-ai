@@ -7,6 +7,7 @@ import BlogGenerator from "@/components/BlogGenerator";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -25,6 +26,25 @@ interface BlogPost {
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [subscribing, setSubscribing] = useState(false);
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newsletterEmail || subscribing) return;
+
+    setSubscribing(true);
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email: newsletterEmail });
+    setSubscribing(false);
+
+    if (error && error.code !== "23505") {
+      toast.error("Couldn't subscribe right now — please try again.");
+      return;
+    }
+
+    toast.success("You've been subscribed to our newsletter!");
+    setNewsletterEmail("");
+  };
 
   const fetchBlogPosts = async () => {
     const {
@@ -181,9 +201,19 @@ const Blog = () => {
             <p className="text-muted-foreground mb-8">
               Subscribe to our newsletter for the latest insights on AI solutions and digital transformation in Africa
             </p>
-            <Button size="lg" asChild>
-              <a href="/#newsletter">Subscribe Now</a>
-            </Button>
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={newsletterEmail}
+                onChange={(e) => setNewsletterEmail(e.target.value)}
+                aria-label="Email address"
+                required
+              />
+              <Button type="submit" size="lg" disabled={subscribing}>
+                {subscribing ? "Subscribing..." : "Subscribe Now"}
+              </Button>
+            </form>
           </div>
         </section>
       </main>

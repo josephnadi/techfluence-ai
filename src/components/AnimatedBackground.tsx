@@ -7,18 +7,18 @@ import bgLightWaves from '@/assets/bg-light-waves.jpg';
 import bgWaveParticles from '@/assets/bg-wave-particles.jpg';
 import bgPurpleDesk from '@/assets/bg-purple-desk.jpg';
 
+const backgrounds = [
+  bgVr,
+  bgMatrix,
+  bgEarth,
+  bgNetwork,
+  bgLightWaves,
+  bgWaveParticles,
+  bgPurpleDesk
+];
+
 const AnimatedBackground = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  const backgrounds = [
-    bgVr,
-    bgMatrix,
-    bgEarth,
-    bgNetwork,
-    bgLightWaves,
-    bgWaveParticles,
-    bgPurpleDesk
-  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -28,25 +28,26 @@ const AnimatedBackground = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    // Preload the next background well ahead of the switch so there's no pop-in,
+    // without needing every image mounted (and fetched) up front like before.
+    const nextIndex = (currentIndex + 1) % backgrounds.length;
+    const preload = new Image();
+    preload.src = backgrounds[nextIndex];
+  }, [currentIndex]);
+
   return (
     <div className="fixed inset-0 z-0">
-      {backgrounds.map((bg, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-all ease-out`}
-          style={{
-            backgroundImage: `url(${bg})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            opacity: index === currentIndex ? 0.3 : 0,
-            transform: index === currentIndex ? 'scale(1.0)' : 'scale(1.1)',
-            transitionDuration: index === currentIndex ? '20000ms' : '0ms', // Long duration for zoom when active, instant reset when inactive
-            transitionProperty: 'transform, opacity',
-            transitionTimingFunction: 'ease-out'
-          }}
-        />
-      ))}
+      <div
+        key={currentIndex}
+        className="absolute inset-0 bg-reveal"
+        style={{
+          backgroundImage: `url(${backgrounds[currentIndex]})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      />
     </div>
   );
 };

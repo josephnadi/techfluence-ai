@@ -1,6 +1,8 @@
 import { Linkedin, Twitter, Phone, Mail } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import techfluenceLogo from "@/assets/techfluence-logo.png";
 const Footer = () => {
+  const navigate = useNavigate();
   const services = ["Cloud Migration", "IT Support & Consulting", "AI Agent Automation", "Website Development", "Digital Marketing", "Brand Design", "Visibility Services"];
   const quickLinks = [{
     name: "Home",
@@ -37,10 +39,10 @@ const Footer = () => {
               and AI automation. Your trusted partner for digital transformation in the modern world.
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 border border-white/10">
+              <a href="#" aria-label="Techfluence on LinkedIn" className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 border border-white/10">
                 <Linkedin className="w-5 h-5 text-white" />
               </a>
-              <a href="#" className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 border border-white/10">
+              <a href="#" aria-label="Techfluence on Twitter" className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center hover:bg-white/20 transition-all duration-300 border border-white/10">
                 <Twitter className="w-5 h-5 text-white" />
               </a>
             </div>
@@ -50,9 +52,15 @@ const Footer = () => {
           <div className="space-y-6">
             <h4 className="text-2xl font-bold text-white">Services</h4>
             <ul className="space-y-4">
-              {services.map((service, index) => <li key={index} className="flex items-center gap-3 text-gray-200 hover:text-white transition-colors cursor-pointer text-base">
-                  <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span>
-                  {service}
+              {services.map((service, index) => <li key={index}>
+                  <button
+                    type="button"
+                    onClick={() => navigate("/#services")}
+                    className="flex items-center gap-3 text-gray-200 hover:text-white transition-colors text-base text-left"
+                  >
+                    <span className="w-2 h-2 bg-primary rounded-full flex-shrink-0"></span>
+                    {service}
+                  </button>
                 </li>)}
             </ul>
           </div>
@@ -100,7 +108,7 @@ const Footer = () => {
         {/* Copyright Section */}
         <div className="mt-16 pt-8 border-t border-white/10 text-center">
           <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} Techfluence Connect. All rights reserved.
+            © {new Date().getFullYear()} Techfluence. All rights reserved.
           </p>
         </div>
       </div>

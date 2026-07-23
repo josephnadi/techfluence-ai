@@ -41,14 +41,7 @@ const ServicesSection = () => {
     title: "Visibility Services",
     description: "Enhance your digital footprint and reputation with comprehensive visibility and online presence management.",
     features: ["Online Reputation", "Local SEO", "Review Management", "Citation Building"]
-  },
-                    {
-    icon: <Eye className="w-8 h-8" />,
-    title: "Business Visibility Services",
-    description: "Enhance your digital footprint and reputation with comprehensive visibility and online presence management.",
-    features: ["Online Reputation", "Local SEO", "Review Management", "Citation Building"]
-  },
-    {
+  }, {
     icon: <Cloud className="w-8 h-8" />,
     title: "Cloud Migration",
     description: "Seamlessly migrate your infrastructure to the cloud with zero downtime. AWS, Azure, and GCP certified experts.",

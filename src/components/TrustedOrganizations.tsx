@@ -16,11 +16,30 @@ const TrustedOrganizations = () => {
   ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % organizations.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+    let interval: ReturnType<typeof setInterval> | null = null;
+
+    const start = () => {
+      if (interval) return;
+      interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % organizations.length);
+      }, 3000);
+    };
+    const stop = () => {
+      if (!interval) return;
+      clearInterval(interval);
+      interval = null;
+    };
+
+    // Don't keep re-rendering every 3s while the tab is backgrounded/hidden.
+    const handleVisibility = () => (document.hidden ? stop() : start());
+    document.addEventListener("visibilitychange", handleVisibility);
+    start();
+
+    return () => {
+      stop();
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, [organizations.length]);
 
   const getVisibleOrgs = () => {
     const visible = [];
@@ -43,7 +62,7 @@ const TrustedOrganizations = () => {
         </div>
 
         <div className="relative overflow-hidden">
-          <div className="flex gap-6 transition-transform duration-700 ease-in-out">
+          <div className="flex gap-6">
             {getVisibleOrgs().map((org, index) => (
               <Card 
                 key={`${org.name}-${index}`}

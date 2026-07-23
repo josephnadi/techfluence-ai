@@ -10,25 +10,25 @@ const TestimonialsCarousel = () => {
       quote: "Techfluence completely transformed our outdated infrastructure into a scalable cloud solution. Their expertise and proactive support have been a game-changer for our business. We've seen a 60% increase in efficiency!",
       name: "Johnathan Lee",
       role: "CEO, Innovate Inc.",
-      image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?ixlib=rb-4.0.3&auto=format&fit=crop&w=96&q=75"
     },
     {
       quote: "The AI automation agents built by Techfluence have saved us thousands of hours in manual work. The team was incredibly professional, and the results exceeded all our expectations. Highly recommended for any business looking to innovate.",
       name: "Jessica Miller",
       role: "COO, QuantumLeap",
-      image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=96&q=75"
     },
     {
       quote: "Working with Techfluence on our new website was a fantastic experience. They delivered a high-performance, visually stunning site on time and on budget. Our conversion rates have doubled since the launch.",
       name: "David Chen",
       role: "Marketing Director, Fusion Co.",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-4.0.3&auto=format&fit=crop&w=96&q=75"
     },
     {
       quote: "The 24/7 IT support from Techfluence is second to none. They are always responsive, knowledgeable, and resolve issues before they can impact our operations. We finally have peace of mind with our IT systems.",
       name: "Linda Rodriguez", 
       role: "Founder, Bright-Path",
-      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+      image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=96&q=75"
     }
   ];
 

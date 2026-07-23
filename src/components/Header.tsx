@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, LogIn, LogOut, User } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Menu, X, LogIn, LogOut, User as UserIcon } from "lucide-react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import type { User } from "@supabase/supabase-js";
 import techfluenceLogo from "@/assets/techfluence-logo.png";
 import { useActiveSection } from "@/hooks/useActiveSection";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const activeSection = useActiveSection();
   useEffect(() => {
     supabase.auth.getSession().then(({
@@ -89,9 +91,10 @@ const Header = () => {
       // Handle anchor links on home page
       e.preventDefault();
 
-      // If not on home page, navigate there first
       if (location.pathname !== "/") {
-        window.location.href = href;
+        // Navigate client-side to the home page with the target hash; Index.tsx
+        // scrolls to the matching section once it mounts (see its hash effect).
+        navigate(href);
       } else {
         const element = document.getElementById(href.substring(2));
         if (element) {
@@ -116,7 +119,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img src={techfluenceLogo} alt="Techfluence Connect" className="w-12 h-12 rounded-full ring-2 ring-primary/30" />
+            <img src={techfluenceLogo} alt="TechFluenceAI" className="w-12 h-12 rounded-full ring-2 ring-primary/30" />
             <div>
               <div className="text-xl font-bold text-foreground">TechFluenceAI</div>
               <div className="text-xs text-muted-foreground -mt-1">IT Solutions & Consulting</div>
@@ -151,7 +154,7 @@ const Header = () => {
             {user ? <>
                 {isAdmin && <Link to="/admin">
                     <Button variant="ghost" size="sm" className="gap-2">
-                      <User className="h-4 w-4" />
+                      <UserIcon className="h-4 w-4" />
                       Admin
                     </Button>
                   </Link>}
@@ -173,13 +176,25 @@ const Header = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <button className="md:hidden p-2" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+          <button
+            className="md:hidden p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-nav-menu"
+          >
             {isMenuOpen ? <X className="w-6 h-6 text-foreground" /> : <Menu className="w-6 h-6 text-foreground" />}
           </button>
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && <div className="md:hidden mt-4 py-4 border-t border-border/30 bg-card/50 backdrop-blur-xl rounded-lg mx-2 px-2">
+        <div
+          id="mobile-nav-menu"
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-out ${
+            isMenuOpen ? "max-h-[32rem] opacity-100 mt-4" : "max-h-0 opacity-0 mt-0"
+          }`}
+        >
+          <div className="py-4 border-t border-border/30 bg-card/50 backdrop-blur-xl rounded-lg mx-2 px-2">
             <div className="flex flex-col space-y-2">
               {navigation.map(item => {
             let isActive = false;
@@ -203,7 +218,7 @@ const Header = () => {
               {user ? <>
                   {isAdmin && <Link to="/admin">
                       <Button variant="ghost" size="sm" className="gap-2 w-fit">
-                        <User className="h-4 w-4" />
+                        <UserIcon className="h-4 w-4" />
                         Admin
                       </Button>
                     </Link>}
@@ -223,7 +238,8 @@ const Header = () => {
                 </Button>
               </Link>
             </div>
-          </div>}
+          </div>
+        </div>
       </nav>
     </header>;
 };

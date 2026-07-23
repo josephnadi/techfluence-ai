@@ -3,11 +3,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import { Mail } from "lucide-react";
 
 const NewsletterPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -20,9 +22,24 @@ const NewsletterPopup = () => {
     }
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!email) return;
+    if (!email || submitting) return;
+
+    setSubmitting(true);
+    const { error } = await supabase.from("newsletter_subscribers").insert({ email });
+    setSubmitting(false);
+
+    // Unique-constraint violation just means they're already subscribed — treat as success.
+    if (error && error.code !== "23505") {
+      toast({
+        title: "Something went wrong",
+        description: "Couldn't subscribe right now — please try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     localStorage.setItem("newsletter-subscribed", "true");
     toast({
       title: "Success!",
@@ -59,8 +76,8 @@ const NewsletterPopup = () => {
             required
           />
           <div className="flex gap-2">
-            <Button type="submit" className="flex-1">
-              Subscribe
+            <Button type="submit" className="flex-1" disabled={submitting}>
+              {submitting ? "Subscribing..." : "Subscribe"}
             </Button>
             <Button type="button" variant="outline" onClick={handleClose}>
               Maybe Later

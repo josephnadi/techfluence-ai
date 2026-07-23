@@ -506,3 +506,19 @@
   background: hsl(var(--primary));
   box-shadow: 0 0 8px hsl(var(--primary));
 }
+
+/* AnimatedBackground: slow zoom/fade-in for whichever background is currently mounted */
+@keyframes bgReveal {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 0.3;
+    transform: scale(1);
+  }
+}
+
+.bg-reveal {
+  animation: bgReveal 20s ease-out forwards;
+}

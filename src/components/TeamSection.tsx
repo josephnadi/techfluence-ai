@@ -13,13 +13,13 @@ const TeamSection = () => {
     role: "CTO",
     description: "Technical expert in cloud architecture and AI automation. AWS & Azure certified with expertise in scalable infrastructure design.",
     skills: ["Cloud Architecture", "AI/ML", "DevOps"],
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=75"
   }, {
     name: "Michael Roberts",
     role: "Head of Marketing & Strategy",
     description: "Growth strategist and marketing expert. Specializes in tech company scaling and digital marketing strategies for B2B enterprises.",
     skills: ["Growth Strategy", "B2B Marketing", "Brand Development"],
-    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+    image: "https://images.unsplash.com/photo-1556157382-97eda2d62296?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=75"
   }, {
     name: "Nadi Joseph",
     role: "CEO & Co Founder",
@@ -31,7 +31,7 @@ const TeamSection = () => {
     role: "Lead Solutions Architect",
     description: "Solutions architect with deep expertise in automation and workflow optimization. Specialized in n8n and enterprise integrations.",
     skills: ["Solution Architecture", "Automation", "System Integration"],
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=256&q=75"
   }];
   const teamStats = [{
     value: "25+",
@@ -62,7 +62,7 @@ const TeamSection = () => {
 
         {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {team.map((member, index) => <Card key={index} className="bg-card backdrop-blur-sm border border-border overflow-hidden group hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2" style={{
+          {team.map((member, index) => <Card key={index} className="bg-card/30 backdrop-blur-sm border border-border overflow-hidden group hover:border-primary/50 hover:shadow-xl transition-all duration-500 animate-fade-in hover:scale-105 hover:-translate-y-2" style={{
           animationDelay: `${index * 100}ms`
         }}>
               <div className="flex justify-center pt-6 pb-3">

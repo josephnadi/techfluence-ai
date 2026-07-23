@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { ArrowUp } from "lucide-react";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
@@ -11,6 +13,17 @@ import TrustedOrganizations from "@/components/TrustedOrganizations";
 import Footer from "@/components/Footer";
 import NewsletterPopup from "@/components/NewsletterPopup";
 const Index = () => {
+  const { hash } = useLocation();
+
+  // Handles nav links like "/#services" clicked from another page: Header
+  // navigates here client-side, then we scroll to the target section once
+  // it's mounted (avoids the full page reload the old code used instead).
+  useEffect(() => {
+    if (!hash) return;
+    const element = document.getElementById(hash.substring(1));
+    element?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [hash]);
+
   return <div className="relative min-h-screen bg-background overflow-hidden">
       {/* Place this as the first element in your <body> */}
       <div id="top"></div>
