@@ -33,14 +33,23 @@ function checkRateLimit(ip: string, maxRequests: number, windowMs: number): bool
 }
 
 // Validation schema with honeypot field for bot detection
+const optionalTrimmedString = z.preprocess((value) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  const trimmed = value.trim();
+  return trimmed.length === 0 ? undefined : trimmed;
+}, z.string());
+
 const BookingSchema = z.object({
   name: z.string().trim().min(2, "Name must be at least 2 characters").max(100, "Name must be less than 100 characters"),
   email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
-  phone: z.string().trim().regex(/^\+?[0-9\s\-()]{10,20}$/, "Invalid phone number format").optional(),
-  company: z.string().trim().max(100, "Company name must be less than 100 characters").optional(),
+  phone: optionalTrimmedString.regex(/^\+?[0-9\s\-()]{10,20}$/, "Invalid phone number format").optional(),
+  company: optionalTrimmedString.max(100, "Company name must be less than 100 characters").optional(),
   consultation_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format"),
   consultation_time: z.string().regex(/^\d{2}:\d{2}$/, "Invalid time format"),
-  message: z.string().trim().max(1000, "Message must be less than 1000 characters").optional(),
+  message: optionalTrimmedString.max(1000, "Message must be less than 1000 characters").optional(),
   website: z.string().optional(), // Honeypot field - should be empty for humans
   recaptchaToken: z.string().min(1, "reCAPTCHA token is required")
 });

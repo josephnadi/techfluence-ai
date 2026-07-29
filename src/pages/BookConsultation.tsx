@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { FunctionsHttpError } from "@supabase/supabase-js";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -107,7 +108,22 @@ const BookConsultation = () => {
       setTimeout(() => navigate("/contact"), 2000);
     } catch (error: any) {
       console.error("Error booking consultation:", error);
-      toast.error(error.message || "Failed to book consultation. Please try again.");
+
+      let errorMessage = error?.message || "Failed to book consultation. Please try again.";
+
+      if (error instanceof FunctionsHttpError) {
+        try {
+          const response = await error.context.json();
+          errorMessage =
+            response?.error ||
+            response?.message ||
+            errorMessage;
+        } catch (parseError) {
+          console.error("Failed to parse booking function error response:", parseError);
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
